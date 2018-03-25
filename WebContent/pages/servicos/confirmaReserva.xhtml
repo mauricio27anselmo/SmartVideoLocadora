@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="rsvform">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Serviço de confirmação de reserva de filmes"/>
+				</f:facet>
+			</p:toolbar>
+			<p:separator/>
+			<h:panelGrid columns="3" cellpadding="10">
+				<p:outputLabel value="Informe o nome do cliente: "/>
+				<p:inputText maxlenght="50" size="50" value="#{reservaBean.pesquisaPessoa}"/>
+				<p:commandButton value="Pesquisar" actionListener="#{reservaBean.pesquisarReservaPessoa}" update=":rsvform:lista1 lista2 mensagem"/>
+			</h:panelGrid>
+			<h:panelGrid cellpadding="10">
+				<p:outputLabel value="Lista de reservas realizadas"/>
+				  
+				<p:dataTable  id="lista1" emptyMessage="Não existem registros de reservas para esse cliente!"
+					value="#{reservaBean.listaReserva}"
+					var="acervoLocado">
+					<p:column headerText="Código de serviço" width="7%">
+						<h:outputText value="#{acervoLocado.servicoID}" />
+					</p:column>
+					<p:column headerText="Nome do Cliente" width="20%">
+						<h:outputText value="#{acervoLocado.idCliente.nome}" />
+					</p:column>
+					<p:column headerText="Data de locação" width="5%" >
+						<h:outputText value="#{acervoLocado.dataHora.time}" styleClass="datetime">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt_br" timeZone="America/Belem" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+				<p:dataTable  id="lista2" emptyMessage="Não midias selecionadas!"
+					value="#{reservaBean.listaReservados}"
+					var="acervoSelecionado">
+					<p:column headerText="código de serviço" width="7%">
+						<h:outputText value="#{acervoSelecionado.idServico.servicoID}" />
+					</p:column>
+					<p:column headerText="código do acervo" width="7%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.acervoID}" />
+					</p:column>
+					<p:column headerText="titulo" width="30%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.idTitulo.nome}" />
+					</p:column>
+					<p:column headerText="gênero" width="12%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.idTitulo.genero}" />
+					</p:column>
+					<p:column headerText="classificação indicativa" width="10%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.idTitulo.classInd}" />
+					</p:column>
+					<p:column headerText="tipo de midia" width="10%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.tipoMidia}" />
+					</p:column>
+					<p:column headerText="ano" width="7%">
+						<h:outputText value="#{acervoSelecionado.idAcervo.idTitulo.ano}" />
+					</p:column>
+				</p:dataTable>
+				<h:panelGroup>
+					<p:commandButton value="Voltar à página inicial" action="/pages/principal.xhtml?faces-redirect=true"/>
+					<p:commandButton value="Confirmar reserva" actionListener="#{reservaBean.confirmaReserva}" update=":rsvform:lista1 lista2 mensagem"/>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
