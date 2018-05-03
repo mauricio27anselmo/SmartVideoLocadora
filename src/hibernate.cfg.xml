@@ -6,7 +6,6 @@
 <hibernate-configuration>
 
 	<session-factory>
-
 		<!--&lt;!&ndash; Database connection settings - MySQL &ndash;&gt;-->
 		<!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
 		<!--<property name="connection.url">jdbc:mysql://localhost:3306/db_smart_locadora</property>-->
@@ -40,17 +39,17 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">create</property>
 		
-		<mapping class="br.com.locadora.domain.Pessoa"/>
-		<mapping class="br.com.locadora.domain.Dependente"/>
-		<mapping class="br.com.locadora.domain.Cliente"/>
-		<mapping class="br.com.locadora.domain.Servico"/>
-		<mapping class="br.com.locadora.domain.Reserva"/>
-		<mapping class="br.com.locadora.domain.Locacao"/>
-		<mapping class="br.com.locadora.domain.Acervo"/>
-		<mapping class="br.com.locadora.domain.Titulo"/>
-		<mapping class="br.com.locadora.domain.Ator"/>
-		<mapping class="br.com.locadora.domain.Telefone"/>
-		<mapping class="br.com.locadora.domain.ServicoAcervo"/>
+		<mapping class="br.com.locadora.pessoa.Pessoa"/>
+		<mapping class="br.com.locadora.dependente.Dependente"/>
+		<mapping class="br.com.locadora.cliente.Cliente"/>
+		<mapping class="br.com.locadora.servico.Servico"/>
+		<mapping class="br.com.locadora.reserva.Reserva"/>
+		<mapping class="br.com.locadora.locacao.Locacao"/>
+		<mapping class="br.com.locadora.acervo.Acervo"/>
+		<mapping class="br.com.locadora.titulo.Titulo"/>
+		<mapping class="br.com.locadora.ator.Ator"/>
+		<mapping class="br.com.locadora.telefone.Telefone"/>
+		<mapping class="br.com.locadora.servicoAcervo.ServicoAcervo"/>
     </session-factory>
 
 </hibernate-configuration>
