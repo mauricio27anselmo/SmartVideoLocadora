@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<ui:composition template="/templates/modeloGeral.xhtml">
+<ui:composition template="/templates/template-barra-navegacao.xhtml">
 	<ui:define name="conteudo">
 		<h:form>
 			<p:toolbar>
@@ -29,7 +29,7 @@
 			</h:panelGrid>
 			<h:panelGrid columns="2" cellpadding="9">
 				<p:commandButton value="Voltar à pagina inicial"
-					action="/pages/principal.xhtml?faces-redirect=true" />
+					action="/index.xhtml?faces-redirect=true" />
 				<p:commandButton id="confirmar" value="Confirmar cadastro"
 					actionListener="#{dependenteBean.salvar}" update=":mensagem" />
 			</h:panelGrid>

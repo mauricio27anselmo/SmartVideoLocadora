@@ -8,26 +8,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<ui:composition template="/templates/modeloGeral.xhtml">
+<ui:composition template="/templates/template-barra-navegacao.xhtml">
 	<ui:define name="metadata">
 	</ui:define>
 	<ui:define name="conteudo">
-		<h:form id="devform">
+		<h:form id="rsvform">
 			<p:toolbar>
 				<f:facet name="left">
-					<h:outputText value="Serviço de devolução de filmes"/>
+					<h:outputText value="Serviço de confirmação de reserva de filmes"/>
 				</f:facet>
 			</p:toolbar>
 			<p:separator/>
 			<h:panelGrid columns="3" cellpadding="10">
 				<p:outputLabel value="Informe o nome do cliente: "/>
-				<p:inputText maxlenght="50" size="50" value="#{devolucaoBean.pesquisaPessoa}"/>
-				<p:commandButton value="Pesquisar" actionListener="#{devolucaoBean.pesquisarPessoa}" update=":devform:lista1 lista2 mensagem"/>
+				<p:inputText maxlenght="50" size="50" value="#{reservaBean.pesquisaPessoa}"/>
+				<p:commandButton value="Pesquisar" actionListener="#{reservaBean.pesquisarReservaPessoa}" update=":rsvform:lista1 lista2 mensagem"/>
 			</h:panelGrid>
 			<h:panelGrid cellpadding="10">
-				<p:outputLabel value="Lista de locações realizadas"/>
-				<p:dataTable  id="lista1" emptyMessage="Não existem registros de locações para esse cliente!"
-					value="#{devolucaoBean.listaLocacao}"
+				<p:outputLabel value="Lista de reservas realizadas"/>
+				  
+				<p:dataTable  id="lista1" emptyMessage="Não existem registros de reservas para esse cliente!"
+					value="#{reservaBean.listaReserva}"
 					var="acervoLocado">
 					<p:column headerText="Código de serviço" width="7%">
 						<h:outputText value="#{acervoLocado.servicoID}" />
@@ -36,22 +37,13 @@
 						<h:outputText value="#{acervoLocado.idCliente.nome}" />
 					</p:column>
 					<p:column headerText="Data de locação" width="5%" >
-						<h:outputText value="#{acervoLocado.dataLocacao.time}" styleClass="date">
-							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt_br" timeZone="America/Belem"/>
+						<h:outputText value="#{acervoLocado.dataHora.time}" styleClass="datetime">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt_br" timeZone="America/Belem" />
 						</h:outputText>
-					</p:column>
-					<p:column headerText="Data limite de devolução" width="8%" >
-						<h:outputText value="#{acervoLocado.dataPrevistaEntrega.time}"
-							styleClass="date">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="valor" width="5%">
-						<h:outputText value="#{acervoLocado.valor}" />
 					</p:column>
 				</p:dataTable>
-				<p:dataTable  id="lista2" emptyMessage="Não há midias selecionadas!"
-					value="#{devolucaoBean.listaLocados}"
+				<p:dataTable  id="lista2" emptyMessage="Não midias selecionadas!"
+					value="#{reservaBean.listaReservados}"
 					var="acervoSelecionado">
 					<p:column headerText="código de serviço" width="7%">
 						<h:outputText value="#{acervoSelecionado.idServico.servicoID}" />
@@ -76,12 +68,11 @@
 					</p:column>
 				</p:dataTable>
 				<h:panelGroup>
-					<p:commandButton value="Voltar à página inicial" action="/pages/principal.xhtml?faces-redirect=true"/>
-					<p:commandButton value="Confirmar devolução" actionListener="#{devolucaoBean.devolver}" update=":devform:lista1 lista2 mensagem"/>
+					<p:commandButton value="Voltar à página inicial" action="/index.xhtml?faces-redirect=true"/>
+					<p:commandButton value="Confirmar reserva" actionListener="#{reservaBean.confirmaReserva}" update=":rsvform:lista1 lista2 mensagem"/>
 				</h:panelGroup>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>
-
 </html>

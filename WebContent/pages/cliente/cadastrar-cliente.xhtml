@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="/templates/modeloGeral.xhtml" >
+<ui:composition template="/templates/template-barra-navegacao.xhtml" >
 	<ui:define name="conteudo" >
 		<h:form id="cltform">
 			<p:toolbar>
@@ -35,7 +35,7 @@
 				<p:calendar locale="br" navigator="true" pattern="dd/MMM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNasc}"/>
 			</h:panelGrid>
 			<h:panelGrid id="cltconf" columns="2" cellpadding="5">
-				<p:commandButton value="Voltar à pagina inicial" action="/pages/principal.xhtml?faces-redirect=true"/>
+				<p:commandButton value="Voltar à pagina inicial" action="/index.xhtml?faces-redirect=true"/>
 				<p:commandButton id="confirmar" value="Confirmar cadastro" actionListener="#{clienteBean.salvar}" update=":mensagem "/>
 			</h:panelGrid>
 		</h:form>
