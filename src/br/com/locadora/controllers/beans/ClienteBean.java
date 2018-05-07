@@ -10,10 +10,8 @@ import br.com.locadora.business.cliente.ClienteBO;
 @ManagedBean
 @ViewScoped
 public class ClienteBean {
-
-    private ClienteBO bo = new ClienteBO();
-
-    private Cliente novoCliente = new Cliente();
+    private static final ClienteBO bo = new ClienteBO();
+    private static final Cliente novoCliente = new Cliente();
 
     public Cliente getNovoCliente() {
         return novoCliente;

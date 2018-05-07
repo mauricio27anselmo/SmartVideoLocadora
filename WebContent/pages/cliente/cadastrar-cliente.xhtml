@@ -17,20 +17,18 @@
 			
 			<p:separator/>
 			<h:panelGrid id="cltgrid" columns="2" cellspacing="5" cellpadding="4">
-				<p:outputLabel value="Nome do cliente:" />
-				<p:inputText maxlength="50" size="50" value="#{clienteBean.novoCliente.nome}"/>
-				<p:outputLabel value="Endereço:" />
-				<p:inputText maxlength="200" size="50" value="#{clienteBean.novoCliente.endereco}"/>
-				<p:outputLabel value="e-mail:" />
-				<p:inputText maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>
-				<p:outputLabel value="CPF(somente números):" />
-				<p:inputText maxlength="11" size="20" value="#{clienteBean.novoCliente.cpf}"/>
-				<p:outputLabel value="Data de nascimento:" />
-				<p:calendar locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNascimento}"/>
-			</h:panelGrid>
-			<h:panelGrid id="cltconf" columns="2" cellpadding="5">
-				<p:commandButton value="Voltar à pagina inicial" action="/index.xhtml?faces-redirect=true"/>
-				<p:commandButton id="confirmar" value="Confirmar cadastro" actionListener="#{clienteBean.cadastrar}" update=":mensagem "/>
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" maxlength="50" size="50" value="#{clienteBean.novoCliente.nome}"/>
+				<p:outputLabel for="endereco" value="Endereço:" />
+				<p:inputText id="endereco" maxlength="200" size="50" value="#{clienteBean.novoCliente.endereco}"/>
+				<p:outputLabel for="email" value="E-mail:" />
+				<p:inputText id="email" maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>
+				<p:outputLabel for="cpf" value="CPF:" />
+				<p:inputMask id="cpf" maxlength="11" size="20" mask="999.999.999-99" value="#{clienteBean.novoCliente.cpf}"/>
+				<p:outputLabel for="dataNascimento" value="Data de Nascimento:" />
+				<p:calendar id="dataNascimento" locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" mask="true" value="#{clienteBean.novoCliente.dataNascimento}"/>
+				<p:commandButton value="Voltar" action="/index.xhtml?faces-redirect=true"/>
+				<p:commandButton id="confirmar" value="Cadastrar" actionListener="#{clienteBean.cadastrar}" update=":mensagem "/>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

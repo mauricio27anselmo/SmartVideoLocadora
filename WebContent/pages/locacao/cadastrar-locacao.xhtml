@@ -30,7 +30,7 @@
 					actionListener="#{locacaoBean.pesquisarPessoa}" update=":mensagem" />
 				<p:outputLabel value="Informe o nome do filme: " />
 				<p:inputText maxlenght="50" size="50"
-					value="#{locacaoBean.pesquisaTiTulo}" />
+					value="#{locacaoBean.pesquisaTitulo}" />
 				<p:commandButton value="Pesquisar"
 					actionListener="#{locacaoBean.pesquisarTitulo}"
 					update="locform:lista1" />
@@ -39,29 +39,29 @@
 				<p:outputLabel value="Lista de mídias disponiveis" />
 				<p:dataTable id="lista1"
 					emptyMessage="Não há midias disponíveis para filme pesquisado!"
-					value="#{locacaoBean.listaAcervo}" var="acervoCursor"
+					value="#{locacaoBean.listarAcervo()}" var="acervoRegistro"
 					paginator="true" rows="5">
 					<p:column headerText="código" width="7%">
-						<h:outputText value="#{acervoCursor.acervoID}" />
+						<h:outputText value="#{acervoRegistro.acervoID}" />
 					</p:column>
 					<p:column headerText="titulo" width="30%">
-						<h:outputText value="#{acervoCursor.idTitulo.nome}" />
+						<h:outputText value="#{acervoRegistro.idTitulo.nome}" />
 					</p:column>
 					<p:column headerText="gênero" width="12%">
-						<h:outputText value="#{acervoCursor.idTitulo.genero}" />
+						<h:outputText value="#{acervoRegistro.idTitulo.genero}" />
 					</p:column>
 					<p:column headerText="classificação indicativa">
-						<h:outputText value="#{acervoCursor.idTitulo.classInd}" />
+						<h:outputText value="#{acervoRegistro.idTitulo.classificacaoIndicativa}" />
 					</p:column>
 					<p:column headerText="tipo de midia" width="10%">
-						<h:outputText value="#{acervoCursor.tipoMidia}" />
+						<h:outputText value="#{acervoRegistro.tipoMidia}" />
 					</p:column>
 					<p:column headerText="ano" width="7%">
-						<h:outputText value="#{acervoCursor.idTitulo.ano}" />
+						<h:outputText value="#{acervoRegistro.idTitulo.ano}" />
 					</p:column>
 					<p:column headerText="opção">
 						<p:commandButton value="Adicionar mídia"
-							actionListener="#{locacaoBean.adicionar(acervoCursor)}"
+							actionListener="#{locacaoBean.adicionar(acervoRegistro)}"
 							update=":locform:lista2 lista1" />
 					</p:column>
 				</p:dataTable>
@@ -98,7 +98,7 @@
 					<p:commandButton value="Voltar à página inicial"
 						action="/index.xhtml?faces-redirect=true" />
 					<p:commandButton value="Confirmar locação"
-						actionListener="#{locacaoBean.gravar}"
+						actionListener="#{locacaoBean.confirmar}"
 						update=":locform:lista1 lista2  mensagem" />
 				</h:panelGroup>
 			</h:panelGrid>

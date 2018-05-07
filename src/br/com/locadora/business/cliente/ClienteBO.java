@@ -5,8 +5,7 @@ import br.com.locadora.util.FacesUtil;
 import java.util.List;
 
 public class ClienteBO {
-
-    private ClienteDAO dao = new ClienteDAO();
+    private static final ClienteDAO dao = new ClienteDAO();
 
     public void cadastrar(Cliente cliente){
         try{

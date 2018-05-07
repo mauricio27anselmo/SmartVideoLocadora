@@ -22,7 +22,7 @@
 				<p:outputLabel value="Nome do dependente:" />
 				<p:inputText maxlength="50" size="50" value="#{dependenteBean.novoDependente.nome}"/>
 				<p:outputLabel value="Nome do cliente vinculado:" />
-				<p:inputText maxlength="50" size="50" value="#{dependenteBean.clienteVinculo}"/>
+				<p:inputText maxlength="50" size="50" value="#{dependenteBean.novoDependente.idCliente}"/>
 				<p:outputLabel value="Data de nascimento:" />
 				<p:calendar locale="br" navigator="true" pattern="dd-MMM-yyyy"
 					yearRange="c-100:c" value="#{dependenteBean.novoDependente.dataNascimento}"/>
@@ -31,7 +31,7 @@
 				<p:commandButton value="Voltar à pagina inicial"
 					action="/index.xhtml?faces-redirect=true" />
 				<p:commandButton id="confirmar" value="Confirmar cadastro"
-					actionListener="#{dependenteBean.salvar}" update=":mensagem" />
+					actionListener="#{dependenteBean.cadastrar}" update=":mensagem" />
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

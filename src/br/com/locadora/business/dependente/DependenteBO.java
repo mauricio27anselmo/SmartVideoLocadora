@@ -7,6 +7,16 @@ import br.com.locadora.util.FacesUtil;
 import java.util.List;
 
 public class DependenteBO {
+    private DependenteDAO dao = new DependenteDAO();
+
+    public void cadastrar(Dependente dependente){
+
+    }
+
+    public List<Dependente> listar(){
+        return dao.listarTodos();
+    }
+
 //    private Dependente novoDependente;
 //    private String clienteVinculo;
 //    private List<Dependente> listaDependentes;

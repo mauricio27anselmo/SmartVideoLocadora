@@ -9,11 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <ui:composition template="/templates/template-barra-navegacao.xhtml">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:event listener="#{locacaoBean.carregarLista}" type="preRenderView"/>
-		</f:metadata>
-	</ui:define>
+	<!--<ui:define name="metadata">-->
+		<!--<f:metadata>-->
+			<!--<f:event listener="#{locacaoBean.listar()}" type="preRenderView"/>-->
+		<!--</f:metadata>-->
+	<!--</ui:define>-->
 	<ui:define name="conteudo">
 		<p:toolbar>
 			<f:facet name="left">
@@ -22,7 +22,7 @@
 		</p:toolbar>
 		<h:panelGrid cellpadding="10">
 				<p:dataTable  id="lista1" emptyMessage="Não há registros de locações em andamento!"
-					value="#{locacaoBean.listaLocacao}" paginator="true" rows="10"
+					value="#{locacaoBean.listar()}" paginator="true" rows="10"
 					var="acervoLocado">
 					<p:column headerText="Código de serviço" width="5%">
 						<h:outputText value="#{acervoLocado.servicoID}" />

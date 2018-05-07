@@ -29,7 +29,7 @@ public class Cliente extends Pessoa {
 	@Column(name = "cliente_endereco", length = 200, nullable = false)
 	private String endereco;
 
-	@Column(name = "cliente_cpf", length = 11, nullable = false, unique = true)
+	@Column(name = "cliente_cpf", length = 14, nullable = false, unique = true)
 	private String cpf;
 
 	@Column(name = "cliente_email", length = 30, nullable = false)

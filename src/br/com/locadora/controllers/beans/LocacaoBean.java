@@ -12,6 +12,7 @@ import br.com.locadora.business.acervo.AcervoDAO;
 import br.com.locadora.business.cliente.ClienteDAO;
 import br.com.locadora.business.dependente.DependenteDAO;
 import br.com.locadora.business.locacao.Locacao;
+import br.com.locadora.business.locacao.LocacaoBO;
 import br.com.locadora.business.locacao.LocacaoDAO;
 import br.com.locadora.business.servicoAcervo.ServicoAcervoDAO;
 import br.com.locadora.business.servico.ServicoDAO;
@@ -29,5 +30,18 @@ import br.com.locadora.util.FacesUtil;
 @ViewScoped
 public class LocacaoBean {
 
+    private LocacaoBO bo = new LocacaoBO();
+
+    public void adicionarCarrinho(Acervo acervoSelecionado){
+        bo.adicionarCarrinho(acervoSelecionado);
+    }
+
+    public void removerCarrinho(Acervo acervoSelecionado){
+        bo.removerCarrinho(acervoSelecionado);
+    }
+
+    public void confirmar(){
+        bo.confirmar();
+    }
 }
 	

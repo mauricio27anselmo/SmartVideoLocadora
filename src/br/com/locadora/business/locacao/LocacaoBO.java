@@ -21,6 +21,21 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LocacaoBO {
+    private LocacaoDAO dao = new LocacaoDAO();
+    private List<Acervo> listaAcervo = new ArrayList<>();
+
+    public void adicionarCarrinho(Acervo itemSelecionado){
+        listaAcervo.add(itemSelecionado);
+    }
+
+    public void removerCarrinho(Acervo itemRemovido){
+        listaAcervo.remove(itemRemovido);
+    }
+
+    public void confirmar(){
+
+    }
+
 //    String pesquisaPessoa;
 //    String pesquisaTiTulo;
 //    Titulo tituloPesquisado;

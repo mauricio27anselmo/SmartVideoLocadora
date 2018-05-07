@@ -9,11 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <ui:composition template="/templates/template-barra-navegacao.xhtml">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:event listener="#{dependenteBean.carregarLista}" type="preRenderView"/>
-		</f:metadata>
-	</ui:define>
+	<!--<ui:define name="metadata">-->
+		<!--<f:metadata>-->
+			<!--<f:event listener="#{dependenteBean.carregarLista}" type="preRenderView"/>-->
+		<!--</f:metadata>-->
+	<!--</ui:define>-->
 	<ui:define name="conteudo">
 		<h:form>
 			<p:toolbar>
@@ -23,7 +23,7 @@
 			</p:toolbar>
 			<h:panelGrid cellpadding="10">
 				<p:dataTable emptyMessage="Não há dependentes cadastrados!"
-					value="#{dependenteBean.listaDependentes}" var="dependenteCursor"
+					value="#{dependenteBean.listar()}" var="dependenteCursor"
 					paginator="true" rows="10">
 					<p:column headerText="Código do dependente" width="10%">
 						<h:outputText value="#{dependenteCursor.dependenteID}" />
@@ -37,8 +37,8 @@
 						<h:outputText value="#{dependenteCursor.idCliente.nome}" />
 					</p:column>
 					<p:column headerText="Data de nascimento"
-						sortBy="#{dependenteCursor.dataNasc}" width="12%">
-						<h:outputText value="#{dependenteCursor.dataNasc}"
+						sortBy="#{dependenteCursor.dataNascimento}" width="12%">
+						<h:outputText value="#{dependenteCursor.dataNascimento}"
 							styleClass="date">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
