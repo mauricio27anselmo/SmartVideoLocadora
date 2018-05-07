@@ -33,27 +33,27 @@ import br.com.locadora.business.enums.Genero;
 public class Titulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="tit_id")
+	@Column(name="titulo_id")
 	private Long tituloID;
 	
-	@Column(name = "tit_nome", length = 50, nullable = false)
+	@Column(name = "titulo_nome", length = 50, nullable = false)
 	private String nome;
 	
-	@Column(name = "tit_diretor", length = 50, nullable = false)
+	@Column(name = "titulo_diretor", length = 50, nullable = false)
 	private String diretor;
 	
-	@Column(name = "tit_classind", nullable = false)
+	@Column(name = "titulo_classificacao_indicativa", nullable = false)
 	private Long classInd;
 	
-	@Column(name = "tit_ano", nullable = false)
+	@Column(name = "titulo_ano", nullable = false)
 	private Long ano;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tit_genero", length= 20, nullable = false)
+	@Column(name = "titulo_genero", length= 20, nullable = false)
 	private Genero genero;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tit_at_id", referencedColumnName = "at_id", nullable = false)
+	@JoinColumn(name = "titulo_ator_id", referencedColumnName = "ator_id", nullable = false)
 	private Ator idAtor;
 
 	public Long getTituloID() {

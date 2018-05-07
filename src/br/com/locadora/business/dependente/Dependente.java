@@ -25,11 +25,11 @@ import javax.persistence.Table;
 public class Dependente extends Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "dep_id")
+	@Column(name = "dependente_id")
 	private Long dependenteID;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "dep_clt_id", referencedColumnName = "clt_id", nullable = false)
+	@JoinColumn(name = "dependente_cliente_id", referencedColumnName = "cliente_id", nullable = false)
 	private Cliente idCliente;
 
 	public Long getDependenteID() {

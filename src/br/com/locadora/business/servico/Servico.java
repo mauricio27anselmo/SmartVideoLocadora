@@ -27,11 +27,11 @@ import javax.persistence.Table;
 public class Servico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "srv_id")
+	@Column(name = "servico_id")
 	protected Long servicoID;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "srv_clt_id", referencedColumnName = "clt_id", nullable = false)
+	@JoinColumn(name = "servico_cliente_id", referencedColumnName = "cliente_id", nullable = false)
 	protected Cliente idCliente;
 
 	public Long getServicoID() {

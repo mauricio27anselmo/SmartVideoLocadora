@@ -31,15 +31,15 @@ import br.com.locadora.business.titulo.Titulo;
 public class Acervo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "acv_id")
+	@Column(name = "acervo_id")
 	private Long acervoID;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "acv_tipomidia", length = 10, nullable = false)
+	@Column(name = "acervo_tipo_midia", length = 10, nullable = false)
 	private MidiaTipo tipoMidia;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "acv_tit_id", referencedColumnName = "tit_id", nullable = false)
+	@JoinColumn(name = "acervo_titulo_id", referencedColumnName = "titulo_id", nullable = false)
 	private Titulo idTitulo;
 
 	public Long getAcervoID() {

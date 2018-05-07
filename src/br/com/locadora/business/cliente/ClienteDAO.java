@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ClienteDAO {
+
 	public void incluir(Cliente cliente){
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;

@@ -29,16 +29,16 @@ import javax.persistence.Table;
 public class ServicoAcervo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "sa_id")
+	@Column(name = "servico_acervo_id")
 	private Long servicoAcervoID;
 	
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "sa_srv_id", referencedColumnName = "srv_id", nullable = false)
+	@JoinColumn(name = "servico_acervo_servico_id", referencedColumnName = "servico_id", nullable = false)
 	private Servico idServico;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "sa_acv_id", referencedColumnName = "acv_id", nullable = false)
+	@JoinColumn(name = "servico_acervo_acervo_id", referencedColumnName = "acervo_id", nullable = false)
 	private Acervo idAcervo;
 
 	public Long getServicoAcervoID() {

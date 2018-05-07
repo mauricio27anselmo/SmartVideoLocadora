@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "LOC_LOCACAO")
-@PrimaryKeyJoinColumn(name = "srv_id")
+@PrimaryKeyJoinColumn(name = "servico_id")
 @NamedQueries({
 	@NamedQuery(name = "Locacao.listarTodos", query = "SELECT locacao FROM Locacao locacao"),
 	@NamedQuery(name = "Locacao.pesquisarPorID", query = "SELECT locacao FROM Locacao locacao where locacao.locacaoID = :ID"),
@@ -27,22 +27,22 @@ import javax.persistence.TemporalType;
 	@NamedQuery(name = "Locacao.pesquisarLocAndamento", query = "SELECT locacao FROM Locacao locacao where locacao.dataDevolucao IS NULL")
 })
 public class Locacao extends Servico {
-	@Column(name = "loc_id", nullable = false)
+	@Column(name = "locacao_id", nullable = false)
 	private Long locacaoID;
 	
 	@Temporal(value = TemporalType.DATE)
-	@Column(name = "loc_datalocacao", nullable = false)
+	@Column(name = "locacao_data_locacao", nullable = false)
 	private Calendar dataLocacao;
 	
 	@Temporal(value = TemporalType.DATE)
-	@Column(name = "loc_dataprevista", nullable = false)
+	@Column(name = "locacao_data_prevista", nullable = false)
 	private Calendar dataPrevistaEntrega;
 	
 	@Temporal(value = TemporalType.DATE)
-	@Column(name = "loc_datadevolucao")
+	@Column(name = "locacao_data_devolucao")
 	private Calendar dataDevolucao;
 
-	@Column(name = "loc_valor", precision = 8, scale = 2, nullable=false)
+	@Column(name = "locacao_valor", precision = 8, scale = 2, nullable=false)
 	private BigDecimal valor;
 
 	public Long getLocacaoID() {

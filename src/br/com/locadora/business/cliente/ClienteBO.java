@@ -1,15 +1,33 @@
 package br.com.locadora.business.cliente;
 
-import br.com.locadora.business.enums.TipoTelefone;
-import br.com.locadora.business.telefone.Telefone;
-import br.com.locadora.business.telefone.TelefoneDAO;
 import br.com.locadora.util.FacesUtil;
 
 import java.util.List;
 
 public class ClienteBO {
-    private ClienteDAO dao;
 
+    private ClienteDAO dao = new ClienteDAO();
+
+    public void cadastrar(Cliente cliente){
+        try{
+            dao.incluir(cliente);
+            FacesUtil.addMsgInfo("Cadastro realizado com sucesso");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            FacesUtil.addMsgErro("Erro ao cadastrar cliente");
+        }
+    }
+
+    public List<Cliente> listar(){
+        try{
+            return dao.listarTodos();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            FacesUtil.addMsgErro("Erro ao listar clientes");
+            return null;
+        }
+
+    }
 //    private Cliente novoCliente;
 //    private List<Cliente> listaClientes;
 //    private Telefone telResidencial;
@@ -107,29 +125,4 @@ public class ClienteBO {
 //            FacesUtil.addMsgErro("Erro na listagem de Clientes");
 //        }
 //    }
-
-    public ClienteBO(){
-        dao =  new ClienteDAO();
-    }
-
-    public void cadastrar(Cliente cliente){
-        try{
-            dao.incluir(cliente);
-            FacesUtil.addMsgInfo("Cadastro realizado com sucesso");
-        }catch(Exception ex){
-            ex.printStackTrace();
-            FacesUtil.addMsgErro("Erro ao cadastrar cliente");
-        }
-    }
-
-    public List<Cliente> listar(){
-        try{
-            return dao.listarTodos();
-        }catch(Exception ex){
-            ex.printStackTrace();
-            FacesUtil.addMsgErro("Erro ao listar clientes");
-            return null;
-        }
-
-    }
 }

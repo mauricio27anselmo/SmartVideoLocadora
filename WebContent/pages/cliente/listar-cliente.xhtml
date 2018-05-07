@@ -11,7 +11,7 @@
 <ui:composition template="/templates/template-barra-navegacao.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:event listener="#{clienteBean.carregarLista}" type="preRenderView"/>
+			<f:event listener="#{clienteBean.listar()}" type="preRenderView"/>
 		</f:metadata>
 	</ui:define>
 
@@ -24,28 +24,28 @@
 			</p:toolbar>
 			<h:panelGrid cellpadding="10">
 				<p:dataTable emptyMessage="Não há clientes cadastrados!"
-					value="#{clienteBean.listaClientes}" var="clienteCursor"
+					value="#{clienteBean.listar()}" var="clienteRegistro"
 					paginator="true" rows="10">
 					<p:column headerText="Código" width="8%">
-						<h:outputText value="#{clienteCursor.clienteID}" />
+						<h:outputText value="#{clienteRegistro.clienteID}" />
 					</p:column>
-					<p:column headerText="Nome" sortBy="#{clienteCursor.nome}">
-						<h:outputText value="#{clienteCursor.nome}" />
+					<p:column headerText="Nome" sortBy="#{clienteRegistro.nome}">
+						<h:outputText value="#{clienteRegistro.nome}" />
 					</p:column>
-					<p:column headerText="Endereço" sortBy="#{clienteCursor.endereco}">
-						<h:outputText value="#{clienteCursor.endereco}" />
+					<p:column headerText="Endereço" sortBy="#{clienteRegistro.endereco}">
+						<h:outputText value="#{clienteRegistro.endereco}" />
 					</p:column>
 					<p:column headerText="Data de nascimento"
-						sortBy="#{clienteCursor.dataNasc}" width="12%">
-						<h:outputText value="#{clienteCursor.dataNasc}" styleClass="date">
+						sortBy="#{clienteRegistro.dataNascimento}" width="12%">
+						<h:outputText value="#{clienteRegistro.dataNascimento}" styleClass="date">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="CPF" width="10%">
-						<h:outputText value="#{clienteCursor.cpf}" />
+						<h:outputText value="#{clienteRegistro.cpf}" />
 					</p:column>
 					<p:column headerText="e-mail">
-						<h:outputText value="#{clienteCursor.email}" />
+						<h:outputText value="#{clienteRegistro.email}" />
 					</p:column>
 				</p:dataTable>
 			</h:panelGrid>			

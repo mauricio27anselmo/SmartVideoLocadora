@@ -29,18 +29,18 @@ import br.com.locadora.business.enums.TipoTelefone;
 public class Telefone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tel_id")
+	@Column(name = "telefone_id")
 	private Long telefoneID;
 	
-	@Column(name = "tel_numero", length = 11 , nullable = false)
+	@Column(name = "telefone_numero", length = 11 , nullable = false)
 	private String numero;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tel_tipo", length = 15, nullable = false)
+	@Column(name = "telefone_tipo", length = 15, nullable = false)
 	private TipoTelefone tipo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tel_clt_id", referencedColumnName = "clt_id", nullable = false)
+	@JoinColumn(name = "telefone_cliente_id", referencedColumnName = "cliente_id", nullable = false)
 	private Cliente idCliente;
 
 	public Long getTelefoneID() {

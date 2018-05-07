@@ -25,14 +25,8 @@
 				<p:inputText maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>
 				<p:outputLabel value="CPF(somente números):" />
 				<p:inputText maxlength="11" size="20" value="#{clienteBean.novoCliente.cpf}"/>
-				<!--<p:outputLabel value="Informe o telefone residencial:" />-->
-				<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telResidencial.numero}"/>-->
-				<!--<p:outputLabel value="Informe o telefone comercial:" />-->
-				<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telComercial.numero}"/>-->
-				<!--<p:outputLabel value="Informe o telefone celular:" />-->
-				<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telCelular.numero}"/>-->
 				<p:outputLabel value="Data de nascimento:" />
-				<p:calendar locale="br" navigator="true" pattern="dd/MMM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNasc}"/>
+				<p:calendar locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNascimento}"/>
 			</h:panelGrid>
 			<h:panelGrid id="cltconf" columns="2" cellpadding="5">
 				<p:commandButton value="Voltar à pagina inicial" action="/index.xhtml?faces-redirect=true"/>
@@ -42,3 +36,9 @@
 	</ui:define>
 </ui:composition>
 </html>
+		<!--<p:outputLabel value="Informe o telefone residencial:" />-->
+		<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telResidencial.numero}"/>-->
+		<!--<p:outputLabel value="Informe o telefone comercial:" />-->
+		<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telComercial.numero}"/>-->
+		<!--<p:outputLabel value="Informe o telefone celular:" />-->
+		<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telCelular.numero}"/>-->

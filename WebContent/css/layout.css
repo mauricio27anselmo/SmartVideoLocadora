@@ -1,11 +1,15 @@
 @CHARSET "UTF-8";
 
+/*.fundo{*/
+	/*background-image: url("images/IronMan.png");*/
+	/*background-repeat: no-repeat;*/
+	/*background-clip: border-box;*/
+	/*background-size: cover;*/
+	/*background-color:inherit*/
+/*}*/
+
 .fundo{
-	background-image: url("images/IronMan.png");
-	background-repeat: no-repeat;
-	background-clip: border-box;
-	background-size: cover;
-	background-color:inherit
+	background-color: rgba(0,0,0, .85);
 }
 
 .ui-layout-unit-content{

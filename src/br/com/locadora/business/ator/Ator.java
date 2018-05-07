@@ -19,10 +19,10 @@ import javax.persistence.Table;
 public class Ator {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "at_id")
+	@Column(name = "ator_id")
 	private Long atorID;
 	
-	@Column(name = "at_nome", length = 50, nullable = false)
+	@Column(name = "ator_nome", length = 50, nullable = false)
 	private String nome;
 
 	public Long getAtorID() {
