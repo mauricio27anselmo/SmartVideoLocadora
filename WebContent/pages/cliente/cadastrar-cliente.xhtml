@@ -1,39 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/templates/template-barra-navegacao.xhtml" >
 	<ui:define name="conteudo" >
 		<h:form id="cltform">
-			<p:toolbar>
-				<f:facet name="left">
-					<h:outputText value="Cadastrando novo cliente" />
-				</f:facet>
-			</p:toolbar>
-			
+			<h:outputText value="Cadastro de Cliente" />
 			<p:separator/>
-			<h:panelGrid id="cltgrid" columns="2" cellspacing="5" cellpadding="4">
-				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" maxlength="50" size="50" value="#{clienteBean.novoCliente.nome}"/>
-				<p:outputLabel for="endereco" value="Endereço:" />
-				<p:inputText id="endereco" maxlength="200" size="50" value="#{clienteBean.novoCliente.endereco}"/>
-				<p:outputLabel for="email" value="E-mail:" />
-				<p:inputText id="email" maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>
-				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputMask id="cpf" maxlength="11" size="20" mask="999.999.999-99" value="#{clienteBean.novoCliente.cpf}"/>
-				<p:outputLabel for="dataNascimento" value="Data de Nascimento:" />
-				<p:calendar id="dataNascimento" locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" mask="true" value="#{clienteBean.novoCliente.dataNascimento}"/>
+			<p:panel header="Identificação">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-col-6">
+						<br/><p:outputLabel for="nome" value="Nome:" />
+						<br/><p:inputText id="nome" maxlength="50" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.nome}"/>
+					</div>
+					<div class="ui-grid-col-3">
+						<br/><p:outputLabel for="cpf" value="CPF:" />
+						<br/><p:inputMask id="cpf" maxlength="11" mask="999.999.999-99" class="campo-formulario" required="true"  value="#{clienteBean.novoCliente.cpf}"/>
+					</div>
+					<div class="ui-grid-col-3">
+						<br/><p:outputLabel for="email" value="E-mail:" />
+						<br/><p:inputText id="email" maxlength="30" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.email}"/>
+					</div>
+					<div class="ui-grid-col-12">
+						<br/><p:outputLabel for="dataNascimento" value="Data de Nascimento:" />
+						<br/><p:calendar id="dataNascimento" locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" mask="true" class="campo-formulario" required="true"  value="#{clienteBean.novoCliente.dataNascimento}"/>
+					</div>
+					<div class="ui-grid-col-6">
+						<br/><p:outputLabel for="enderecoRua" value="Rua:" />
+						<br/><p:inputText id="enderecoRua" maxlength="200" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.endereco.rua}" />
+					</div>
+					<div class="ui-grid-col-4">
+						<br/><p:outputLabel for="enderecoBairro" value="Bairro:" />
+						<br/><p:inputText id="enderecoBairro" maxlength="200" class="campo-formulario" required="true"  value="#{clienteBean.novoCliente.endereco.bairro}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<br/><p:outputLabel for="enderecoNumero" value="Nº:" />
+						<br/><p:inputText id="enderecoNumero" maxlength="200" class="campo-formulario" value="#{clienteBean.novoCliente.endereco.numero}"/>
+					</div>
+					<div class="ui-grid-col-3">
+						<br/><p:outputLabel for="enderecoComplemento" value="Complemento:" />
+						<br/><p:inputText id="enderecoComplemento" maxlength="200" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.endereco.complemento}"/>
+					</div>
+					<div class="ui-grid-col-3">
+						<br/><p:outputLabel for="enderecoCEP" value="CEP:" />
+						<br/><p:inputText id="enderecoCEP" maxlength="50" mask="99999-999" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.endereco.cep}"/>
+					</div>
+					<div class="ui-grid-col-4">
+						<br/><p:outputLabel for="enderecoCidade" value="Cidade:" />
+						<br/><p:inputText id="enderecoCidade" maxlength="50" class="campo-formulario" required="true" value="#{clienteBean.novoCliente.endereco.cidade}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<br/><p:outputLabel for="enderecoEstado" value="Estado:"/>
+						<br/>
+						<p:selectOneMenu id="enderecoEstado" required="true" value="#{clienteBean.novoCliente.endereco.estado}">
+							<f:selectItems value="#{clienteBean.estados}"></f:selectItems>
+						</p:selectOneMenu>
+					</div>
+				</div>
+			</p:panel>
+			<p:spacer height="10px;"/>
+			<p:panel header="Contato">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-col-2">
+						<br/><p:outputLabel for="telefoneNumero" value="Numero:" />
+						<br/><p:inputText id="telefoneNumero" maxlength="30" mask="(99)99999-9999" />
+					</div>
+					<div class="ui-grid-col-2">
+						<br/><p:outputLabel for="telefoneTipo" value="Tipo de Telefone:" />
+						<br/><p:selectOneMenu id="telefoneTipo">
+							<f:selectItems value="#{clienteBean.tiposTelefone}"></f:selectItems>
+						</p:selectOneMenu>
+					</div>
+					<div class="ui-grid-col-2">
+						<br/><br/><p:commandButton id="adicionarTelefone" value="Adicionar"/>
+					</div>
+
+				</div>
+			</p:panel>
+			<div class="botoes-formulario">
 				<p:commandButton value="Voltar" action="/index.xhtml?faces-redirect=true"/>
-				<p:commandButton id="confirmar" value="Cadastrar" actionListener="#{clienteBean.cadastrar}" update=":mensagem "/>
-			</h:panelGrid>
+				<p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{clienteBean.cadastrar}" update=":mensagem "/>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
+		<!--<h:panelGrid id="cltgrid" columns="2" cellspacing="5" cellpadding="4">-->
+		<!--<p:outputLabel for="nome" value="Nome:" />-->
+		<!--<p:inputText id="nome" maxlength="50" size="50" value="#{clienteBean.novoCliente.nome}"/>-->
+		<!--<p:outputLabel for="endereco" value="Endereço:" />-->
+		<!--<p:inputText id="endereco" maxlength="200" size="50" value="#{clienteBean.novoCliente.endereco}"/>-->
+		<!--<p:outputLabel for="email" value="E-mail:" />-->
+		<!--<p:inputText id="email" maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>-->
+		<!--<p:outputLabel for="cpf" value="CPF:" />-->
+		<!--<p:inputMask id="cpf" maxlength="11" size="20" mask="999.999.999-99" value="#{clienteBean.novoCliente.cpf}"/>-->
+		<!--<p:outputLabel for="dataNascimento" value="Data de Nascimento:" />-->
+		<!--<p:calendar id="dataNascimento" locale="br" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c" mask="true" value="#{clienteBean.novoCliente.dataNascimento}"/>-->
+		<!--<p:commandButton value="Voltar" action="/index.xhtml?faces-redirect=true"/>-->
+		<!--<p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{clienteBean.cadastrar}" update=":mensagem "/>-->
+		<!--</h:panelGrid>-->
+
 		<!--<p:outputLabel value="Informe o telefone residencial:" />-->
 		<!--<p:inputText maxlength="11" size="20" value="#{clienteBean.telResidencial.numero}"/>-->
 		<!--<p:outputLabel value="Informe o telefone comercial:" />-->

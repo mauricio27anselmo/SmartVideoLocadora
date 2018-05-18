@@ -25,7 +25,7 @@ public class HibernateUtil {
         }
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Falha na criação do Session Factory." + ex);
+            System.err.println("Falha na criaÃ§Ã£o do Session Factory." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

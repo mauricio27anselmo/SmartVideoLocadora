@@ -1,11 +1,20 @@
 package br.com.locadora.business.cliente;
 
+import br.com.locadora.business.telefone.Telefone;
 import br.com.locadora.util.FacesUtil;
 
 import java.util.List;
 
 public class ClienteBO {
     private static final ClienteDAO dao = new ClienteDAO();
+
+    public void incluirTelefone(List<Telefone> telefonesCliente, Telefone telefone){
+        telefonesCliente.add(telefone);
+    }
+
+    public void removerTelefone(List<Telefone> telefonesCliente, Telefone telefoneSelecionado){
+        telefonesCliente.remove(telefoneSelecionado);
+    }
 
     public void cadastrar(Cliente cliente){
         try{

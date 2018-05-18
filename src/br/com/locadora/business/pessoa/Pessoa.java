@@ -1,5 +1,6 @@
 package br.com.locadora.business.pessoa;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @MappedSuperclass
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable{
 	@Column(name = "nome", length = 50, nullable = false)
 	protected String nome;
 

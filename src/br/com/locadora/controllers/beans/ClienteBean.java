@@ -6,15 +6,39 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.locadora.business.cliente.Cliente;
 import br.com.locadora.business.cliente.ClienteBO;
+import br.com.locadora.business.enums.Estados;
+import br.com.locadora.business.enums.TipoTelefone;
+import br.com.locadora.business.telefone.Telefone;
 
 @ManagedBean
 @ViewScoped
 public class ClienteBean {
-    private static final ClienteBO bo = new ClienteBO();
-    private static final Cliente novoCliente = new Cliente();
+    private ClienteBO bo = new ClienteBO();
+    private Cliente novoCliente = new Cliente();
+    private Telefone novoTelefone = new Telefone();
 
     public Cliente getNovoCliente() {
         return novoCliente;
+    }
+
+    public Telefone getNovoTelefone(){
+        return novoTelefone;
+    }
+
+    public Estados[] getEstados(){
+        return Estados.values();
+    }
+
+    public TipoTelefone[] getTiposTelefone(){
+        return TipoTelefone.values();
+    }
+
+    public void incluirTelefone(Telefone telefone){
+        bo.incluirTelefone(novoCliente.getTelefones(), telefone);
+    }
+
+    public void removerTelefone(Telefone telefoneSelecionado){
+        bo.removerTelefone(novoCliente.getTelefones(), telefoneSelecionado);
     }
 
     public void cadastrar(){

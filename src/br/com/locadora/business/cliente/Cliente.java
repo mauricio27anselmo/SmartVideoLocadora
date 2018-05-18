@@ -1,16 +1,13 @@
 package br.com.locadora.business.cliente;
 
+import br.com.locadora.business.endereco.Endereco;
 import br.com.locadora.business.pessoa.Pessoa;
+import br.com.locadora.business.telefone.Telefone;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "LOC_CLIENTE")
@@ -26,14 +23,36 @@ public class Cliente extends Pessoa {
 	@Column(name = "cliente_id")
 	private Long clienteID;
 
-	@Column(name = "cliente_endereco", length = 200, nullable = false)
-	private String endereco;
-
 	@Column(name = "cliente_cpf", length = 14, nullable = false, unique = true)
 	private String cpf;
 
 	@Column(name = "cliente_email", length = 30, nullable = false)
 	private String email;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cliente_endereco", referencedColumnName = "endereco_id", nullable = false)
+	private Endereco endereco;
+
+	@ManyToMany
+	@JoinTable(
+			name="LOC_PESSOA_TELEFONE",
+			joinColumns = {
+					@JoinColumn(name = "cliente_id")
+			},
+			inverseJoinColumns = {
+					@JoinColumn(name = "telefone_id")
+			}
+	)
+	private List<Telefone> telefones;
+
+	public Cliente(){
+		if(this.endereco == null) {
+			this.endereco = new Endereco();
+		}
+		if(this.telefones == null){
+			telefones = new ArrayList<>();
+		}
+	}
 
 	public Long getClienteID() {
 		return clienteID;
@@ -41,14 +60,6 @@ public class Cliente extends Pessoa {
 
 	public void setClienteID(Long clienteID) {
 		this.clienteID = clienteID;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 
 	public String getCpf() {
@@ -67,13 +78,45 @@ public class Cliente extends Pessoa {
 		this.email = email;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [clienteID=" + clienteID + ", endereco=" + endereco
-				+ ", cpf=" + cpf + ", email=" + email + ", nome=" + nome
-				+ ", dataNascimento=" + dataNascimento + "]";
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	
-	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Cliente)) return false;
+		Cliente cliente = (Cliente) o;
+		return Objects.equals(getClienteID(), cliente.getClienteID()) &&
+				Objects.equals(getCpf(), cliente.getCpf()) &&
+				Objects.equals(getEmail(), cliente.getEmail()) &&
+				Objects.equals(getEndereco(), cliente.getEndereco());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getClienteID(), getCpf(), getEmail(), getEndereco());
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"clienteID=" + clienteID +
+				", cpf='" + cpf + '\'' +
+				", email='" + email + '\'' +
+				", endereco=" + endereco +
+				'}';
+	}
 }
