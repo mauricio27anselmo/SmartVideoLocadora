@@ -1,7 +1,5 @@
 package br.com.locadora.util;
 
-
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -19,13 +17,13 @@ public class HibernateUtil {
 
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
-			
+
 			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			return sessionFactory;
         }
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Falha na criação do Session Factory." + ex);
+            System.err.println("Falha na criaÃ§Ã£o do Session Factory." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
