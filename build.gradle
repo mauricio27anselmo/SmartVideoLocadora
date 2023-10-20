@@ -15,7 +15,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation 'javax.faces:javax.faces-api:2.3'
+    implementation 'javax.faces:javax.faces-api:2.2'
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation group: 'org.glassfish', name: 'javax.faces', version: '2.2.9'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.0.Final'
@@ -24,7 +24,8 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.2.Final'
     implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.1.0'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
-    implementation group: 'org.primefaces', name: 'primefaces', version: '13.0.1'
+    implementation group: 'org.primefaces', name: 'primefaces', version: '5.2'
+    compile files('src/main/webapp/WEB-INF/lib/dark-hive-1.0.0.jar')
 }
 
 
