@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+.fundo{
+	background-image: url("../images/IronMan.png");
+	background-repeat: no-repeat;
+	background-clip: border-box;
+	background-size: cover;
+	background-color:inherit
+}
+
+.ui-layout-unit-content{
+	color: #F8F8FF;
+	background: transparent;
+	font-size:20px;
+	font-family: "Calibri"; 
+}
+
+.ui-layout-unit-header{
+	color: #F8F8FF;
+	background: transparent;
+	font-size: 40px;
+	text-align: center;
+	font-family: "Comic Sans MS";
+}
+
+.ui-layout-unit{
+	color: #F8F8FF;
+	background: transparent;
+}
+
+.ui-panelmenu-content{
+	background: transparent;
+	color: #F8F8FF;
+}
+
+.ui-panelmenu-header{
+	background: transparent;
+	color: #F8F8FF;
+}
+
+.ui-widget-content {  
+	font-size:20px;
+   	font-family: "Arial"; 
+   	color: #F8F8FF; 
+} 
+
+.ui-expanded-row-content{
+	font-size:20px;
+	font-family: "Arial"; 
+   	color: #F8F8FF; 
+}
+
+.ui-outputlabel{
+	font-size:20px;
+	font-family: "Arial"; 
+   	color: #F8F8FF; 
+}

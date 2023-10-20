@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<ui:composition template="/WEB-INF/templates/modeloGeral.xhtml">
+<!--	<ui:define name="metadata">-->
+<!--		<f:metadata>-->
+<!--			<f:event listener="#{reservaBean.carregarTodasReservas}" type="preRenderView"/>-->
+<!--		</f:metadata>-->
+<!--	</ui:define>-->
+	<ui:define name="conteudo">
+		<h:form id="rsvform">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Registro de reservas solicitadas"/>
+				</f:facet>
+			</p:toolbar>
+			<p:separator/>
+			<h:panelGrid cellpadding="10">
+				<p:dataTable  id="lista1" emptyMessage="Não existem registros de reservas solicitadas"
+					value="#{reservaBean.listaReserva}"
+					var="acervoLocado" paginator="true" rows="10">
+					<p:column headerText="Código de serviço" width="5%">
+						<h:outputText value="#{acervoLocado.servicoID}" />
+					</p:column>
+					<p:column headerText="Nome do cliente" width="20%">
+						<h:outputText value="#{acervoLocado.idCliente.nome}" />
+					</p:column>
+					<p:column headerText="Data e horário da reserva" width="10%" >
+						<h:outputText value="#{acervoLocado.dataHora.time}" styleClass="datetime">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt_br" timeZone="America/Belem"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

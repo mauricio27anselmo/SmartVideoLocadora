@@ -1,3 +1,7 @@
 /build/
 /.classpath
 /.project
+/SmartVideoLocadora.iml
+/.settings/
+/.idea/
+/.gradle/
