@@ -1,57 +1,29 @@
 @CHARSET "UTF-8";
 
-.fundo{
-	background-image: url("../images/IronMan.png");
-	background-repeat: no-repeat;
-	background-clip: border-box;
-	background-size: cover;
-	background-color:inherit
+#menu .ui-menu {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100%;
 }
 
-.ui-layout-unit-content{
-	color: #F8F8FF;
-	background: transparent;
-	font-size:20px;
-	font-family: "Calibri"; 
+#menu .ui-menu .ui-widget-header {
+	background: #152130;
 }
 
-.ui-layout-unit-header{
-	color: #F8F8FF;
-	background: transparent;
-	font-size: 40px;
-	text-align: center;
-	font-family: "Comic Sans MS";
+.ui-menu-list {
+width: 100%;
+flex: 1;
 }
 
-.ui-layout-unit{
-	color: #F8F8FF;
-	background: transparent;
+body .ui-inputfield {
+background: #FFF;
 }
 
-.ui-panelmenu-content{
-	background: transparent;
-	color: #F8F8FF;
-}
-
-.ui-panelmenu-header{
-	background: transparent;
-	color: #F8F8FF;
-}
-
-.ui-widget-content {  
-	font-size:20px;
-   	font-family: "Arial"; 
-   	color: #F8F8FF; 
-} 
-
-.ui-expanded-row-content{
-	font-size:20px;
-	font-family: "Arial"; 
-   	color: #F8F8FF; 
-}
-
-.ui-outputlabel{
-	font-size:20px;
-	font-family: "Arial"; 
-   	color: #F8F8FF; 
-}
+/*.ui-widget-content .ui-menuitem {*/
+/*	!*padding: 8px 15px; !* Espaçamento interno do submenu *!*!*/
+/*	background-color: var(--bluegray-900);*/
+/*	color: #fff; !* Cor do texto do submenu *!*/
+/*}*/

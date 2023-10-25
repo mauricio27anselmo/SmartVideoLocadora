@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	
@@ -10,56 +9,59 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css"  href="/resources/styles/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css" />
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css" />
+	<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/layout.css"/>
 	<title>Smart Video Locadora</title>
 </h:head>
 
 <h:body styleClass="fundo">
 	<p:growl id="mensagem"/>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" header="Smart Video Locadora"
-			resizable="false" closable="false" collapsible="false" >
-		</p:layoutUnit >
-		<p:layoutUnit position="west" size="320" resizable="false"
-			closable="false" collapsible="false">
-			<h:form >
-				<p:panelMenu styleClass="" >
-					<p:submenu label="Consultar" >
-						<p:menuitem value="Clientes cadastrados"
-							outcome="/pages/consultar/clienteDados.xhtml" />
-						<p:menuitem value="Dependentes cadastrados"
-							outcome="/pages/consultar/dependenteDados.xhtml" />
-						<p:menuitem value="Devoluções realizadas"
-							outcome="/pages/consultar/devolucaoDados.xhtml" />
-						<p:menuitem value="Locações realizadas"
-							outcome="/pages/consultar/locacaoDados.xhtml" />
-						<p:menuitem value="Reservas realizadas"
-							outcome="/pages/consultar/reservaDados.xhtml" />
-					</p:submenu>
-					<p:submenu label="Cadastrar">
-						<p:menuitem value="Clientes"
-							outcome="/pages/cadastrar/clienteCadastro.xhtml" />
-						<p:menuitem value="Dependentes"
-							outcome="/pages/cadastrar/dependenteCadastro.xhtml" />
-					</p:submenu>
-					<p:submenu  label="Serviços">
-						<p:menuitem value="Efetuar locação"
-							outcome="/pages/servicos/locacaoServico.xhtml" />
-						<p:menuitem value="Solicitar reserva"
-							outcome="/pages/servicos/reservaServico.xhtml" />
-						<p:menuitem value="Confirmar reserva"
-							outcome="/pages/servicos/confirmaReserva.xhtml" />
-						<p:menuitem value="Efetuar devolução"
-							outcome="/pages/servicos/devolucaoServico.xhtml" />
-					</p:submenu>
-				</p:panelMenu>
-			</h:form>
-		</p:layoutUnit>
-
-		<p:layoutUnit position="center">
+	<div class="grid">
+		<div id="barra-superior" class="col">
+			<p:menubar>
+				<p:menuitem outcome="/pages/principal.xhtml">
+					<h:graphicImage name="/images/logo2.png" height="60" />
+				</p:menuitem>
+			</p:menubar>
+		</div>
+	</div>
+	<div class="grid">
+		<div id="menu" class="col-2 pt-0" >
+			<p:menu toggleable="true">
+				<p:submenu label="Consultar">
+					<p:menuitem value="Clientes cadastrados"
+								outcome="/pages/consultar/clienteDados.xhtml"/>
+					<p:menuitem value="Dependentes cadastrados"
+								outcome="/pages/consultar/dependenteDados.xhtml"/>
+					<p:menuitem value="Devoluções realizadas"
+								outcome="/pages/consultar/devolucaoDados.xhtml"/>
+					<p:menuitem value="Locações realizadas"
+								outcome="/pages/consultar/locacaoDados.xhtml"/>
+					<p:menuitem value="Reservas realizadas"
+								outcome="/pages/consultar/reservaDados.xhtml"/>
+				</p:submenu>
+				<p:submenu label="Cadastrar" >
+					<p:menuitem value="Clientes"
+								outcome="/pages/cadastrar/clienteCadastro.xhtml"/>
+					<p:menuitem value="Dependentes"
+								outcome="/pages/cadastrar/dependenteCadastro.xhtml"/>
+				</p:submenu>
+				<p:submenu label="Serviços" >
+					<p:menuitem value="Efetuar locação"
+								outcome="/pages/servicos/locacaoServico.xhtml"/>
+					<p:menuitem value="Solicitar reserva"
+								outcome="/pages/servicos/reservaServico.xhtml"/>
+					<p:menuitem value="Confirmar reserva"
+								outcome="/pages/servicos/confirmaReserva.xhtml"/>
+					<p:menuitem value="Efetuar devolução"
+								outcome="/pages/servicos/devolucaoServico.xhtml"/>
+				</p:submenu>
+			</p:menu>
+		</div>
+		<div id="conteudo" class="col-10 p-3">
 			<ui:insert name="conteudo" />
-		</p:layoutUnit>
-	</p:layout>
-
+		</div>
+	</div>
 </h:body>
 </html>
