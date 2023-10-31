@@ -25,12 +25,12 @@
                 <p:messages id="messages" showDetail="true" closable="false">
                     <p:autoUpdate/>
                 </p:messages>
-                <p:outputLabel for="username" value="Usuário:"/>
+                <p:outputLabel for="username" value="#{msg['br.com.locadora.usuario']}"/>
                 <p:inputText id="username" value="#{authenticationBean.username}" required="true" size="40"/>
-                <p:outputLabel for="password" value="Senha:" />
+                <p:outputLabel for="password" value="#{msg['br.com.locadora.senha']}" />
                 <p:password id="password" value="#{authenticationBean.password}" required="true" size="40" />
                 <f:facet name="footer">
-                    <p:commandButton value="Login" action="#{authenticationBean.login()}"/>
+                    <p:commandButton value="#{msg['br.com.locadora.login']}" action="#{authenticationBean.login()}"/>
                 </f:facet>
             </h:panelGrid>
         </h:form>

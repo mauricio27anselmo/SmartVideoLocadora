@@ -1,5 +1,7 @@
 package br.com.locadora.bean;
 
+import br.com.locadora.util.FacesUtil;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -23,7 +25,7 @@ public class AuthenticationBean {
             return "/pages/principal.xhtml?faces-redirect=true";
         }
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login falhou", "Credenciais inválidas."));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, FacesUtil.getMsg("br.com.locadora.login.erro.resumo"), FacesUtil.getMsg("br.com.locadora.login.erro.detalhe")));
         return null;
     }
 
