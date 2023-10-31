@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+div #login .ui-panelgrid {
+	width: 360px;
+}
+
 #menu .ui-menu {
 	display: flex;
 	flex-direction: column;
@@ -14,16 +18,17 @@
 }
 
 .ui-menu-list {
-width: 100%;
-flex: 1;
+	width: 100%;
+	flex: 1;
 }
 
 body .ui-inputfield {
-background: #FFF;
+	background: #FFF;
+	color: var(--surface-0)
 }
 
-/*.ui-widget-content .ui-menuitem {*/
-/*	!*padding: 8px 15px; !* Espaçamento interno do submenu *!*!*/
-/*	background-color: var(--bluegray-900);*/
-/*	color: #fff; !* Cor do texto do submenu *!*/
-/*}*/
+[id$="menubar-form:menubar"] ul.ui-menu-list {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

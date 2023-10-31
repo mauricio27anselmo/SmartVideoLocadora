@@ -17,18 +17,19 @@
 
 <h:body styleClass="fundo">
 	<p:growl id="mensagem"/>
-	<div class="grid">
-		<div id="barra-superior" class="col">
-			<p:menubar>
-				<p:menuitem outcome="/pages/principal.xhtml">
-					<h:graphicImage name="/images/logo2.png" height="60" />
+	<h:form id="menubar-form" styleClass="grid">
+		<div class="col">
+			<p:megaMenu id="menubar" orientation="horizontal">
+				<p:menuitem containerStyleClass="flex" outcome="/pages/principal.xhtml" >
+					<h:graphicImage name="/images/logo2.png" height="55" />
 				</p:menuitem>
-			</p:menubar>
+				<p:menuitem containerStyleClass="flex" value="Logout" icon="pi pi-fw pi-power-off" action="#{authenticationBean.logout}"/>
+			</p:megaMenu>
 		</div>
-	</div>
+	</h:form>
 	<div class="grid">
 		<div id="menu" class="col-2 pt-0" >
-			<p:menu toggleable="true">
+			<p:menu id="munu-lateral" toggleable="true">
 				<p:submenu label="Consultar">
 					<p:menuitem value="Clientes cadastrados"
 								outcome="/pages/consultar/clienteDados.xhtml"/>

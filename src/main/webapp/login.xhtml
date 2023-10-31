@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:insert name="metadata"/>
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css" />
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css" />
+    <link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/layout.css"/>
+    <title>Login - Smart Video Locadora</title>
+</h:head>
+
+<h:body styleClass="surface-700">
+    <div class="flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+        <h:form styleClass="flex flex-column surface-900">
+            <h:panelGrid cellspacing="10" headerClass="flex justify-content-center" footerClass="flex justify-content-end">
+                <f:facet name="header">
+                    <h:graphicImage name="/images/logo.jpg" height="80" styleClass="flex align-items-center"/>
+                </f:facet>
+                <p:messages id="messages" showDetail="true" closable="false">
+                    <p:autoUpdate/>
+                </p:messages>
+                <p:outputLabel for="username" value="Usuário:"/>
+                <p:inputText id="username" value="#{authenticationBean.username}" required="true" size="40"/>
+                <p:outputLabel for="password" value="Senha:" />
+                <p:password id="password" value="#{authenticationBean.password}" required="true" size="40" />
+                <f:facet name="footer">
+                    <p:commandButton value="Login" action="#{authenticationBean.login()}"/>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </div>
+</h:body>
+</html>

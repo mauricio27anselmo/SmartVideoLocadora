@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
     implementation group: 'org.primefaces', name: 'primefaces', version: '13.0.2'
     implementation group: 'org.primefaces.extensions', name: 'primefaces-extensions', version: '13.0.2'
+    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     compile files('src/main/webapp/WEB-INF/lib/dark-hive-1.0.0.jar')
 }
 
