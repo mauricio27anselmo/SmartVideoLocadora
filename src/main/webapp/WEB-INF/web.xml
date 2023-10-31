@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>SmartVideoLocadora</display-name>
-  <welcome-file-list>
-    <welcome-file>pages/principal.xhtml</welcome-file>
-  </welcome-file-list>
-  <context-param>
-    <param-name>primefaces.THEME</param-name>
-    <param-value>vela</param-value>
-  </context-param>
-  <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>SmartVideoLocadora</display-name>
+    <welcome-file-list>
+        <welcome-file>pages/principal.xhtml</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>vela</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_LOCALE</param-name>
+        <param-value>pt_BR</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
 
-  <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/login.xhtml</form-login-page> <!-- Página de login -->
-      <form-error-page>/login.xhtml?error=true</form-error-page> <!-- Página de erro de login -->
-    </form-login-config>
-  </login-config>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page> <!-- Página de login -->
+            <form-error-page>/login.xhtml?error=true</form-error-page> <!-- Página de erro de login -->
+        </form-login-config>
+    </login-config>
 
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Secured Pages</web-resource-name>
-      <url-pattern>/pages/*</url-pattern>
-    </web-resource-collection>
-  </security-constraint>
-  <session-config>
-    <session-timeout>60</session-timeout>
-    <cookie-config>
-      <name>SESSIONID</name>
-    </cookie-config>
-  </session-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Secured Pages</web-resource-name>
+            <url-pattern>/pages/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <cookie-config>
+            <name>SESSIONID</name>
+        </cookie-config>
+    </session-config>
 </web-app>

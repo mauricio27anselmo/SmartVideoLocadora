@@ -8,17 +8,37 @@
 <ui:insert name="metadata"/>
 
 <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css" />
-    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css" />
-    <link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/layout.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css"
+          href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="#{request.contextPath}/resources/node_modules/flag-icon-css/css/flag-icons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/styles/layout.css"/>
     <title>Login - Smart Video Locadora</title>
 </h:head>
 
 <h:body styleClass="surface-700">
-    <div class="flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
-        <h:form styleClass="flex flex-column surface-900">
-            <h:panelGrid cellspacing="10" headerClass="flex justify-content-center" footerClass="flex justify-content-end">
+    <h:form id="languagebar-form" styleClass="grid">
+        <p:menubar id="languagebar" styleClass="col">
+            <p:submenu label="#{msg['br.com.locadora.idioma']}">
+                <p:menuitem value="#{msg['br.com.locadora.idioma.pt']}" icon="flag-icon flag-icon-br"
+                            actionListener="#{languageBean.changeLocale('pt', 'BR')}"
+                            update=":languagebar-form :login-form"/>
+                <p:menuitem value="#{msg['br.com.locadora.idioma.es']}" icon="flag-icon flag-icon-es"
+                            actionListener="#{languageBean.changeLocale('es', 'ES')}"
+                            update=":languagebar-form :login-form"/>
+                <p:menuitem value="#{msg['br.com.locadora.idioma.en']}" icon="flag-icon flag-icon-us"
+                            actionListener="#{languageBean.changeLocale('en','US')}"
+                            update=":languagebar-form :login-form"/>
+            </p:submenu>
+        </p:menubar>
+    </h:form>
+    <div class="flex flex-column justify-content-center align-items-center" style="min-height: 90vh;">
+        <h:form id="login-form" styleClass="flex flex-column surface-900">
+            <h:panelGrid cellspacing="10" headerClass="flex justify-content-center"
+                         footerClass="flex justify-content-end">
                 <f:facet name="header">
                     <h:graphicImage name="/images/logo.jpg" height="80" styleClass="flex align-items-center"/>
                 </f:facet>
@@ -27,8 +47,8 @@
                 </p:messages>
                 <p:outputLabel for="username" value="#{msg['br.com.locadora.usuario']}"/>
                 <p:inputText id="username" value="#{authenticationBean.username}" required="true" size="40"/>
-                <p:outputLabel for="password" value="#{msg['br.com.locadora.senha']}" />
-                <p:password id="password" value="#{authenticationBean.password}" required="true" size="40" />
+                <p:outputLabel for="password" value="#{msg['br.com.locadora.senha']}"/>
+                <p:password id="password" value="#{authenticationBean.password}" required="true" size="40"/>
                 <f:facet name="footer">
                     <p:commandButton value="#{msg['br.com.locadora.login']}" action="#{authenticationBean.login()}"/>
                 </f:facet>

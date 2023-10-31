@@ -27,6 +27,12 @@ body .ui-inputfield {
 	color: var(--surface-0)
 }
 
+[id$="languagebar-form:languagebar"] ul.ui-menu-list {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
 [id$="menubar-form:menubar"] ul.ui-menu-list {
 	display: flex;
 	justify-content: space-between;
