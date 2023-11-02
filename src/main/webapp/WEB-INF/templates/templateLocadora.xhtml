@@ -32,34 +32,40 @@
 		<div class="grid">
 			<div id="menu" class="col-2 pt-0" >
 				<p:menu id="munu-lateral" toggleable="true">
-					<p:submenu label="Consultar">
-						<p:menuitem value="Clientes cadastrados"
-									outcome="/pages/consultar/clienteDados.xhtml"/>
-						<p:menuitem value="Dependentes cadastrados"
-									outcome="/pages/consultar/dependenteDados.xhtml"/>
-						<p:menuitem value="Devoluções realizadas"
-									outcome="/pages/consultar/devolucaoDados.xhtml"/>
-						<p:menuitem value="Locações realizadas"
-									outcome="/pages/consultar/locacaoDados.xhtml"/>
-						<p:menuitem value="Reservas realizadas"
-									outcome="/pages/consultar/reservaDados.xhtml"/>
-					</p:submenu>
-					<p:submenu label="Cadastrar" >
-						<p:menuitem value="Clientes"
-									outcome="/pages/cadastrar/clienteCadastro.xhtml"/>
-						<p:menuitem value="Dependentes"
-									outcome="/pages/cadastrar/dependenteCadastro.xhtml"/>
-					</p:submenu>
-					<p:submenu label="Serviços" >
-						<p:menuitem value="Efetuar locação"
-									outcome="/pages/servicos/locacaoServico.xhtml"/>
-						<p:menuitem value="Solicitar reserva"
-									outcome="/pages/servicos/reservaServico.xhtml"/>
-						<p:menuitem value="Confirmar reserva"
-									outcome="/pages/servicos/confirmaReserva.xhtml"/>
-						<p:menuitem value="Efetuar devolução"
-									outcome="/pages/servicos/devolucaoServico.xhtml"/>
-					</p:submenu>
+                    <p:submenu label="#{msg['br.com.locadora.cadastros']}">
+                        <p:menuitem value="#{msg['br.com.locadora.clientes']}"
+                                    icon="pi pi pi-user"
+                                    outcome="/pages/cliente/clienteManter.xhtml"/>
+                    </p:submenu>
+
+<!--					<p:submenu label="Consultar2">-->
+<!--						<p:menuitem value="Clientes cadastrados"-->
+<!--									outcome="/pages/consultar/clienteDados.xhtml"/>-->
+<!--						<p:menuitem value="Dependentes cadastrados"-->
+<!--									outcome="/pages/consultar/dependenteDados.xhtml"/>-->
+<!--						<p:menuitem value="Devoluções realizadas"-->
+<!--									outcome="/pages/consultar/devolucaoDados.xhtml"/>-->
+<!--						<p:menuitem value="Locações realizadas"-->
+<!--									outcome="/pages/consultar/locacaoDados.xhtml"/>-->
+<!--						<p:menuitem value="Reservas realizadas"-->
+<!--									outcome="/pages/consultar/reservaDados.xhtml"/>-->
+<!--					</p:submenu>-->
+<!--					<p:submenu label="Cadastrar2" >-->
+<!--						<p:menuitem value="Clientes"-->
+<!--									outcome="/pages/cadastrar/clienteCadastro.xhtml"/>-->
+<!--						<p:menuitem value="Dependentes"-->
+<!--									outcome="/pages/cadastrar/dependenteCadastro.xhtml"/>-->
+<!--					</p:submenu>-->
+<!--					<p:submenu label="Serviços2" >-->
+<!--						<p:menuitem value="Efetuar locação"-->
+<!--									outcome="/pages/servicos/locacaoServico.xhtml"/>-->
+<!--						<p:menuitem value="Solicitar reserva"-->
+<!--									outcome="/pages/servicos/reservaServico.xhtml"/>-->
+<!--						<p:menuitem value="Confirmar reserva"-->
+<!--									outcome="/pages/servicos/confirmaReserva.xhtml"/>-->
+<!--						<p:menuitem value="Efetuar devolução"-->
+<!--									outcome="/pages/servicos/devolucaoServico.xhtml"/>-->
+<!--					</p:submenu>-->
 				</p:menu>
 			</div>
 			<div id="conteudo" class="col-10 p-3">

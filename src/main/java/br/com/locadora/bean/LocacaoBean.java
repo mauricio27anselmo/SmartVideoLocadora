@@ -90,24 +90,24 @@ public class LocacaoBean {
 	}
 
 	public void pesquisarPessoa(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			DependenteDAO dao2 = new DependenteDAO();
-			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
-			if(clienteCadastrado == null){
-				Dependente dep = dao2.pesquisarPorNome(getPesquisaPessoa()); 
-				if(dep == null){
-					FacesUtil.addMsgErro("N�o h� pessoa cadastrada com o nome informado");
-				}else{
-					clienteCadastrado = dao.pesquisarPorID(dep.getIdCliente().getClienteID());
-					FacesUtil.addMsgInfo("Dependente do cliente "+ clienteCadastrado.getNome());
-				}
-			}else{
-				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
-			}
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de cliente");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			DependenteDAO dao2 = new DependenteDAO();
+//			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
+//			if(clienteCadastrado == null){
+//				Dependente dep = dao2.pesquisarPorNome(getPesquisaPessoa());
+//				if(dep == null){
+//					FacesUtil.addMsgErro("N�o h� pessoa cadastrada com o nome informado");
+//				}else{
+//					clienteCadastrado = dao.pesquisarPorID(dep.getIdCliente().getClienteID());
+//					FacesUtil.addMsgInfo("Dependente do cliente "+ clienteCadastrado.getNome());
+//				}
+//			}else{
+//				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
+//			}
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro na listagem de cliente");
+//		}
 	}
 	
 	public void pesquisarTitulo(){

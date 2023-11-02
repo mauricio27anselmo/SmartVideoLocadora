@@ -1,6 +1,8 @@
 package br.com.locadora.util;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -11,17 +13,11 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try {
-            // Create the SessionFactory from hibernate.cfg.xml
-            Configuration configuration = new Configuration();
-            configuration.configure();
-
-			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-					.applySettings(configuration.getProperties()).build();
-
-			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-			return sessionFactory;
-        }
-        catch (Throwable ex) {
+            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                    .configure() // configures settings from hibernate.cfg.xml
+                    .build();
+            return new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        } catch (Exception ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Falha na criação do Session Factory." + ex);
             throw new ExceptionInInitializerError(ex);

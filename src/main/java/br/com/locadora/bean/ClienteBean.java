@@ -5,15 +5,20 @@ import br.com.locadora.dao.TelefoneDAO;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Telefone;
 import br.com.locadora.enums.TipoTelefone;
+import br.com.locadora.service.ClienteService;
 import br.com.locadora.util.FacesUtil;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ClienteBean {
+
+	private ClienteService clienteService = ClienteService.getInstance();
+
 	private Cliente novoCliente;
 	private List<Cliente> listaClientes;
 	private Telefone telResidencial;
@@ -81,34 +86,40 @@ public class ClienteBean {
 	
 	public void salvar() {
 		try{
-			ClienteDAO dao = new ClienteDAO();
-			TelefoneDAO dao2 = new TelefoneDAO();
-			dao.incluir(novoCliente);
-			novoCliente = dao.pesquisarPorNome(novoCliente.getNome());
-			if(telComercial.getNumero() != null && telComercial.getNumero() != ""){
-				telComercial.setIdCliente(novoCliente);
-				dao2.incluir(telComercial);
-			}
-			if(telResidencial.getNumero() != null && telResidencial.getNumero() != ""){
-				telResidencial.setIdCliente(novoCliente);
-				dao2.incluir(telResidencial);
-			}
-			if(telCelular.getNumero() != null && telCelular.getNumero() != ""){
-				telCelular.setIdCliente(novoCliente);
-				dao2.incluir(telCelular);
-			}
-			FacesUtil.addMsgInfo("Cadastro realizado com sucesso!");
-		}catch(RuntimeException ex){
+			clienteService.save(novoCliente);
+		}catch (Exception ex){
 			FacesUtil.addMsgErro("Erro no cadastro de cliente");
-		}	
+		}
+
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			TelefoneDAO dao2 = new TelefoneDAO();
+//			dao.incluir(novoCliente);
+//			novoCliente = dao.pesquisarPorNome(novoCliente.getNome());
+//			if(telComercial.getNumero() != null && telComercial.getNumero() != ""){
+//				telComercial.setIdCliente(novoCliente);
+//				dao2.incluir(telComercial);
+//			}
+//			if(telResidencial.getNumero() != null && telResidencial.getNumero() != ""){
+//				telResidencial.setIdCliente(novoCliente);
+//				dao2.incluir(telResidencial);
+//			}
+//			if(telCelular.getNumero() != null && telCelular.getNumero() != ""){
+//				telCelular.setIdCliente(novoCliente);
+//				dao2.incluir(telCelular);
+//			}
+//			FacesUtil.addMsgInfo("Cadastro realizado com sucesso!");
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro no cadastro de cliente");
+//		}
 	}
 	
 	public void carregarLista(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			listaClientes = dao.listarTodos();
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de Clientes");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			listaClientes = dao.listarTodos();
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro na listagem de Clientes");
+//		}
 	}
 }

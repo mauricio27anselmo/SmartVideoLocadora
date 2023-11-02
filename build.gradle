@@ -22,14 +22,14 @@ dependencies {
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation group: 'org.glassfish', name: 'javax.faces', version: '2.2.9'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.0.Final'
-    implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.5.0.Final'
     implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.5.0.Final'
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.2.Final'
-    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.1.0'
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.2.Final'
+    implementation group: 'mysql', 'name': 'mysql-connector-java', version: '8.0.27'
+    implementation group: 'org.mariadb.jdbc', 'name': 'mariadb-java-client', version: '2.6.0'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
     implementation group: 'org.primefaces', name: 'primefaces', version: '13.0.2'
     implementation group: 'org.primefaces.extensions', name: 'primefaces-extensions', version: '13.0.2'
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    compile files('src/main/webapp/WEB-INF/lib/dark-hive-1.0.0.jar')
+
 }
 

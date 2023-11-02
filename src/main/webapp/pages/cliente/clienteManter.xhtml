@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo" >
+        <h:form id="cliente-form">
+            <p:panel header="#{msg['br.com.locadora.cadastrocliente']}">
+                <div class="grid">
+                    <div class="col-8">
+                        <div class="field">
+                            <h:outputLabel for="nome" value="#{msg['br.com.locadora.nome']}" styleClass="col-2"/>
+                            <p:inputText id="nome" maxlength="50" value="#{clienteBean.novoCliente.nome}" styleClass="col-10 ui-inputtext"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="dataNascimento" value="#{msg['br.com.locadora.datanascimento']}" styleClass="col-2"/>
+                            <p:calendar id="dataNascimento" locale="br" navigator="true" pattern="dd/MMM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNasc}" styleClass="col-10 ui-inputtext"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="endereco" value="#{msg['br.com.locadora.endereco']}" styleClass="col-2"/>
+                            <p:inputText id="endereco" maxlength="200" value="#{clienteBean.novoCliente.endereco}" styleClass="col-10 ui-inputtext"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="email" value="#{msg['br.com.locadora.email']}" styleClass="col-2"/>
+                            <p:inputText id="email" maxlength="30"  value="#{clienteBean.novoCliente.email}" styleClass="col-10 ui-inputtext"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="cpf" value="#{msg['br.com.locadora.cpf']}" styleClass="col-2"/>
+                            <p:inputText id="cpf" maxlength="11" value="#{clienteBean.novoCliente.cpf}" styleClass="col-10 ui-inputtext"/>
+                        </div>
+                    </div>
+                </div>
+                <f:facet name="footer">
+                    <div class="flex justify-content-end gap-3">
+                        <p:commandButton id="btnVoltar" value="#{msg['br.com.locadora.voltar']}" styleClass="ui-button-secondary" icon="pi pi-arrow-left" action="/pages/principal.xhtml?faces-redirect=true"/>
+                        <p:commandButton id="btnSalvar" value="#{msg['br.com.locadora.salvar']}" icon="pi pi-save" actionListener="#{clienteBean.salvar}" update=":mensagem "/>
+                    </div>
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

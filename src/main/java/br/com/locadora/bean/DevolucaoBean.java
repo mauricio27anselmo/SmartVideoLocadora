@@ -73,21 +73,21 @@ public class DevolucaoBean {
 	}
 
 	public void pesquisarPessoa(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			LocacaoDAO dao2 = new LocacaoDAO();
-			ServicoAcervoDAO dao3 = new ServicoAcervoDAO();
-			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
-			if(clienteCadastrado == null){
-				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
-			}else{
-				listaLocacao = dao2.pesquisarPorDataDev(clienteCadastrado.getClienteID());
-				listaLocados = dao3.pesquisarPendentes(clienteCadastrado.getClienteID());
-				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
-			}
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de cliente");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			LocacaoDAO dao2 = new LocacaoDAO();
+//			ServicoAcervoDAO dao3 = new ServicoAcervoDAO();
+//			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
+//			if(clienteCadastrado == null){
+//				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
+//			}else{
+//				listaLocacao = dao2.pesquisarPorDataDev(clienteCadastrado.getClienteID());
+//				listaLocados = dao3.pesquisarPendentes(clienteCadastrado.getClienteID());
+//				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
+//			}
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro na listagem de cliente");
+//		}
 	}
 	
 	public void devolver(){

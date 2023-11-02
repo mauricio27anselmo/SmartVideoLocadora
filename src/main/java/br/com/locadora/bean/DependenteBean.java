@@ -45,20 +45,20 @@ public class DependenteBean {
 	}
 	
 	public void salvar(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			DependenteDAO dao2 = new DependenteDAO();
-			Cliente clienteCadastrado = dao.pesquisarPorNome(getClienteVinculo());
-			if(clienteCadastrado == null || getClienteVinculo() == ""){
-				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome infomado!");
-			}else{
-				novoDependente.setIdCliente(clienteCadastrado);
-				dao2.incluir(novoDependente);
-				FacesUtil.addMsgInfo("Cadastro realizado com sucesso!");
-			}
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro no cadastro de dependente");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			DependenteDAO dao2 = new DependenteDAO();
+//			Cliente clienteCadastrado = dao.pesquisarPorNome(getClienteVinculo());
+//			if(clienteCadastrado == null || getClienteVinculo() == ""){
+//				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome infomado!");
+//			}else{
+//				novoDependente.setIdCliente(clienteCadastrado);
+//				dao2.incluir(novoDependente);
+//				FacesUtil.addMsgInfo("Cadastro realizado com sucesso!");
+//			}
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro no cadastro de dependente");
+//		}
 	}
 	
 	public void carregarLista(){

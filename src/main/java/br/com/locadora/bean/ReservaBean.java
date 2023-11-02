@@ -109,35 +109,35 @@ public class ReservaBean {
 	}
 	
 	public void pesquisarPessoa(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
-			if(clienteCadastrado == null){
-				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
-			}else{
-				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
-			}
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de cliente");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
+//			if(clienteCadastrado == null){
+//				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
+//			}else{
+//				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
+//			}
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro na listagem de cliente");
+//		}
 	}
 	
 	public void pesquisarReservaPessoa(){
-		try{
-			ClienteDAO dao = new ClienteDAO();
-			ReservaDAO dao2 = new ReservaDAO();
-			ServicoAcervoDAO dao3  = new ServicoAcervoDAO();
-			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
-			if(clienteCadastrado == null){
-				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
-			}else{
-				listaReserva = dao2.pesquisarReserva(clienteCadastrado.getClienteID());
-				listaReservados = dao3.pesquisarReservados(clienteCadastrado.getClienteID());
-				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
-			}
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de cliente");
-		}
+//		try{
+//			ClienteDAO dao = new ClienteDAO();
+//			ReservaDAO dao2 = new ReservaDAO();
+//			ServicoAcervoDAO dao3  = new ServicoAcervoDAO();
+//			clienteCadastrado = dao.pesquisarPorNome(getPesquisaPessoa());
+//			if(clienteCadastrado == null){
+//				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome informado");
+//			}else{
+//				listaReserva = dao2.pesquisarReserva(clienteCadastrado.getClienteID());
+//				listaReservados = dao3.pesquisarReservados(clienteCadastrado.getClienteID());
+//				FacesUtil.addMsgInfo("Cliente cadastrado na loja");
+//			}
+//		}catch(RuntimeException ex){
+//			FacesUtil.addMsgErro("Erro na listagem de cliente");
+//		}
 	}
 	
 	public void pesquisarTitulo(){
