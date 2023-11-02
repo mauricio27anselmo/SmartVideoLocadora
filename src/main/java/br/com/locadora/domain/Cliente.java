@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(name = "pes_id")
 @NamedQueries({
 	@NamedQuery(name = "Cliente.listarTodos", query = "SELECT cliente FROM Cliente cliente"),
 	@NamedQuery(name = "Cliente.pesquisarPorID", query = "SELECT cliente FROM Cliente cliente where cliente.clienteID = :ID"),
