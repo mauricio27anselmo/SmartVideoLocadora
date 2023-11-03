@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+.login-body {
+    background-color:var(--surface-700)
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    background-color:var(--surface-900)
+}
+
+.custom-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.datatable-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}

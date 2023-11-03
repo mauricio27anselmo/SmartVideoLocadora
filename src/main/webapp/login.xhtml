@@ -16,10 +16,11 @@
     <link rel="stylesheet" type="text/css"
           href="#{request.contextPath}/resources/node_modules/flag-icon-css/css/flag-icons.min.css"/>
     <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/styles/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/styles/custom-layout.css"/>
     <title>Login - Smart Video Locadora</title>
 </h:head>
 
-<h:body styleClass="surface-700">
+<h:body styleClass="login-body">
     <h:form id="languagebar-form" styleClass="grid">
         <p:menubar id="languagebar" styleClass="col">
             <p:submenu label="#{msg['br.com.locadora.idioma']}">
@@ -35,8 +36,8 @@
             </p:submenu>
         </p:menubar>
     </h:form>
-    <div class="flex flex-column justify-content-center align-items-center" style="min-height: 90vh;">
-        <h:form id="login-form" styleClass="flex flex-column surface-900">
+    <div class="login-container">
+        <h:form id="login-form" styleClass="login-form">
             <h:panelGrid cellspacing="10" headerClass="flex justify-content-center"
                          footerClass="flex justify-content-end">
                 <f:facet name="header">

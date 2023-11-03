@@ -14,10 +14,11 @@
 		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css" />
 		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css" />
 		<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/layout.css"/>
+		<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/custom-layout.css"/>
 		<title>Smart Video Locadora</title>
 	</h:head>
 
-	<h:body styleClass="fundo">
+	<h:body>
 		<p:growl id="mensagem"/>
 		<h:form id="menubar-form" styleClass="grid">
 			<div class="col">
@@ -35,7 +36,7 @@
                     <p:submenu label="#{msg['br.com.locadora.cadastros']}">
                         <p:menuitem value="#{msg['br.com.locadora.clientes']}"
                                     icon="pi pi pi-user"
-                                    outcome="/pages/cliente/clienteManter.xhtml"/>
+                                    outcome="/pages/cliente/clienteListar.xhtml"/>
                     </p:submenu>
 
 <!--					<p:submenu label="Consultar2">-->

@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <h:form id="cltform">
-            <p:toolbar>
-                <f:facet name="left">
-                    <h:outputText value="Cadastrando novo cliente" />
-                </f:facet>
-            </p:toolbar>
+        <h:form id="cliente-form">
+            <p:panel header="#{msg['br.com.locadora.cadastrocliente']}">
+                <div class="custom-toolbar">
+                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{clienteBean.listar()}"
+                                     styleClass="ui-button-success">
+                    </p:commandButton>
+                </div>
 
-            <p:separator/>
-            <h:panelGrid id="cltgrid" columns="2" cellspacing="5" cellpadding="4">
-                <p:outputLabel value="Nome do cliente:" />
-                <p:inputText maxlength="50" size="50" value="#{clienteBean.novoCliente.nome}"/>
-                <p:outputLabel value="Endereço:" />
-                <p:inputText maxlength="200" size="50" value="#{clienteBean.novoCliente.endereco}"/>
-                <p:outputLabel value="e-mail:" />
-                <p:inputText maxlength="30" size="50" value="#{clienteBean.novoCliente.email}"/>
-                <p:outputLabel value="CPF(somente números):" />
-                <p:inputText maxlength="11" size="20" value="#{clienteBean.novoCliente.cpf}"/>
-                <p:outputLabel value="Informe o telefone residencial:" />
-                <p:inputText maxlength="11" size="20" value="#{clienteBean.telResidencial.numero}"/>
-                <p:outputLabel value="Informe o telefone comercial:" />
-                <p:inputText maxlength="11" size="20" value="#{clienteBean.telComercial.numero}"/>
-                <p:outputLabel value="Informe o telefone celular:" />
-                <p:inputText maxlength="11" size="20" value="#{clienteBean.telCelular.numero}"/>
-                <p:outputLabel value="Data de nascimento:" />
-                <p:calendar locale="br" navigator="true" pattern="dd/MMM/yyyy" yearRange="c-100:c" value="#{clienteBean.novoCliente.dataNasc}"/>
-            </h:panelGrid>
-            <h:panelGrid id="cltconf" columns="2" cellpadding="5">
-                <p:commandButton value="Voltar à pagina inicial" action="/pages/principal.xhtml?faces-redirect=true"/>
-                <p:commandButton id="confirmar" value="Confirmar cadastro" actionListener="#{clienteBean.salvar}" update=":mensagem "/>
-            </h:panelGrid>
+                <p:dataTable id="clientes"
+                             var="cliente"
+                             value="#{clienteBean.listaClientes}"
+                             rowKey="#{cliente.clienteID}"
+                             rows="15"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             rowsPerPageTemplate="15"
+                             selectionMode="single">
+
+                    <p:column headerText="Nome" sortBy="#{cliente.nome}">
+                        <h:outputText value="#{cliente.nome}" />
+                    </p:column>
+                    <p:column headerText="CPF" sortBy="#{cliente.cpf}">
+                        <h:outputText value="#{cliente.cpf}" />
+                    </p:column>
+                    <p:column headerText="Data de nascimento" sortBy="#{cliente.dataNasc}">
+                        <h:outputText value="#{cliente.dataNasc}" />
+                    </p:column>
+                    <p:column>
+                        <div class="datatable-actions">
+                            <p:commandButton type="button" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary" />
+                            <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button ui-button-success" />
+                            <p:commandButton type="button" icon="pi pi-user" styleClass="rounded-button ui-button-info" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
         </h:form>
     </ui:define>
 
