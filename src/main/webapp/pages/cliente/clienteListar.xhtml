@@ -6,9 +6,9 @@
 
     <ui:define name="conteudo" >
         <h:form id="cliente-form">
-            <p:panel header="#{msg['br.com.locadora.cadastrocliente']}">
+            <p:panel header="#{msg['br.com.locadora.listagemcliente']}">
                 <div class="custom-toolbar">
-                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{clienteBean.listar()}"
+                    <p:commandButton value="#{msg['br.com.locadora.novocliente']}" icon="pi pi-plus" actionListener="#{clienteBean.listar()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </div>
@@ -23,20 +23,25 @@
                              rowsPerPageTemplate="15"
                              selectionMode="single">
 
-                    <p:column headerText="Nome" sortBy="#{cliente.nome}">
+                    <p:column headerText="#{msg['br.com.locadora.nome']}" sortBy="#{cliente.nome}">
                         <h:outputText value="#{cliente.nome}" />
                     </p:column>
-                    <p:column headerText="CPF" sortBy="#{cliente.cpf}">
+                    <p:column headerText="#{msg['br.com.locadora.cpf']}" sortBy="#{cliente.cpf}">
                         <h:outputText value="#{cliente.cpf}" />
                     </p:column>
-                    <p:column headerText="Data de nascimento" sortBy="#{cliente.dataNasc}">
+                    <p:column headerText="#{msg['br.com.locadora.datanascimento']}" sortBy="#{cliente.dataNasc}">
                         <h:outputText value="#{cliente.dataNasc}" />
                     </p:column>
                     <p:column>
                         <div class="datatable-actions">
-                            <p:commandButton type="button" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary" />
-                            <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button ui-button-success" />
-                            <p:commandButton type="button" icon="pi pi-user" styleClass="rounded-button ui-button-info" />
+                            <p:tooltip for="btnConsultar" value="#{msg['br.com.locadora.consultar']}" autoHide="true" position="bottom"/>
+                            <p:commandButton id="btnConsultar" type="button" icon="pi pi-eye" label="consultar" styleClass="rounded-button ui-button-secondary" />
+
+                            <p:tooltip for="btnEditar" value="#{msg['br.com.locadora.editar']}" autoHide="true" position="bottom"/>
+                            <p:commandButton id="btnEditar" type="button" icon="pi pi-pencil" styleClass="rounded-button" />
+
+                            <p:tooltip for="btnExcluir" value="#{msg['br.com.locadora.excluir']}" autoHide="true" position="bottom"/>
+                            <p:commandButton id="btnExcluir" type="button" icon="pi pi-trash" styleClass="rounded-button ui-button-danger" />
                         </div>
                     </p:column>
                 </p:dataTable>

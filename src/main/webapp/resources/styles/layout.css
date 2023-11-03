@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
@@ -37,6 +38,42 @@ body .ui-button {
 body .ui-button.ui-state-hover {
     background: var(--blue-500);
     color: var(--surface-900);
+}
+
+body .ui-button.ui-button-secondary {
+    background: var(--bluegray-600);
+    color: var(--surface-900);
+    border: 1px solid var(--bluegray-600);
+}
+
+body .ui-button.ui-button-secondary.ui-state-hover {
+    background: var(--bluegray-400);
+    color: var(--surface-0);
+    border: 1px solid var(--bluegray-400);
+}
+
+body .ui-button.ui-button-success {
+    background: var(--green-700);
+    color: var(--surface-900);
+    border: 1px solid var(--green-700);
+}
+
+body .ui-button.ui-button-success.ui-state-hover {
+    background: var(--green-500);
+    color: var(--surface-900);
+    border: 1px solid var(--green-500);
+}
+
+body .ui-button.ui-button-danger {
+    background: var(--red-700);
+    color: var(--surface-900);
+    border: 1px solid var(--red-700);
+}
+
+body .ui-button.ui-button-danger.ui-state-hover {
+    background: var(--red-500);
+    color: var(--surface-900);
+    border: 1px solid var(--red-500);
 }
 
 body .ui-inputfield {
