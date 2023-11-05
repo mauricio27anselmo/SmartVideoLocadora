@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.ClienteDAO;
 import br.com.locadora.domain.Cliente;
+import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 
@@ -23,16 +24,6 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             instance = new ClienteService();
         }
         return instance;
-    }
-
-
-    @Override
-    public List<Cliente> listAll() throws NegocioException {
-        try {
-            return (List<Cliente>) dao.listAll();
-        } catch (DAOException ex) {
-            throw new NegocioException(ex.getMessage(), ex);
-        }
     }
 
     @Override
@@ -61,6 +52,24 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     public void delete(Cliente entity) throws NegocioException {
         try {
             dao.delete(entity);
+        } catch (DAOException ex) {
+            throw new NegocioException(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public List<Cliente> load(PageableFilter filter) throws NegocioException {
+        try {
+            return dao.load(filter);
+        } catch (DAOException ex) {
+            throw new NegocioException(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public int count(PageableFilter filter) throws NegocioException {
+        try {
+            return dao.count(filter);
         } catch (DAOException ex) {
             throw new NegocioException(ex.getMessage(), ex);
         }

@@ -1,12 +1,16 @@
 package br.com.locadora.dao;
 
+import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SmartLocadoraDAO<T> {
@@ -53,18 +57,12 @@ public abstract class SmartLocadoraDAO<T> {
         }
     }
 
-    public List listAll() throws DAOException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List records = new ArrayList<>();
-        try {
-            Criteria criteria = session.createCriteria(entityClass);
-            records = criteria.list();
-        } catch (Exception ex) {
-            throw new DAOException("Erro ao listar registros");
-        } finally {
-            session.close();
-        }
-        return records;
+    public List<T> load(PageableFilter filter) throws DAOException{
+        throw new NotImplementedException();
+    }
+
+    public int count(PageableFilter filter) throws DAOException {
+        throw new NotImplementedException();
     }
 
     public T findById(long id) throws DAOException {
@@ -81,6 +79,19 @@ public abstract class SmartLocadoraDAO<T> {
             session.close();
         }
         return entity;
+    }
+
+    protected void applySorting(Criteria criteria, PageableFilter filter) {
+        if (!filter.getSortBy().isEmpty() && !filter.getSortBy().values().isEmpty()) {
+            SortMeta sortMeta = filter.getSortBy().values().iterator().next();
+            String sortField = sortMeta.getField();
+            SortOrder sortOrder = sortMeta.getOrder();
+            if (SortOrder.DESCENDING.equals(sortOrder)) {
+                criteria.addOrder(Order.desc(sortField));
+            } else {
+                criteria.addOrder(Order.asc(sortField));
+            }
+        }
     }
 
 }

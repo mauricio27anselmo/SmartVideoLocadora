@@ -1,140 +1,61 @@
 package br.com.locadora.dao;
 
 import br.com.locadora.domain.Cliente;
+import br.com.locadora.filter.PageableFilter;
+import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
 
-	private static ClienteDAO instance;
+    private static ClienteDAO instance;
 
-	private ClienteDAO() {
-		super(Cliente.class);
-	}
+    private ClienteDAO() {
+        super(Cliente.class);
+    }
 
-	public static ClienteDAO getInstance() {
-		if (instance == null) {
-			instance = new ClienteDAO();
-		}
-		return instance;
-	}
+    public static ClienteDAO getInstance() {
+        if (instance == null) {
+            instance = new ClienteDAO();
+        }
+        return instance;
+    }
 
-//	public void incluir(Cliente cliente){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		Transaction transacao = null;
-//		try{
-//			transacao = sessao.beginTransaction();
-//			sessao.save(cliente);
-//			transacao.commit();
-//		}catch(RuntimeException ex){
-//			if(transacao != null){
-//				transacao.rollback();
-//			}
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<Cliente> listarTodos(){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		List<Cliente> cliente = null;
-//		try{
-//			Query consulta = sessao.getNamedQuery("Cliente.listarTodos");
-//			cliente = consulta.list();
-//		}catch(RuntimeException ex){
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//		return cliente;
-//	}
-//
-//	public Cliente pesquisarPorID(Long ID){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		Cliente cliente = null;
-//		try{
-//			Query consulta = sessao.getNamedQuery("Cliente.pesquisarPorID");
-//			consulta.setLong("ID", ID);
-//			cliente = (Cliente) consulta.uniqueResult();
-//		}catch(RuntimeException ex){
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//		return cliente;
-//	}
-//
-//	public Cliente pesquisarPorNome(String nome){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		Cliente cliente = null;
-//		try{
-//			Query consulta = sessao.getNamedQuery("Cliente.pesquisarPorNome");
-//			consulta.setString("nome", nome);
-//			cliente = (Cliente) consulta.uniqueResult();
-//		}catch(RuntimeException ex){
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//		return cliente;
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<Cliente> pesquisarPorCPF(String cpf){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		List<Cliente> cliente = null;
-//		try{
-//			Query consulta = sessao.getNamedQuery("Cliente.pesquisarPorCPF");
-//			consulta.setString("cpf", cpf);
-//			cliente = consulta.list();
-//		}catch(RuntimeException ex){
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//		return cliente;
-//	}
-//
-//	public void remover(Cliente cliente){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		Transaction transacao = null;
-//		try{
-//			transacao = sessao.beginTransaction();
-//			sessao.delete(cliente);
-//			transacao.commit();
-//		}catch(RuntimeException ex){
-//			if(transacao != null){
-//				transacao.rollback();
-//			}
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//	}
-//
-//	public void editar(Cliente cliente){
-//		Session sessao = HibernateUtil.getSessionFactory().openSession();
-//		Transaction transacao = null;
-//		try{
-//			transacao = sessao.beginTransaction();
-//			Cliente editarCliente = pesquisarPorID(cliente.getClienteID());
-//			editarCliente.setNome(cliente.getNome());
-//			sessao.update(editarCliente);
-//			transacao.commit();
-//		}catch(RuntimeException ex){
-//			if(transacao != null){
-//				transacao.rollback();
-//			}
-//			throw ex;
-//		}finally{
-//			sessao.close();
-//		}
-//	}
-	
+    @Override
+    public List<Cliente> load(PageableFilter filter) throws DAOException {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Cliente.class);
+            applySorting(criteria, filter);
+            criteria.setFirstResult(filter.getFirst());
+            criteria.setMaxResults(filter.getPageSize());
+            return (List<Cliente>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros", ex);
+        }
+    }
+
+    @Override
+    public int count(PageableFilter filter) throws DAOException {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Cliente.class);
+            criteria.setProjection(Projections.rowCount());
+            return ((Long) criteria.uniqueResult()).intValue();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros", ex);
+        }
+    }
 }

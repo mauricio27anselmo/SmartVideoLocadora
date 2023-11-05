@@ -8,7 +8,7 @@
         <h:form id="cliente-form">
             <p:panel header="#{msg['br.com.locadora.listagemcliente']}">
                 <div class="custom-toolbar">
-                    <p:commandButton value="#{msg['br.com.locadora.novocliente']}" icon="pi pi-plus" actionListener="#{clienteBean.listar()}"
+                    <p:commandButton value="#{msg['br.com.locadora.novocliente']}" icon="pi pi-plus" action="#{clienteBean.novo()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </div>
