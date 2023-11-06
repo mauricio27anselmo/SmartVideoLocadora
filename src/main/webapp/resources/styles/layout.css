@@ -171,3 +171,8 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-hover {
     background: var(--surface-600);
     color: var(--surface-900);
 }
+
+body .ui-linkbutton.ui-button.ui-state-default>a {
+    color: inherit;
+    text-decoration: none;
+}

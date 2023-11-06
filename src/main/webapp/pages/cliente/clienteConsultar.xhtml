@@ -28,8 +28,7 @@
                                         navigator="true"
                                         pattern="dd/MMM/yyyy"
                                         yearRange="c-100:c"
-                                        value="#{clienteBean.clienteForm.dataNasc}"
-                                        styleClass="col-10 ui-inputtext"/>
+                                        value="#{clienteBean.clienteForm.dataNasc}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="endereco"
@@ -65,17 +64,15 @@
                         <p:linkButton id="btnVoltar"
                                       value="#{msg['br.com.locadora.voltar']}"
                                       styleClass="ui-button-secondary"
-                                      icon="pi pi-arrow-left"
-                                      outcome="/pages/cliente/clienteListar.jsf"/>
-                        <p:commandButton id="btnSalvar"
-                                         value="#{msg['br.com.locadora.salvar']}"
-                                         icon="pi pi-save"
-                                         actionListener="#{clienteBean.salvar}"
-                                         update=":mensagem "/>
+                                      icon="pi pi-arrow-left" outcome="/pages/cliente/clienteListar.jsf"/>
+                        <p:linkButton id="btnEditar"
+                                      value="#{msg['br.com.locadora.editar']}"
+                                      icon="pi pi-pencil" outcome="/pages/cliente/clienteManter.jsf">
+                            <f:param name="id" value="#{clienteBean.clienteForm.clienteID}" />
+                        </p:linkButton>
                     </div>
                 </f:facet>
             </p:panel>
         </h:form>
     </ui:define>
-
 </ui:composition>

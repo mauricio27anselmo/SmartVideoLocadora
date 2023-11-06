@@ -1,52 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <h:form id="cliente-form">
-            <p:panel header="#{msg['br.com.locadora.listagemcliente']}">
-                <div class="custom-toolbar">
-                    <p:commandButton value="#{msg['br.com.locadora.novocliente']}" icon="pi pi-plus" action="#{clienteBean.novo()}"
+        <p:panel header="#{msg['br.com.locadora.listagemcliente']}">
+            <p:toolbar styleClass="custom-toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton id="btnNovo"
+                                     value="#{msg['br.com.locadora.novocliente']}"
+                                     icon="pi pi-plus"
+                                     action="#{clienteBean.novo()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
-                </div>
+                </p:toolbarGroup>
+            </p:toolbar>
 
-                <p:dataTable id="clientes"
-                             var="cliente"
-                             value="#{clienteBean.listaClientes}"
-                             rowKey="#{cliente.clienteID}"
-                             rows="15"
-                             paginator="true"
-                             paginatorPosition="bottom"
-                             rowsPerPageTemplate="15"
-                             selectionMode="single">
+            <p:dataTable id="clientes"
+                         var="cliente"
+                         value="#{clienteBean.clienteDataModel}"
+                         rowKey="#{cliente.clienteID}"
+                         rows="15"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="15"
+                         selectionMode="single">
 
-                    <p:column headerText="#{msg['br.com.locadora.nome']}" sortBy="#{cliente.nome}">
-                        <h:outputText value="#{cliente.nome}" />
-                    </p:column>
-                    <p:column headerText="#{msg['br.com.locadora.cpf']}" sortBy="#{cliente.cpf}">
-                        <h:outputText value="#{cliente.cpf}" />
-                    </p:column>
-                    <p:column headerText="#{msg['br.com.locadora.datanascimento']}" sortBy="#{cliente.dataNasc}">
-                        <h:outputText value="#{cliente.dataNasc}" />
-                    </p:column>
-                    <p:column>
-                        <div class="datatable-actions">
-                            <p:tooltip for="btnConsultar" value="#{msg['br.com.locadora.consultar']}" autoHide="true" position="bottom"/>
-                            <p:commandButton id="btnConsultar" type="button" icon="pi pi-eye" label="consultar" styleClass="rounded-button ui-button-secondary" />
+                <p:column headerText="#{msg['br.com.locadora.nome']}"
+                          sortBy="#{cliente.nome}">
+                    <h:outputText value="#{cliente.nome}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.cpf']}"
+                          sortBy="#{cliente.cpf}">
+                    <h:outputText value="#{cliente.cpf}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.datanascimento']}"
+                          sortBy="#{cliente.dataNasc}">
+                    <h:outputText value="#{cliente.dataNasc}" />
+                </p:column>
+                <p:column>
+                    <div class="datatable-actions">
+                        <p:tooltip for="btnConsultar"
+                                   value="#{msg['br.com.locadora.consultar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnConsultar"
+                                      type="button"
+                                      icon="pi pi-eye"
+                                      outcome="clienteConsultar"
+                                      styleClass="rounded-button ui-button-secondary">
+                            <f:param name="id" value="#{cliente.clienteID}" />
+                        </p:linkButton>
 
-                            <p:tooltip for="btnEditar" value="#{msg['br.com.locadora.editar']}" autoHide="true" position="bottom"/>
-                            <p:commandButton id="btnEditar" type="button" icon="pi pi-pencil" styleClass="rounded-button" />
+                        <p:tooltip for="btnEditar"
+                                   value="#{msg['br.com.locadora.editar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnEditar"
+                                         type="button"
+                                         icon="pi pi-pencil"
+                                         outcome="clienteManter"
+                                         styleClass="rounded-button">
+                            <f:param name="id" value="#{cliente.clienteID}" />
+                        </p:linkButton>
 
-                            <p:tooltip for="btnExcluir" value="#{msg['br.com.locadora.excluir']}" autoHide="true" position="bottom"/>
-                            <p:commandButton id="btnExcluir" type="button" icon="pi pi-trash" styleClass="rounded-button ui-button-danger" />
-                        </div>
-                    </p:column>
-                </p:dataTable>
-            </p:panel>
-        </h:form>
+                        <p:tooltip for="btnExcluir"
+                                   value="#{msg['br.com.locadora.excluir']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:commandButton id="btnExcluir"
+                                         type="button"
+                                         icon="pi pi-trash"
+                                         styleClass="rounded-button ui-button-danger" />
+                    </div>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>
