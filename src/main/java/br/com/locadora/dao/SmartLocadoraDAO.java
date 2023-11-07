@@ -2,7 +2,9 @@ package br.com.locadora.dao;
 
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
+import br.com.locadora.util.FacesUtil;
 import br.com.locadora.util.HibernateUtil;
+import br.com.locadora.util.SmartLocadoraConstantes;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -39,7 +41,7 @@ public abstract class SmartLocadoraDAO<T> {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw new DAOException("Erro ao salvar registro", ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
     }
 
@@ -53,7 +55,7 @@ public abstract class SmartLocadoraDAO<T> {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw new DAOException("Erro ao remover registro", ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
     }
 
@@ -71,10 +73,10 @@ public abstract class SmartLocadoraDAO<T> {
         try {
             entity = session.get(this.entityClass, id);
             if (entity == null) {
-                throw new DAOException("Registro não encontrado");
+                throw new DAOException(SmartLocadoraConstantes.REGISTRO_NAO_ENCONTRADO);
             }
         } catch (Exception ex) {
-            throw new DAOException("Erro ao consultar registro", ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         } finally {
             session.close();
         }

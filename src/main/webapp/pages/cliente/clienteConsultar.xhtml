@@ -14,48 +14,31 @@
                             <h:outputLabel for="nome"
                                            value="#{msg['br.com.locadora.nome']}"
                                            styleClass="col-2"/>
-                            <p:inputText id="nome"
-                                         maxlength="50"
-                                         value="#{clienteBean.clienteForm.nome}"
-                                         styleClass="col-10 ui-inputtext"/>
+                            <h:outputText id="nome" value="#{clienteBean.clienteForm.nome}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <p:calendar id="dataNascimento"
-                                        locale="br"
-                                        navigator="true"
-                                        pattern="dd/MMM/yyyy"
-                                        yearRange="c-100:c"
-                                        value="#{clienteBean.clienteForm.dataNasc}"/>
+                            <h:outputText id="dataNascimento" value="#{clienteBean.clienteForm.dataNasc}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="endereco"
                                            value="#{msg['br.com.locadora.endereco']}"
                                            styleClass="col-2"/>
-                            <p:inputText id="endereco"
-                                         maxlength="200"
-                                         value="#{clienteBean.clienteForm.endereco}"
-                                         styleClass="col-10 ui-inputtext"/>
+                            <h:outputText id="endereco" value="#{clienteBean.clienteForm.endereco}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="email"
                                            value="#{msg['br.com.locadora.email']}"
                                            styleClass="col-2"/>
-                            <p:inputText id="email"
-                                         maxlength="30"
-                                         value="#{clienteBean.clienteForm.email}"
-                                         styleClass="col-10 ui-inputtext"/>
+                            <h:outputText id="email" value="#{clienteBean.clienteForm.email}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="cpf"
                                            value="#{msg['br.com.locadora.cpf']}"
                                            styleClass="col-2"/>
-                            <p:inputText id="cpf"
-                                         maxlength="11"
-                                         value="#{clienteBean.clienteForm.cpf}"
-                                         styleClass="col-10 ui-inputtext"/>
+                            <h:outputText id="cpf" value="#{clienteBean.clienteForm.cpf}"/>
                         </div>
                     </div>
                 </div>
@@ -64,10 +47,12 @@
                         <p:linkButton id="btnVoltar"
                                       value="#{msg['br.com.locadora.voltar']}"
                                       styleClass="ui-button-secondary"
-                                      icon="pi pi-arrow-left" outcome="/pages/cliente/clienteListar.jsf"/>
+                                      icon="pi pi-arrow-left"
+                                      outcome="/pages/cliente/clienteListar.jsf"/>
                         <p:linkButton id="btnEditar"
                                       value="#{msg['br.com.locadora.editar']}"
-                                      icon="pi pi-pencil" outcome="/pages/cliente/clienteManter.jsf">
+                                      icon="pi pi-pencil"
+                                      outcome="/pages/cliente/clienteManter.jsf">
                             <f:param name="id" value="#{clienteBean.clienteForm.clienteID}" />
                         </p:linkButton>
                     </div>

@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'war'
+    id 'jacoco'
 }
 
 group 'br.com.smartlocadora'
@@ -13,11 +14,10 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.2'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.2'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.2'
-    testCompile 'org.mockito:mockito-core:3.12.4'
-    testCompile 'org.mockito:mockito-junit-jupiter:3.12.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.mockito:mockito-core:4.2.0'
+    testImplementation 'org.mockito:mockito-inline:4.2.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.2.0'
     implementation 'javax.faces:javax.faces-api:2.2'
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation group: 'org.glassfish', name: 'javax.faces', version: '2.2.9'
@@ -34,3 +34,51 @@ dependencies {
 
 }
 
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/java']
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    testLogging {
+        events "failed"
+    }
+
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            def failedTests = result.testCount - result.successfulTestCount
+            if (failedTests > 0) {
+                throw new GradleException("$failedTests test(s) failed.")
+            }
+        }
+    }
+}
+
+check {
+    dependsOn test
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'br/com/locadora/bean/**',
+                    'br/com/locadora/config/**',
+                    'br/com/locadora/dao/**',
+                    'br/com/locadora/datamodel/**',
+                    'br/com/locadora/domain/**',
+                    'br/com/locadora/enums/**',
+                    'br/com/locadora/filter/**',
+                    'br/com/locadora/main/**',
+                    'br/com/locadora/util/**',
+                    'br/com/locadora/service/SmartLocadoraService.class']).asFileTree
+        }))
+    }
+}

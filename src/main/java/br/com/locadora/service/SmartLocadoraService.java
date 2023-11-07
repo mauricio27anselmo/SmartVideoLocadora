@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class SmartLocadoraService<T> {
 
-    public abstract T findById(long id) throws NegocioException;
+    public abstract T findById(Long id) throws NegocioException;
 
     public abstract void save(T entity) throws NegocioException;
 

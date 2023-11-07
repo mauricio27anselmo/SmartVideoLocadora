@@ -77,14 +77,14 @@ body .ui-button.ui-button-danger.ui-state-hover {
 }
 
 body .ui-inputfield {
-	background: var(--surface-900);
+    background: var(--surface-900);
     color: var(--surface-0)
 }
 
 body .ui-panel .ui-panel-content {
-	border-top: 0 none;
-	color: var(--surface-0);
-	background: var(--surface-900);
+    border-top: 0 none;
+    color: var(--surface-0);
+    background: var(--surface-900);
 }
 
 body .ui-panel .ui-panel-footer {
@@ -117,7 +117,7 @@ body .ui-datatable thead th {
     padding: 1rem 1rem;
     text-align: left;
     box-sizing: content-box;
-    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s;
 }
 
 body .ui-datatable thead th.ui-sortable-column.ui-state-focus {
@@ -129,13 +129,13 @@ body .ui-datatable thead th.ui-state-active, body .ui-datatable thead th.ui-stat
     color: var(--surface-0);
 }
 
-body .ui-datatable .ui-datatable-data>tr {
+body .ui-datatable .ui-datatable-data > tr {
     background: var(--surface-900);
     color: var(--surface-0);
-    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s;
 }
 
-body .ui-datatable .ui-datatable-data>tr.ui-state-hover, body .ui-datatable .ui-datatable-data>tr.ui-state-highlight  {
+body .ui-datatable .ui-datatable-data > tr.ui-state-hover, body .ui-datatable .ui-datatable-data > tr.ui-state-highlight {
     background: var(--surface-900);
     color: var(--surface-0);
 }
@@ -155,7 +155,7 @@ body .ui-paginator .ui-paginator-first, body .ui-paginator .ui-paginator-prev, b
     vertical-align: top;
     padding: 0;
     border-radius: 4px;
-    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s;
 }
 
 body .ui-paginator .ui-paginator-pages .ui-paginator-page {
@@ -172,7 +172,20 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-hover {
     color: var(--surface-900);
 }
 
-body .ui-linkbutton.ui-button.ui-state-default>a {
+body .ui-linkbutton.ui-button.ui-state-default > a {
     color: inherit;
     text-decoration: none;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    padding: 0.75rem;
+}
+
+body .ui-dialog.ui-confirm-dialog .ui-dialog-content {
+    padding: 2rem 1.5rem 2rem 1.5rem;
+}
+
+body .ui-dialog .ui-dialog-content, body .ui-dialog .ui-dialog-footer {
+    background: var(--surface-900);
+    color: var(--surface-0);
 }

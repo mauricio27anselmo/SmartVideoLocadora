@@ -5,6 +5,7 @@ import br.com.locadora.domain.Cliente;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
+import br.com.locadora.util.SmartLocadoraConstantes;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +28,11 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     }
 
     @Override
-    public Cliente findById(long id) throws NegocioException {
+    public Cliente findById(Long id) throws NegocioException {
         try {
+            if (!Optional.ofNullable(id).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
             return dao.findById(id);
         } catch (DAOException ex) {
             throw new NegocioException(ex.getMessage(), ex);
@@ -38,6 +42,9 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     @Override
     public void save(Cliente entity) throws NegocioException {
         try {
+            if (!Optional.ofNullable(entity).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
             if (Optional.ofNullable(entity.getClienteID()).isPresent()) {
                 dao.save(entity);
             } else {
@@ -51,6 +58,9 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     @Override
     public void delete(Cliente entity) throws NegocioException {
         try {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getClienteID()).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
             dao.delete(entity);
         } catch (DAOException ex) {
             throw new NegocioException(ex.getMessage(), ex);
@@ -60,6 +70,9 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     @Override
     public List<Cliente> load(PageableFilter filter) throws NegocioException {
         try {
+            if (!Optional.ofNullable(filter).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
             return dao.load(filter);
         } catch (DAOException ex) {
             throw new NegocioException(ex.getMessage(), ex);
@@ -69,6 +82,9 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     @Override
     public int count(PageableFilter filter) throws NegocioException {
         try {
+            if (!Optional.ofNullable(filter).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
             return dao.count(filter);
         } catch (DAOException ex) {
             throw new NegocioException(ex.getMessage(), ex);

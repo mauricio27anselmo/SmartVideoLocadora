@@ -22,6 +22,9 @@ public class PageableFilter {
         this.filterBy = filterBy;
     }
 
+    public PageableFilter() {
+    }
+
     public int getFirst() {
         return first;
     }

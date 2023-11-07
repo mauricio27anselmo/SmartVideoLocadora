@@ -70,8 +70,9 @@
                         <p:commandButton id="btnSalvar"
                                          value="#{msg['br.com.locadora.salvar']}"
                                          icon="pi pi-save"
-                                         actionListener="#{clienteBean.salvar}"
-                                         update=":mensagem "/>
+                                         actionListener="#{clienteBean.save()}"
+                                         update=":cliente-form :mensagem ">
+                        </p:commandButton>
                     </div>
                 </f:facet>
             </p:panel>

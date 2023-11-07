@@ -12,7 +12,7 @@ import javax.persistence.*;
 })
 public class Cliente extends Pessoa {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "clt_id")
 	private Long clienteID;
 
