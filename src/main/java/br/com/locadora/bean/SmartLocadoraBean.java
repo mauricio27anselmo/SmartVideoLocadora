@@ -32,6 +32,11 @@ abstract class SmartLocadoraBean {
         FacesUtil.addMsgErro(message);
     }
 
+    protected void handleWarningMessage(String messageKey) {
+        String message = FacesUtil.getMsg(messageKey);
+        FacesUtil.addMsgWarn(message);
+    }
+
     protected void redirectToPage(String pagePath) {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {

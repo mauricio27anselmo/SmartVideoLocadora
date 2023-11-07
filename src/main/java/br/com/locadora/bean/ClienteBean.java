@@ -3,6 +3,7 @@ package br.com.locadora.bean;
 import br.com.locadora.datamodel.ClienteDataModel;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.service.ClienteService;
+import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -57,7 +58,12 @@ public class ClienteBean extends SmartLocadoraBean {
                 handleSuccessMessage("br.com.locadora.acao.editarsucesso");
             }
         } catch (Exception ex) {
-            handleErrorMessage("br.com.locadora.acao.salvarfalha");
+            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
+            if (!isDuplicatedEntry) {
+                handleErrorMessage("br.com.locadora.acao.salvarfalha");
+            } else {
+                handleWarningMessage("br.com.locadora.acao.salvarclienteduplicado");
+            }
         }
     }
 

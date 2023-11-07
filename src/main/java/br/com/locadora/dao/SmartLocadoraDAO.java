@@ -10,6 +10,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -41,11 +42,10 @@ public abstract class SmartLocadoraDAO<T> {
             }
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
+            cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);
-            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+            String messageException = (ex instanceof ConstraintViolationException) ? SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA : SmartLocadoraConstantes.ERRO_INESPERADO;
+            throw new DAOException(messageException, ex);
         }
     }
 
@@ -56,9 +56,7 @@ public abstract class SmartLocadoraDAO<T> {
             session.delete(entity);
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
+            cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);
             throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
@@ -100,6 +98,17 @@ public abstract class SmartLocadoraDAO<T> {
                 criteria.addOrder(Order.asc(sortField));
             }
         }
+    }
+
+    private void cancelTransaction(Transaction transaction) {
+        try {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+
     }
 
 }

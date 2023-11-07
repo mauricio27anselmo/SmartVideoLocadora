@@ -7,6 +7,7 @@ public class SmartLocadoraConstantes {
 
     public static final String ERRO_INESPERADO = "br.com.locadora.erroinesperado";
     public static final String REGISTRO_NAO_ENCONTRADO = "br.com.locadora.registronaoencontrado";
+    public static final String VIOLACAO_REGRA_TABELA = "br.com.locadora.violacaoregratabela";
     public static final String PARAMETROS_INVALIDOS = "br.com.locadora.parametrosinvalidos";
 
 }
