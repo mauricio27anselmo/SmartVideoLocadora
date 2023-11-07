@@ -2,9 +2,10 @@ package br.com.locadora.dao;
 
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
-import br.com.locadora.util.FacesUtil;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,6 +17,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.List;
 
 public abstract class SmartLocadoraDAO<T> {
+
+    private static final Logger logger = LogManager.getLogger(SmartLocadoraDAO.class);
 
     private final Class<T> entityClass;
 
@@ -41,6 +44,7 @@ public abstract class SmartLocadoraDAO<T> {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
+            logger.error(ex.getMessage(), ex);
             throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
     }
@@ -55,11 +59,12 @@ public abstract class SmartLocadoraDAO<T> {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
+            logger.error(ex.getMessage(), ex);
             throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
     }
 
-    public List<T> load(PageableFilter filter) throws DAOException{
+    public List<T> load(PageableFilter filter) throws DAOException {
         throw new NotImplementedException();
     }
 
@@ -76,6 +81,7 @@ public abstract class SmartLocadoraDAO<T> {
                 throw new DAOException(SmartLocadoraConstantes.REGISTRO_NAO_ENCONTRADO);
             }
         } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
             throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         } finally {
             session.close();

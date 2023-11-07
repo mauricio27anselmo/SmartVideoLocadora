@@ -11,9 +11,9 @@ public abstract class Pessoa {
 	@Column(name = "pes_nome", length = 50, nullable = false)
 	protected String nome;
 
-	@Column(name = "pes_datanasc", nullable = false)
+	@Column(name = "pes_data_nascimento", nullable = false)
 	@Temporal(value = TemporalType.DATE)
-	protected Date dataNasc;
+	protected Date dataNascimento;
 
 	public String getNome() {
 		return nome;
@@ -23,12 +23,12 @@ public abstract class Pessoa {
 		this.nome = nome;
 	}
 
-	public Date getDataNasc() {
-		return dataNasc;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }

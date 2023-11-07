@@ -6,11 +6,15 @@ import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ClienteService extends SmartLocadoraService<Cliente> {
+
+    private static final Logger logger = LogManager.getLogger(ClienteService.class);
 
     private static ClienteService instance;
 
@@ -35,6 +39,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             }
             return dao.findById(id);
         } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }
@@ -51,6 +56,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
                 dao.save(entity, true);
             }
         } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }
@@ -63,6 +69,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             }
             dao.delete(entity);
         } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }
@@ -75,6 +82,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             }
             return dao.load(filter);
         } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }
@@ -87,6 +95,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             }
             return dao.count(filter);
         } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }

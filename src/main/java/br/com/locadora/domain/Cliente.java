@@ -1,15 +1,11 @@
 package br.com.locadora.domain;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cliente")
-@NamedQueries({
-	@NamedQuery(name = "Cliente.listarTodos", query = "SELECT cliente FROM Cliente cliente"),
-	@NamedQuery(name = "Cliente.pesquisarPorID", query = "SELECT cliente FROM Cliente cliente where cliente.clienteID = :ID"),
-	@NamedQuery(name = "Cliente.pesquisarPorCPF", query = "SELECT cliente FROM Cliente cliente where cliente.cpf = :cpf"),
-	@NamedQuery(name = "Cliente.pesquisarPorNome", query = "SELECT cliente FROM Cliente cliente where cliente.nome= :nome")
-})
+@Table(name = "smt_cliente")
 public class Cliente extends Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +15,8 @@ public class Cliente extends Pessoa {
 	@Column(name = "clt_endereco", length = 200, nullable = false)
 	private String endereco;
 
-	@Column(name = "clt_cpf", length = 11, nullable = false, unique = true)
+	@CPF
+	@Column(name = "clt_cpf", length = 14, nullable = false, unique = true)
 	private String cpf;
 
 	@Column(name = "clt_email", length = 30, nullable = false)
@@ -61,7 +58,7 @@ public class Cliente extends Pessoa {
 	public String toString() {
 		return "Cliente [clienteID=" + clienteID + ", endereco=" + endereco
 				+ ", cpf=" + cpf + ", email=" + email + ", nome=" + nome
-				+ ", dataNasc=" + dataNasc + "]";
+				+ ", dataNascimento=" + dataNascimento + "]";
 	}
 
 	

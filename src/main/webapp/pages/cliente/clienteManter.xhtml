@@ -28,7 +28,7 @@
                                         navigator="true"
                                         pattern="dd/MMM/yyyy"
                                         yearRange="c-100:c"
-                                        value="#{clienteBean.clienteForm.dataNasc}"
+                                        value="#{clienteBean.clienteForm.dataNascimento}"
                                         styleClass="col-10 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -50,13 +50,15 @@
                                          styleClass="col-10 ui-inputtext"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="cpf"
+                            <p:outputLabel for="@next"
                                            value="#{msg['br.com.locadora.cpf']}"
                                            styleClass="col-2"/>
-                            <p:inputText id="cpf"
-                                         maxlength="11"
+                            <p:inputMask id="cpf"
+                                         maxlength="14"
                                          value="#{clienteBean.clienteForm.cpf}"
-                                         styleClass="col-10 ui-inputtext"/>
+                                         mask="999.999.999-99"
+                                         styleClass="col-3 ui-inputmask"
+                                         validateMask="true" />
                         </div>
                     </div>
                 </div>
