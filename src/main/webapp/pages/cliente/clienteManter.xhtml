@@ -24,10 +24,11 @@
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
                             <p:calendar id="dataNascimento"
-                                        locale="br"
+                                        locale="#{languageBean.locale}"
                                         navigator="true"
-                                        pattern="dd/MMM/yyyy"
+                                        pattern="dd/MM/yyyy"
                                         yearRange="c-100:c"
+                                        showOn="button"
                                         value="#{clienteBean.clienteForm.dataNascimento}"/>
                         </div>
                         <div class="field">
