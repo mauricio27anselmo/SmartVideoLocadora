@@ -8,8 +8,8 @@
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mariadb://localhost:3306/smart_locadora</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">M@sterk3y27</property>
+		<property name="connection.username">usuario</property>
+		<property name="connection.password">123456</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="hibernate.connection.pool_size">5</property>

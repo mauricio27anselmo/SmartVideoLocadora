@@ -38,7 +38,9 @@
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.datanascimento']}"
                           sortBy="#{cliente.dataNascimento}">
-                    <h:outputText value="#{cliente.dataNascimento}" />
+                    <h:outputText value="#{cliente.dataNascimento}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -80,6 +82,11 @@
                         </p:commandButton>
                     </div>
                 </p:column>
+                <f:facet name="footer">
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
+                        <f:param value="#{clienteBean.clienteDataModel.rowCount}" />
+                    </h:outputFormat>
+                </f:facet>
             </p:dataTable>
         </p:panel>
         <h:form id="dialogs">
