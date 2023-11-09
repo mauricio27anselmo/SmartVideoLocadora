@@ -4,23 +4,13 @@ import br.com.locadora.domain.Cliente;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.primefaces.model.SortMeta;
-import org.primefaces.model.SortOrder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
 
@@ -74,5 +64,20 @@ public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
             session.close();
         }
         return records;
+    }
+
+    public Cliente findByCPF(String cpf) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Cliente entity;
+        try {
+            Criteria criteria = session.createCriteria(Cliente.class);
+            criteria.add(Restrictions.eq("cpf", cpf));
+            entity = (Cliente) criteria.uniqueResult();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return entity;
     }
 }

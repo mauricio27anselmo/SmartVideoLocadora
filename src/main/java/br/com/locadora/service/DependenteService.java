@@ -1,11 +1,14 @@
 package br.com.locadora.service;
 
 import br.com.locadora.dao.DependenteDAO;
+import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,9 +21,12 @@ public class DependenteService extends SmartLocadoraService<Dependente> {
 
     private static DependenteService instance;
 
+    private ClienteService clienteService;
+
     private DependenteDAO dao;
 
     private DependenteService() {
+        clienteService = ClienteService.getInstance();
         dao = DependenteDAO.getInstance();
     }
 
@@ -47,17 +53,22 @@ public class DependenteService extends SmartLocadoraService<Dependente> {
     @Override
     public void save(Dependente entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent()) {
+            if (!Optional.ofNullable(entity).isPresent() || StringUtils.isBlank(entity.getCpf())) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            if (Optional.ofNullable(entity.getDependenteID()).isPresent()) {
-                dao.save(entity);
-            } else {
-                dao.save(entity, true);
+            Cliente cliente = clienteService.findByCPF(entity.getCpf());
+            if (Optional.ofNullable(cliente).isPresent()) {
+                throw new NegocioException("br.com.locadora.acao.clienteduplicado");
             }
+            dao.save(entity);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
+            String message = "br.com.locadora.acao.salvarfalha";
+            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
+            if (isDuplicatedEntry) {
+                message = "br.com.locadora.acao.dependenteduplicado";
+            }
+            throw new NegocioException(message, ex);
         }
     }
 

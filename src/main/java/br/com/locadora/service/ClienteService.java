@@ -52,14 +52,15 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            if (Optional.ofNullable(entity.getClienteID()).isPresent()) {
-                dao.save(entity);
-            } else {
-                dao.save(entity, true);
-            }
+            dao.save(entity);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
+            String message = "br.com.locadora.acao.salvarfalha";
+            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
+            if (isDuplicatedEntry) {
+                message = "br.com.locadora.acao.clienteduplicado";
+            }
+            throw new NegocioException(message, ex);
         }
     }
 
@@ -108,6 +109,18 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
                 return Collections.emptyList();
             }
             return dao.findByName(name);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException(ex.getMessage(), ex);
+        }
+    }
+
+    public Cliente findByCPF(String cpf) throws NegocioException {
+        try {
+            if (!Optional.ofNullable(cpf).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+            return dao.findByCPF(cpf);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);

@@ -5,7 +5,7 @@ import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.service.ClienteService;
 import br.com.locadora.service.DependenteService;
-import br.com.locadora.util.SmartLocadoraConstantes;
+import br.com.locadora.util.NegocioException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -64,13 +64,8 @@ public class DependenteBean extends SmartLocadoraBean {
             } else {
                 handleSuccessMessage("br.com.locadora.acao.editarsucesso");
             }
-        } catch (Exception ex) {
-            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
-            if (!isDuplicatedEntry) {
-                handleErrorMessage("br.com.locadora.acao.salvarfalha");
-            } else {
-                handleWarningMessage("br.com.locadora.acao.salvardependenteduplicado");
-            }
+        } catch (NegocioException ex) {
+            handleErrorMessage(ex.getMessage());
         }
     }
 
@@ -79,7 +74,7 @@ public class DependenteBean extends SmartLocadoraBean {
         try {
             dependenteService.delete(dependenteForm);
             handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.excluirfalha");
         }
     }
@@ -88,7 +83,7 @@ public class DependenteBean extends SmartLocadoraBean {
         try {
             String queryLowerCase = query.toLowerCase();
             return clienteService.findByName(queryLowerCase);
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
             return Collections.emptyList();
         }
@@ -101,7 +96,7 @@ public class DependenteBean extends SmartLocadoraBean {
             if (StringUtils.isNotBlank(id)) {
                 dependenteForm = dependenteService.findById(Long.parseLong(id));
             }
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
         }
     }

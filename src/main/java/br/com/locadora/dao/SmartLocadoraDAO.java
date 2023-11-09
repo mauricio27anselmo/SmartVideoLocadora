@@ -10,11 +10,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
-import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public abstract class SmartLocadoraDAO<T> {
@@ -35,17 +35,16 @@ public abstract class SmartLocadoraDAO<T> {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            if (isNew) {
-                session.save(entity);
-            } else {
-                session.update(entity);
-            }
+            session.merge(entity);
             transaction.commit();
+        } catch (PersistenceException ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA, ex);
         } catch (Exception ex) {
             cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);
-            String messageException = (ex instanceof ConstraintViolationException) ? SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA : SmartLocadoraConstantes.ERRO_INESPERADO;
-            throw new DAOException(messageException, ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
         }
     }
 
@@ -108,7 +107,6 @@ public abstract class SmartLocadoraDAO<T> {
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
-
     }
 
 }

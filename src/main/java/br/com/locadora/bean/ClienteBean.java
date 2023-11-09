@@ -3,7 +3,7 @@ package br.com.locadora.bean;
 import br.com.locadora.datamodel.ClienteDataModel;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.service.ClienteService;
-import br.com.locadora.util.SmartLocadoraConstantes;
+import br.com.locadora.util.NegocioException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -57,13 +57,8 @@ public class ClienteBean extends SmartLocadoraBean {
             } else {
                 handleSuccessMessage("br.com.locadora.acao.editarsucesso");
             }
-        } catch (Exception ex) {
-            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
-            if (!isDuplicatedEntry) {
-                handleErrorMessage("br.com.locadora.acao.salvarfalha");
-            } else {
-                handleWarningMessage("br.com.locadora.acao.salvarclienteduplicado");
-            }
+        } catch (NegocioException ex) {
+            handleErrorMessage(ex.getMessage());
         }
     }
 
@@ -72,7 +67,7 @@ public class ClienteBean extends SmartLocadoraBean {
         try {
             clienteService.delete(clienteForm);
             handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.excluirfalha");
         }
     }
@@ -84,7 +79,7 @@ public class ClienteBean extends SmartLocadoraBean {
             if (StringUtils.isNotBlank(id)) {
                 clienteForm = clienteService.findById(Long.parseLong(id));
             }
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultarclientefalha");
         }
     }

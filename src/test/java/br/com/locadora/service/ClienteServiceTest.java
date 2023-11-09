@@ -18,15 +18,16 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 @ExtendWith(MockitoExtension.class)
 class ClienteServiceTest {
 
     @InjectMocks
-    ClienteService clienteService;
+    private ClienteService clienteService;
 
     @Mock
-    ClienteDAO dao;
+    private ClienteDAO dao;
 
     @BeforeEach
     void init() {
@@ -61,48 +62,67 @@ class ClienteServiceTest {
     }
 
     @Test
-    void saveNullTest() throws DAOException {
+    void saveOrUpdateNullTest() throws DAOException {
         Assertions.assertThrows(NegocioException.class, () -> clienteService.save(null));
         Mockito.verify(dao, Mockito.never()).save(Mockito.any(Cliente.class));
         Mockito.verify(dao, Mockito.never()).save(Mockito.any(Cliente.class), Mockito.anyBoolean());
     }
 
     @Test
-    void saveExceptionTest() throws DAOException {
+    void saveCPFExceptionTest() throws DAOException {
         Cliente cliente = new Cliente();
-        cliente.setClienteID(1L);
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).save(cliente);
-        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente));
-        Mockito.verify(dao, Mockito.times(1)).save(cliente);
-        Mockito.verify(dao, Mockito.never()).save(cliente, true);
-    }
-
-    @Test
-    void saveNewExceptionTest() throws DAOException {
-        Cliente cliente = new Cliente();
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).save(cliente, true);
-        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente));
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA)).when(dao).save(cliente, true);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente), "br.com.locadora.acao.clienteduplicado");
         Mockito.verify(dao, Mockito.never()).save(cliente);
         Mockito.verify(dao, Mockito.times(1)).save(cliente, true);
     }
 
     @Test
+    void saveExceptionTest() throws DAOException {
+        Cliente cliente = new Cliente();
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).save(cliente, true);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente), "br.com.locadora.acao.salvarfalha");
+        Mockito.verify(dao, Mockito.never()).save(cliente);
+        Mockito.verify(dao, Mockito.times(1)).save(cliente, true);
+    }
+
+    @Test
+    void updateCPFExceptionTest() throws DAOException {
+        Cliente cliente = new Cliente();
+        cliente.setClienteID(1L);
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA)).when(dao).save(cliente);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente), "br.com.locadora.acao.clienteduplicado");
+        Mockito.verify(dao, Mockito.times(1)).save(cliente);
+        Mockito.verify(dao, Mockito.never()).save(cliente, true);
+    }
+
+    @Test
+    void updateExceptionTest() throws DAOException {
+        Cliente cliente = new Cliente();
+        cliente.setClienteID(1L);
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).save(cliente);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.save(cliente), "br.com.locadora.acao.salvarfalha");
+        Mockito.verify(dao, Mockito.times(1)).save(cliente);
+        Mockito.verify(dao, Mockito.never()).save(cliente, true);
+    }
+
+    @Test
     void saveTest() throws DAOException {
+        Cliente cliente = new Cliente();
+        Mockito.doNothing().when(dao).save(cliente, true);
+        Assertions.assertDoesNotThrow(() -> clienteService.save(cliente));
+        Mockito.verify(dao, Mockito.never()).save(cliente);
+        Mockito.verify(dao, Mockito.times(1)).save(cliente, true);
+    }
+
+    @Test
+    void updateTest() throws DAOException {
         Cliente cliente = new Cliente();
         cliente.setClienteID(1L);
         Mockito.doNothing().when(dao).save(cliente);
         Assertions.assertDoesNotThrow(() -> clienteService.save(cliente));
         Mockito.verify(dao, Mockito.times(1)).save(cliente);
         Mockito.verify(dao, Mockito.never()).save(cliente, true);
-    }
-
-    @Test
-    void saveNewTest() throws DAOException {
-        Cliente cliente = new Cliente();
-        Mockito.doNothing().when(dao).save(cliente, true);
-        Assertions.assertDoesNotThrow(() -> clienteService.save(cliente));
-        Mockito.verify(dao, Mockito.never()).save(cliente);
-        Mockito.verify(dao, Mockito.times(1)).save(cliente, true);
     }
 
     @Test
@@ -179,4 +199,51 @@ class ClienteServiceTest {
         Assertions.assertEquals(quantidadeEsperada, clienteService.count(pageableFilter));
     }
 
+    @Test
+    void findByNameNullTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), clienteService.findByName(null));
+        Mockito.verify(dao, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameEmptyTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), clienteService.findByName(""));
+        Mockito.verify(dao, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameExceptionTest() throws DAOException {
+        String name = "Teste";
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).findByName(name);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.findByName(name));
+        Mockito.verify(dao, Mockito.times(1)).findByName(name);
+    }
+
+    @Test
+    void findByNameTest() throws DAOException, NegocioException {
+        String name = "Teste";
+        Mockito.when(dao.findByName(name)).thenReturn(new ArrayList<>());
+        Assertions.assertNotNull(clienteService.findByName(name));
+    }
+
+    @Test
+    void findByCPFNullTest() throws DAOException {
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.findByCPF(null));
+        Mockito.verify(dao, Mockito.never()).findByCPF(Mockito.anyString());
+    }
+
+    @Test
+    void findByCPFExceptionTest() throws DAOException {
+        String cpf = "111.111.111-11";
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dao).findByCPF(cpf);
+        Assertions.assertThrows(NegocioException.class, () -> clienteService.findByCPF(cpf));
+        Mockito.verify(dao, Mockito.times(1)).findByCPF(cpf);
+    }
+
+    @Test
+    void findByCPFTest() throws DAOException, NegocioException {
+        String cpf = "111.111.111-11";
+        Mockito.when(dao.findByCPF(cpf)).thenReturn(new Cliente());
+        Assertions.assertNotNull(clienteService.findByCPF(cpf));
+    }
 }
