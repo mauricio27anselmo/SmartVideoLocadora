@@ -1,7 +1,5 @@
 package br.com.locadora.domain;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,10 +12,6 @@ public class Cliente extends Pessoa {
 
 	@Column(name = "clt_endereco", length = 200, nullable = false)
 	private String endereco;
-
-	@CPF
-	@Column(name = "clt_cpf", length = 14, nullable = false, unique = true)
-	private String cpf;
 
 	@Column(name = "clt_email", length = 30, nullable = false)
 	private String email;
@@ -38,14 +32,6 @@ public class Cliente extends Pessoa {
 		this.endereco = endereco;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -56,11 +42,10 @@ public class Cliente extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Cliente [clienteID=" + clienteID + ", endereco=" + endereco
-				+ ", cpf=" + cpf + ", email=" + email + ", nome=" + nome
-				+ ", dataNascimento=" + dataNascimento + "]";
+		return "Cliente{" +
+				"clienteID=" + clienteID +
+				", endereco='" + endereco + '\'' +
+				", email='" + email + '\'' +
+				'}';
 	}
-
-	
-	
 }

@@ -103,6 +103,14 @@ body .ui-panel .ui-panel-footer {
     align-items: center;
 }
 
+body [id$="cliente-form:dataNascimento_input"], body [id$="dependente-form:dataNascimento_input"] {
+    width: 16.6667%;
+}
+
+body [id$="dependente-form:cliente_input"] {
+    width: 100%;
+}
+
 body .ui-panel-content .ui-toolbar {
     border: none;
     padding-bottom: 1rem;
@@ -188,5 +196,22 @@ body .ui-dialog.ui-confirm-dialog .ui-dialog-content {
 
 body .ui-dialog .ui-dialog-content, body .ui-dialog .ui-dialog-footer {
     background: var(--surface-900);
+    color: var(--surface-0);
+}
+
+body .ui-autocomplete-panel {
+    padding: 0;
+    background: var(--surface-800);
+    color: var(--surface-0);
+    border: 1px solid var(--surface-900);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.16);
+}
+
+body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item, body .ui-autocomplete-panel .ui-autocomplete-emptyMessage, body .ui-autocomplete-panel .ui-autocomplete-empty-message {
+    color: var(--surface-0);
+}
+
+body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item.ui-state-highlight {
+    background: var(--surface-600);
     color: var(--surface-0);
 }

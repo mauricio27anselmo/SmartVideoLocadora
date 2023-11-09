@@ -1,40 +1,38 @@
 package br.com.locadora.service;
 
-import br.com.locadora.dao.ClienteDAO;
-import br.com.locadora.domain.Cliente;
+import br.com.locadora.dao.DependenteDAO;
+import br.com.locadora.domain.Dependente;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ClienteService extends SmartLocadoraService<Cliente> {
+public class DependenteService extends SmartLocadoraService<Dependente> {
 
-    private static final Logger logger = LogManager.getLogger(ClienteService.class);
+    private static final Logger logger = LogManager.getLogger(DependenteService.class);
 
-    private static ClienteService instance;
+    private static DependenteService instance;
 
-    private ClienteDAO dao;
+    private DependenteDAO dao;
 
-    private ClienteService() {
-        dao = ClienteDAO.getInstance();
+    private DependenteService() {
+        dao = DependenteDAO.getInstance();
     }
 
-    public static ClienteService getInstance() {
+    public static DependenteService getInstance() {
         if (instance == null) {
-            instance = new ClienteService();
+            instance = new DependenteService();
         }
         return instance;
     }
 
     @Override
-    public Cliente findById(Long id) throws NegocioException {
+    public Dependente findById(Long id) throws NegocioException {
         try {
             if (!Optional.ofNullable(id).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
@@ -47,12 +45,12 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     }
 
     @Override
-    public void save(Cliente entity) throws NegocioException {
+    public void save(Dependente entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            if (Optional.ofNullable(entity.getClienteID()).isPresent()) {
+            if (Optional.ofNullable(entity.getDependenteID()).isPresent()) {
                 dao.save(entity);
             } else {
                 dao.save(entity, true);
@@ -64,9 +62,9 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     }
 
     @Override
-    public void delete(Cliente entity) throws NegocioException {
+    public void delete(Dependente entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getClienteID()).isPresent()) {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getDependenteID()).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             dao.delete(entity);
@@ -77,7 +75,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
     }
 
     @Override
-    public List<Cliente> load(PageableFilter filter) throws NegocioException {
+    public List<Dependente> load(PageableFilter filter) throws NegocioException {
         try {
             if (!Optional.ofNullable(filter).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
@@ -96,18 +94,6 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             return dao.count(filter);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
-
-    public List<Cliente> findByName(String name) throws NegocioException {
-        try {
-            if (StringUtils.isEmpty(name)) {
-                return Collections.emptyList();
-            }
-            return dao.findByName(name);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);

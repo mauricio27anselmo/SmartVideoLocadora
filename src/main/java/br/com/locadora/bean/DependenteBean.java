@@ -1,73 +1,116 @@
 package br.com.locadora.bean;
 
-import br.com.locadora.dao.ClienteDAO;
-import br.com.locadora.dao.DependenteDAO;
+import br.com.locadora.datamodel.DependenteDataModel;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
-import br.com.locadora.util.FacesUtil;
+import br.com.locadora.service.ClienteService;
+import br.com.locadora.service.DependenteService;
+import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.util.Collections;
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class DependenteBean {
-	private Dependente novoDependente;
-	private String clienteVinculo;
-	private List<Dependente> listaDependentes;
+public class DependenteBean extends SmartLocadoraBean {
 
-	public Dependente getNovoDependente() {
-		if(novoDependente == null){
-			novoDependente = new Dependente();
-		}
-		return novoDependente;
-	}
+    private DependenteService dependenteService;
 
-	public void setNovoDependente(Dependente novoDependente) {
-		this.novoDependente = novoDependente;
-	}
-	
-	public String getClienteVinculo() {
-		return clienteVinculo;
-	}
+    private ClienteService clienteService;
 
-	public void setClienteVinculo(String clienteVinculo) {
-		this.clienteVinculo = clienteVinculo;
-	}
-	
-	public List<Dependente> getListaDependentes() {
-		return listaDependentes;
-	}
+    private Dependente dependenteForm;
 
-	public void setListaDependentes(List<Dependente> listaDependentes) {
-		this.listaDependentes = listaDependentes;
-	}
-	
-	public void salvar(){
-//		try{
-//			ClienteDAO dao = new ClienteDAO();
-//			DependenteDAO dao2 = new DependenteDAO();
-//			Cliente clienteCadastrado = dao.pesquisarPorNome(getClienteVinculo());
-//			if(clienteCadastrado == null || getClienteVinculo() == ""){
-//				FacesUtil.addMsgErro("N�o h� cliente cadastrado com o nome infomado!");
-//			}else{
-//				novoDependente.setIdCliente(clienteCadastrado);
-//				dao2.incluir(novoDependente);
-//				FacesUtil.addMsgInfo("Cadastro realizado com sucesso!");
-//			}
-//		}catch(RuntimeException ex){
-//			FacesUtil.addMsgErro("Erro no cadastro de dependente");
-//		}
-	}
-	
-	public void carregarLista(){
-		try{
-			DependenteDAO dao = new DependenteDAO();
-			listaDependentes = dao.listarTodos();
-		}catch(RuntimeException ex){
-			FacesUtil.addMsgErro("Erro na listagem de Dependentes");
-		}
-	}
-	
+    private DependenteDataModel dependenteDataModel;
+
+    public Dependente getDependenteForm() {
+        return dependenteForm;
+    }
+
+    public void setDependenteForm(Dependente dependenteForm) {
+        this.dependenteForm = dependenteForm;
+    }
+
+    public DependenteDataModel getDependenteDataModel() {
+        return dependenteDataModel;
+    }
+
+    @PostConstruct
+    public void init() {
+        dependenteService = DependenteService.getInstance();
+        clienteService = ClienteService.getInstance();
+        dependenteForm = new Dependente();
+        loadClientByIdFromRequest();
+        list();
+    }
+
+    @Override
+    public void navigateToRegistrationPage() {
+        redirectToPage("/pages/dependente/dependenteManter.xhtml");
+    }
+
+    @Override
+    public void save() {
+        try {
+            boolean isEditing = dependenteForm != null && dependenteForm.getDependenteID() != null;
+            dependenteService.save(dependenteForm);
+            if (!isEditing) {
+                handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
+                dependenteForm = new Dependente();
+            } else {
+                handleSuccessMessage("br.com.locadora.acao.editarsucesso");
+            }
+        } catch (Exception ex) {
+            boolean isDuplicatedEntry = SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA.equals(ex.getMessage());
+            if (!isDuplicatedEntry) {
+                handleErrorMessage("br.com.locadora.acao.salvarfalha");
+            } else {
+                handleWarningMessage("br.com.locadora.acao.salvardependenteduplicado");
+            }
+        }
+    }
+
+    @Override
+    public void delete() {
+        try {
+            dependenteService.delete(dependenteForm);
+            handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
+        } catch (Exception ex) {
+            handleErrorMessage("br.com.locadora.acao.excluirfalha");
+        }
+    }
+
+    public List<Cliente> completeCustomer(String query) {
+        try {
+            String queryLowerCase = query.toLowerCase();
+            return clienteService.findByName(queryLowerCase);
+        } catch (Exception ex) {
+            handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
+            return Collections.emptyList();
+        }
+    }
+
+    private void loadClientByIdFromRequest() {
+        try {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
+            if (StringUtils.isNotBlank(id)) {
+                dependenteForm = dependenteService.findById(Long.parseLong(id));
+            }
+        } catch (Exception ex) {
+            handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
+        }
+    }
+
+    private void list() {
+        try {
+            dependenteDataModel = new DependenteDataModel(dependenteService);
+        } catch (Exception ex) {
+            handleErrorMessage("br.com.locadora.acao.listardependentesfalha");
+        }
+    }
 }

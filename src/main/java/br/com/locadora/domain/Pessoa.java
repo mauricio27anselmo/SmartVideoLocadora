@@ -1,5 +1,7 @@
 package br.com.locadora.domain;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -14,6 +16,10 @@ public abstract class Pessoa {
 	@Column(name = "pes_data_nascimento", nullable = false)
 	@Temporal(value = TemporalType.DATE)
 	protected Date dataNascimento;
+
+	@CPF
+	@Column(name = "pes_cpf", length = 14, nullable = false, unique = true)
+	private String cpf;
 
 	public String getNome() {
 		return nome;
@@ -30,5 +36,12 @@ public abstract class Pessoa {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 }

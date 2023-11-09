@@ -16,13 +16,4 @@
             <supported-locale>en_US</supported-locale>
         </locale-config>
     </application>
-
-<!--    <navigation-rule>-->
-<!--        <from-view-id>/pages/cliente/clienteListar.xhtml</from-view-id>-->
-<!--        <navigation-case>-->
-<!--            <from-outcome>clienteManter</from-outcome>-->
-<!--            <to-view-id>/pages/cliente/clienteManter.xhtml</to-view-id>-->
-<!--            <redirect />-->
-<!--        </navigation-case>-->
-<!--    </navigation-rule>-->
 </faces-config>

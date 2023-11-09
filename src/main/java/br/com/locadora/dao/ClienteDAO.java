@@ -12,9 +12,11 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -57,5 +59,20 @@ public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
         } catch (Exception ex) {
             throw new DAOException("Erro ao listar registros", ex);
         }
+    }
+
+    public List<Cliente> findByName(String name) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Cliente> records = new ArrayList<>();
+        try {
+            Criteria criteria = session.createCriteria(Cliente.class);
+            criteria.add(Restrictions.ilike("nome", "%" + name + "%"));
+            records = (List<Cliente>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return records;
     }
 }

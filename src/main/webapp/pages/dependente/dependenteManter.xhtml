@@ -6,17 +6,33 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <h:form id="cliente-form">
-            <p:panel header="#{msg['br.com.locadora.cadastrocliente']}">
+        <h:form id="dependente-form">
+            <p:panel header="#{msg['br.com.locadora.cadastrodependente']}">
                 <div class="grid">
                     <div class="col-10">
+                        <div class="field">
+                            <h:outputLabel for="cliente"
+                                           value="#{msg['br.com.locadora.cliente']}"
+                                           styleClass="col-2"/>
+                            <p:autoComplete id="cliente"
+                                            styleClass="w-7"
+                                            value="#{dependenteBean.dependenteForm.cliente}"
+                                            completeMethod="#{dependenteBean.completeCustomer}"
+                                            var="cliente"
+                                            itemLabel="#{cliente.nome}"
+                                            itemValue="#{cliente}"
+                                            converter="#{clienteConverter}"
+                                            forceSelection="true"
+                                            required="true"
+                                            scrollHeight="250"/>
+                        </div>
                         <div class="field">
                             <h:outputLabel for="nome"
                                            value="#{msg['br.com.locadora.nome']}"
                                            styleClass="col-2"/>
                             <p:inputText id="nome"
                                          maxlength="50"
-                                         value="#{clienteBean.clienteForm.nome}"
+                                         value="#{dependenteBean.dependenteForm.nome}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -29,25 +45,7 @@
                                         pattern="dd/MM/yyyy"
                                         yearRange="c-100:c"
                                         showOn="button"
-                                        value="#{clienteBean.clienteForm.dataNascimento}"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="endereco"
-                                           value="#{msg['br.com.locadora.endereco']}"
-                                           styleClass="col-2"/>
-                            <p:inputText id="endereco"
-                                         maxlength="200"
-                                         value="#{clienteBean.clienteForm.endereco}"
-                                         styleClass="col-7 ui-inputtext"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="email"
-                                           value="#{msg['br.com.locadora.email']}"
-                                           styleClass="col-2"/>
-                            <p:inputText id="email"
-                                         maxlength="30"
-                                         value="#{clienteBean.clienteForm.email}"
-                                         styleClass="col-7 ui-inputtext"/>
+                                        value="#{dependenteBean.dependenteForm.dataNascimento}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="@next"
@@ -55,7 +53,7 @@
                                            styleClass="col-2"/>
                             <p:inputMask id="cpf"
                                          maxlength="14"
-                                         value="#{clienteBean.clienteForm.cpf}"
+                                         value="#{dependenteBean.dependenteForm.cpf}"
                                          mask="999.999.999-99"
                                          styleClass="col-2 ui-inputmask"
                                          validateMask="true" />
@@ -68,12 +66,12 @@
                                       value="#{msg['br.com.locadora.voltar']}"
                                       styleClass="ui-button-secondary"
                                       icon="pi pi-arrow-left"
-                                      outcome="/pages/cliente/clienteListar.jsf"/>
+                                      outcome="/pages/dependente/dependenteListar.jsf"/>
                         <p:commandButton id="btnSalvar"
                                          value="#{msg['br.com.locadora.salvar']}"
                                          icon="pi pi-save"
-                                         actionListener="#{clienteBean.save()}"
-                                         update=":cliente-form :mensagem ">
+                                         actionListener="#{dependenteBean.save()}"
+                                         update=":dependente-form :mensagem ">
                         </p:commandButton>
                     </div>
                 </f:facet>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo" >
+        <p:panel header="#{msg['br.com.locadora.listagemdependente']}">
+            <p:toolbar styleClass="custom-toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton id="btnNovo"
+                                     value="#{msg['br.com.locadora.novodependente']}"
+                                     icon="pi pi-plus"
+                                     action="#{dependenteBean.navigateToRegistrationPage()}"
+                                     styleClass="ui-button-success">
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="datatable-dependentes"
+                         var="dependente"
+                         value="#{dependenteBean.dependenteDataModel}"
+                         rowKey="#{dependente.dependenteID}"
+                         rows="15"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="15"
+                         selectionMode="single">
+
+                <p:column headerText="#{msg['br.com.locadora.cliente']}"
+                          sortBy="#{dependente.cliente.nome}">
+                    <h:outputText value="#{dependente.cliente.nome}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.nome']}"
+                          sortBy="#{dependente.nome}">
+                    <h:outputText value="#{dependente.nome}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.cpf']}"
+                          sortBy="#{dependente.cpf}">
+                    <h:outputText value="#{dependente.cpf}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.datanascimento']}"
+                          sortBy="#{dependente.dataNascimento}">
+                    <h:outputText value="#{dependente.dataNascimento}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <div class="datatable-actions">
+                        <p:tooltip for="btnConsultar"
+                                   value="#{msg['br.com.locadora.consultar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnConsultar"
+                                      type="button"
+                                      icon="pi pi-eye"
+                                      outcome="/pages/dependente/dependenteConsultar.jsf"
+                                      styleClass="rounded-button ui-button-secondary">
+                            <f:param name="id" value="#{dependente.dependenteID}" />
+                        </p:linkButton>
+
+                        <p:tooltip for="btnEditar"
+                                   value="#{msg['br.com.locadora.editar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnEditar"
+                                         type="button"
+                                         icon="pi pi-pencil"
+                                         outcome="/pages/dependente/dependenteManter.jsf"
+                                         styleClass="rounded-button">
+                            <f:param name="id" value="#{dependente.dependenteID}" />
+                        </p:linkButton>
+
+                        <p:tooltip for="btnExcluir"
+                                   value="#{msg['br.com.locadora.excluir']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+
+                        <p:commandButton id="btnExcluir"
+                                         styleClass="rounded-button ui-button-danger"
+                                         icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('deleteDependentDialog').show()">
+                            <f:setPropertyActionListener value="#{dependente}" target="#{dependenteBean.dependenteForm}"/>
+                        </p:commandButton>
+                    </div>
+                </p:column>
+                <f:facet name="footer">
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
+                        <f:param value="#{dependenteBean.dependenteDataModel.rowCount}" />
+                    </h:outputFormat>
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+        <h:form id="dialogs">
+            <p:confirmDialog widgetVar="deleteDependentDialog" showEffect="fade" width="500"
+                             message="#{msg['br.com.locadora.dialog.excluirdependente']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{dependenteBean.delete()}"
+                                 process="@this" update=":datatable-dependentes :mensagem"
+                                 oncomplete="PF('deleteDependentDialog').hide()" />
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteDependentDialog').hide()" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
