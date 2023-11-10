@@ -11,36 +11,36 @@
 		<property name="connection.username">usuario</property>
 		<property name="connection.password">123456</property>
 
-		<!-- JDBC connection pool (use the built-in) -->
-		<property name="hibernate.connection.pool_size">5</property>
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="hibernate.connection.pool_size">5</property>
 
-		<!-- SQL dialect -->
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
-		<!-- Enable Hibernate's automatic session context management -->
-		<property name="hibernate.current_session_context_class">thread</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="hibernate.current_session_context_class">thread</property>
 
-		<!-- Disable the second-level cache -->
-<!--		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>-->
+        <!-- Disable the second-level cache -->
+        <!--		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>-->
 
-		<!-- Echo all executed SQL to stdout -->
-		<property name="show_sql">true</property>
-		<property name="use_sql_comments">true</property>
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <property name="use_sql_comments">true</property>
 
-		<!-- Drop and re-create the database schema on startup -->
-		<property name="hbm2ddl.auto">update</property>
-		
-		<mapping class="br.com.locadora.domain.Pessoa"/>
-		<mapping class="br.com.locadora.domain.Dependente"/>
-		<mapping class="br.com.locadora.domain.Cliente"/>
-		<mapping class="br.com.locadora.domain.Servico"/>
-		<mapping class="br.com.locadora.domain.Reserva"/>
-		<mapping class="br.com.locadora.domain.Locacao"/>
-		<mapping class="br.com.locadora.domain.Acervo"/>
-		<mapping class="br.com.locadora.domain.Titulo"/>
-		<mapping class="br.com.locadora.domain.Ator"/>
-		<mapping class="br.com.locadora.domain.Telefone"/>
-		<mapping class="br.com.locadora.domain.ServicoAcervo"/>
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <mapping class="br.com.locadora.domain.Pessoa"/>
+        <mapping class="br.com.locadora.domain.Cliente"/>
+        <mapping class="br.com.locadora.domain.Dependente"/>
+<!--        <mapping class="br.com.locadora.domain.Servico"/>-->
+<!--        <mapping class="br.com.locadora.domain.Reserva"/>-->
+<!--        <mapping class="br.com.locadora.domain.Locacao"/>-->
+<!--        <mapping class="br.com.locadora.domain.Acervo"/>-->
+<!--        <mapping class="br.com.locadora.domain.Titulo"/>-->
+<!--        <mapping class="br.com.locadora.domain.Ator"/>-->
+<!--        <mapping class="br.com.locadora.domain.Telefone"/>-->
+<!--        <mapping class="br.com.locadora.domain.ServicoAcervo"/>-->
     </session-factory>
 
 </hibernate-configuration>

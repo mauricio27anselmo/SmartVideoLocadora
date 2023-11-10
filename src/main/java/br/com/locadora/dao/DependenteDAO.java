@@ -1,24 +1,18 @@
 package br.com.locadora.dao;
 
+import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
+import br.com.locadora.util.NegocioException;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
-import org.primefaces.model.SortMeta;
-import org.primefaces.model.SortOrder;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class DependenteDAO extends SmartLocadoraDAO<Dependente> {
 
@@ -57,5 +51,44 @@ public class DependenteDAO extends SmartLocadoraDAO<Dependente> {
 		} catch (Exception ex) {
 			throw new DAOException("Erro ao listar registros", ex);
 		}
+	}
+
+	@Override
+	public void save(Dependente entity, boolean isNew) throws DAOException, NegocioException {
+		boolean customerHasCPF = Optional.ofNullable(findCustomerByCPF(entity.getCpf())).isPresent();
+		if (customerHasCPF) {
+			throw new NegocioException("br.com.locadora.acao.clienteduplicado");
+		}
+		super.save(entity, isNew);
+	}
+
+	public Dependente findByCPF(String cpf) throws DAOException {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Dependente entity;
+		try {
+			Criteria criteria = session.createCriteria(Dependente.class);
+			criteria.add(Restrictions.eq("cpf", cpf));
+			entity = (Dependente) criteria.uniqueResult();
+		} catch (Exception ex) {
+			throw new DAOException("Erro ao listar registros");
+		} finally {
+			session.close();
+		}
+		return entity;
+	}
+
+	private Cliente findCustomerByCPF(String cpf) throws DAOException {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Cliente entity;
+		try {
+			Criteria criteria = session.createCriteria(Cliente.class);
+			criteria.add(Restrictions.eq("cpf", cpf));
+			entity = (Cliente) criteria.uniqueResult();
+		} catch (Exception ex) {
+			throw new DAOException("Erro ao listar registros");
+		} finally {
+			session.close();
+		}
+		return entity;
 	}
 }

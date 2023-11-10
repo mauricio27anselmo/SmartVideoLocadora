@@ -2,7 +2,6 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.ClienteDAO;
 import br.com.locadora.domain.Cliente;
-import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
@@ -20,10 +19,11 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
 
     private static ClienteService instance;
 
-    private ClienteDAO dao;
+    private ClienteDAO clienteDAO;
 
     private ClienteService() {
-        dao = ClienteDAO.getInstance();
+        clienteDAO = ClienteDAO.getInstance();
+        super.setDao(clienteDAO);
     }
 
     public static ClienteService getInstance() {
@@ -33,26 +33,12 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
         return instance;
     }
 
-    @Override
-    public Cliente findById(Long id) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(id).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            return dao.findById(id);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
-
-    @Override
     public void save(Cliente entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent()) {
+            if (!Optional.ofNullable(entity).isPresent() || StringUtils.isBlank(entity.getCpf())) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            dao.save(entity);
+            clienteDAO.save(entity, !Optional.ofNullable(entity.getClienteID()).isPresent());
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             String message = "br.com.locadora.acao.salvarfalha";
@@ -64,66 +50,17 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
         }
     }
 
-    @Override
-    public void delete(Cliente entity) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getClienteID()).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            dao.delete(entity);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
-
-    @Override
-    public List<Cliente> load(PageableFilter filter) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(filter).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            return dao.load(filter);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
-
-    @Override
-    public int count(PageableFilter filter) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(filter).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            return dao.count(filter);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
-
     public List<Cliente> findByName(String name) throws NegocioException {
         try {
             if (StringUtils.isEmpty(name)) {
                 return Collections.emptyList();
             }
-            return dao.findByName(name);
+            return clienteDAO.findByName(name);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException(ex.getMessage(), ex);
         }
     }
 
-    public Cliente findByCPF(String cpf) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(cpf).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            return dao.findByCPF(cpf);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException(ex.getMessage(), ex);
-        }
-    }
+
 }

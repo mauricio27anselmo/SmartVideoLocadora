@@ -80,8 +80,7 @@ jacocoTestReport {
                     'br/com/locadora/filter/**',
                     'br/com/locadora/main/**',
                     'br/com/locadora/util/**',
-                    'br/com/locadora/converter/**',
-                    'br/com/locadora/service/SmartLocadoraService.class']).asFileTree
+                    'br/com/locadora/converter/**']).asFileTree
         }))
     }
 }

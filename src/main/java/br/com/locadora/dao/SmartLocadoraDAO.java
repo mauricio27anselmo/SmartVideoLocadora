@@ -3,6 +3,7 @@ package br.com.locadora.dao;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
+import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,15 +28,15 @@ public abstract class SmartLocadoraDAO<T> {
         this.entityClass = entityClass;
     }
 
-    public void save(T entity) throws DAOException {
-        save(entity, false);
-    }
-
-    public void save(T entity, boolean isNew) throws DAOException {
+    public void save(T entity, boolean isNew) throws DAOException, NegocioException {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.merge(entity);
+            if (isNew) {
+                session.persist(entity);
+            } else {
+                session.merge(entity);
+            }
             transaction.commit();
         } catch (PersistenceException ex) {
             cancelTransaction(transaction);
