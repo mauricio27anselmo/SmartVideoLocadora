@@ -1,7 +1,5 @@
 package br.com.locadora.domain;
 
-import br.com.locadora.enums.MidiaTipo;
-
 import javax.persistence.*;
 
 

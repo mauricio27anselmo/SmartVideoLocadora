@@ -20,9 +20,6 @@
         <!-- Enable Hibernate's automatic session context management -->
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <!-- Disable the second-level cache -->
-        <!--		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>-->
-
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <property name="use_sql_comments">true</property>
@@ -33,14 +30,8 @@
         <mapping class="br.com.locadora.domain.Pessoa"/>
         <mapping class="br.com.locadora.domain.Cliente"/>
         <mapping class="br.com.locadora.domain.Dependente"/>
-<!--        <mapping class="br.com.locadora.domain.Servico"/>-->
-<!--        <mapping class="br.com.locadora.domain.Reserva"/>-->
-<!--        <mapping class="br.com.locadora.domain.Locacao"/>-->
-<!--        <mapping class="br.com.locadora.domain.Acervo"/>-->
-<!--        <mapping class="br.com.locadora.domain.Titulo"/>-->
-<!--        <mapping class="br.com.locadora.domain.Ator"/>-->
-<!--        <mapping class="br.com.locadora.domain.Telefone"/>-->
-<!--        <mapping class="br.com.locadora.domain.ServicoAcervo"/>-->
+        <mapping class="br.com.locadora.domain.Ator"/>
+        <mapping class="br.com.locadora.domain.Diretor"/>
     </session-factory>
 
 </hibernate-configuration>

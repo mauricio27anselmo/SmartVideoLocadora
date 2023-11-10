@@ -3,19 +3,14 @@ package br.com.locadora.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ator")
-@NamedQueries({
-	@NamedQuery(name = "Ator.listarTodos", query = "SELECT ator FROM Ator ator"),
-	@NamedQuery(name = "Ator.pesquisarPorID", query = "SELECT ator FROM Ator ator where ator.atorID = :ID"),
-	@NamedQuery(name = "Ator.pesquisarPorNome", query = "SELECT ator FROM Ator ator where ator.nome = :nome")
-})
+@Table(name = "smt_ator")
 public class Ator {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "at_id")
+	@Column(name = "atr_id")
 	private Long atorID;
 	
-	@Column(name = "at_nome", length = 50, nullable = false)
+	@Column(name = "atr_nome", length = 50, unique = true, nullable = false)
 	private String nome;
 
 	public Long getAtorID() {
