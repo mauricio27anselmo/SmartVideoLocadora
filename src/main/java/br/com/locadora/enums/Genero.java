@@ -1,5 +1,10 @@
 package br.com.locadora.enums;
 
+import br.com.locadora.util.SmartLocadoraConstantes;
+
+import javax.persistence.Id;
+import java.util.stream.Stream;
+
 public enum Genero {
 
 	ACAO(1L, "br.com.locadora.genero.acao"),
@@ -21,6 +26,7 @@ public enum Genero {
 	TERROR(17L, "br.com.locadora.genero.terror");
 
 	public final Long id;
+
 	public final String label;
 
 	Genero(Long id, String label) {
@@ -28,8 +34,23 @@ public enum Genero {
 		this.label = label;
 	}
 
+	public Long getId() {
+		return this.id;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
 	@Override
 	public String toString() {
 		return this.label;
+	}
+
+	public static Genero toEnum(Long id) {
+		return Stream.of(Genero.values())
+				.filter( g -> g.getId().equals(id))
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS));
 	}
 }

@@ -4,29 +4,59 @@ package br.com.locadora.domain;
 import br.com.locadora.enums.ClassificacaoIndicativa;
 import br.com.locadora.enums.Genero;
 import br.com.locadora.enums.Idioma;
+import br.com.locadora.enums.converter.ClassificacaoIndicativaConverter;
+import br.com.locadora.enums.converter.GeneroConverter;
+import br.com.locadora.enums.converter.IdiomaConverter;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 
-
+@Entity
+@Table(name = "smt_filme")
 public class Filme {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "flm_id")
     private Long filmeID;
 
+    @Column(name = "flm_titulo", length = 50, nullable = false)
     private String titulo;
 
+    @Column(name = "flm_descricao", length = 150)
     private String descricao;
 
+    @Column(name = "flm_ano_lancamento", nullable = false)
     private BigInteger anoLancamento;
 
+    @Convert(converter = GeneroConverter.class)
+    @Column(name = "flm_genero", nullable = false)
     private Genero genero;
 
+    @Convert(converter = ClassificacaoIndicativaConverter.class)
+    @Column(name = "flm_classificacao_indicativa", nullable = false)
     private ClassificacaoIndicativa classificacaoIndicativa;
 
+    @Convert(converter = IdiomaConverter.class)
+    @Column(name = "flm_idioma", nullable = false)
     private Idioma idioma;
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "smt_filme_ator",
+            joinColumns = { @JoinColumn(name = "flm_id") },
+            inverseJoinColumns = { @JoinColumn(name = "atr_id") }
+    )
     private List<Ator> elenco;
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "smt_filme_diretor",
+            joinColumns = { @JoinColumn(name = "flm_id") },
+            inverseJoinColumns = { @JoinColumn(name = "drt_id") }
+    )
     private List<Diretor> direcao;
 
     public Long getFilmeID() {

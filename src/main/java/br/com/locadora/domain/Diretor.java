@@ -1,6 +1,7 @@
 package br.com.locadora.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "smt_diretor")
@@ -13,6 +14,9 @@ public class Diretor {
 
     @Column(name = "drt_nome", length = 50, unique = true, nullable = false)
     private String nome;
+
+    @ManyToMany(mappedBy = "direcao")
+    private List<Filme> filmes;
 
     public Long getDiretorID() {
         return diretorID;
@@ -28,6 +32,14 @@ public class Diretor {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Filme> getFilmes() {
+        return filmes;
+    }
+
+    public void setFilmes(List<Filme> filmes) {
+        this.filmes = filmes;
     }
 
     @Override

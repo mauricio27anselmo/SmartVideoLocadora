@@ -1,0 +1,23 @@
+package br.com.locadora.enums.converter;
+
+import br.com.locadora.enums.ClassificacaoIndicativa;
+import br.com.locadora.enums.Idioma;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+import java.util.Optional;
+
+
+@Converter
+public class ClassificacaoIndicativaConverter implements AttributeConverter<ClassificacaoIndicativa, Long> {
+
+    @Override
+    public Long convertToDatabaseColumn(ClassificacaoIndicativa rating) {
+        return Optional.ofNullable(rating.getId()).orElse(null);
+    }
+
+    @Override
+    public ClassificacaoIndicativa convertToEntityAttribute(Long id) {
+        return ClassificacaoIndicativa.toEnum(id);
+    }
+}

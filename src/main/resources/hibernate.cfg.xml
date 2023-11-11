@@ -32,6 +32,7 @@
         <mapping class="br.com.locadora.domain.Dependente"/>
         <mapping class="br.com.locadora.domain.Ator"/>
         <mapping class="br.com.locadora.domain.Diretor"/>
+        <mapping class="br.com.locadora.domain.Filme"/>
     </session-factory>
 
 </hibernate-configuration>

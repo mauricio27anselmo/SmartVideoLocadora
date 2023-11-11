@@ -1,10 +1,10 @@
 package br.com.locadora.bean;
 
-import br.com.locadora.datamodel.DependenteDataModel;
+import br.com.locadora.datamodel.FilmeDataModel;
 import br.com.locadora.domain.Cliente;
-import br.com.locadora.domain.Dependente;
+import br.com.locadora.domain.Filme;
 import br.com.locadora.service.ClienteService;
-import br.com.locadora.service.DependenteService;
+import br.com.locadora.service.FilmeService;
 import br.com.locadora.util.NegocioException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,31 +19,28 @@ import java.util.List;
 @ViewScoped
 public class FilmeBean extends SmartLocadoraBean {
 
-    private DependenteService dependenteService;
+    private FilmeService filmeService;
 
-    private ClienteService clienteService;
+    private Filme filmeForm;
 
-    private Dependente dependenteForm;
+    private FilmeDataModel filmeDataModel;
 
-    private DependenteDataModel dependenteDataModel;
-
-    public Dependente getDependenteForm() {
-        return dependenteForm;
+    public Filme getFilmeForm() {
+        return filmeForm;
     }
 
-    public void setDependenteForm(Dependente dependenteForm) {
-        this.dependenteForm = dependenteForm;
+    public void setFilmeForm(Filme filmeForm) {
+        this.filmeForm = filmeForm;
     }
 
-    public DependenteDataModel getDependenteDataModel() {
-        return dependenteDataModel;
+    public FilmeDataModel getFilmeDataModel() {
+        return filmeDataModel;
     }
 
     @PostConstruct
     public void init() {
-        dependenteService = DependenteService.getInstance();
-        clienteService = ClienteService.getInstance();
-        dependenteForm = new Dependente();
+        filmeService = FilmeService.getInstance();
+        filmeForm = new Filme();
         loadClientByIdFromRequest();
         list();
     }
@@ -56,11 +53,11 @@ public class FilmeBean extends SmartLocadoraBean {
     @Override
     public void save() {
         try {
-            boolean isEditing = dependenteForm != null && dependenteForm.getDependenteID() != null;
-            dependenteService.save(dependenteForm);
+            boolean isEditing = filmeForm != null && filmeForm.getFilmeID() != null;
+            filmeService.save(filmeForm, filmeForm.getFilmeID());
             if (!isEditing) {
                 handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
-                dependenteForm = new Dependente();
+                filmeForm = new Filme();
             } else {
                 handleSuccessMessage("br.com.locadora.acao.editarsucesso");
             }
@@ -72,40 +69,30 @@ public class FilmeBean extends SmartLocadoraBean {
     @Override
     public void delete() {
         try {
-            dependenteService.delete(dependenteForm);
+            filmeService.delete(filmeForm);
             handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.excluirfalha");
         }
     }
-
-    public List<Cliente> completeCustomer(String query) {
-        try {
-            String queryLowerCase = query.toLowerCase();
-            return clienteService.findByName(queryLowerCase);
-        } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
-            return Collections.emptyList();
-        }
-    }
-
+    
     private void loadClientByIdFromRequest() {
         try {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
             if (StringUtils.isNotBlank(id)) {
-                dependenteForm = dependenteService.findById(Long.parseLong(id));
+                filmeForm = filmeService.findById(Long.parseLong(id));
             }
         } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
+            handleErrorMessage("br.com.locadora.acao.consultarfilmefalha");
         }
     }
 
     private void list() {
         try {
-            dependenteDataModel = new DependenteDataModel(dependenteService);
+            filmeDataModel = new FilmeDataModel(filmeService);
         } catch (Exception ex) {
-            handleErrorMessage("br.com.locadora.acao.listardependentesfalha");
+            handleErrorMessage("br.com.locadora.acao.listarfilmesfalha");
         }
     }
 }
