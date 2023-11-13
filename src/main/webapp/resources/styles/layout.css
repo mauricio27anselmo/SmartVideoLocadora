@@ -111,6 +111,10 @@ body [id$="dependente-form:cliente_input"] {
     width: 100%;
 }
 
+body [id$="filme-form:anoLancamento_input"] {
+    width: 8.3333%;
+}
+
 body .ui-panel-content .ui-toolbar {
     border: none;
     padding-bottom: 1rem;
@@ -204,7 +208,7 @@ body .ui-autocomplete-panel {
     background: var(--surface-800);
     color: var(--surface-0);
     border: 1px solid var(--surface-900);
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.16);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .16);
 }
 
 body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item, body .ui-autocomplete-panel .ui-autocomplete-emptyMessage, body .ui-autocomplete-panel .ui-autocomplete-empty-message {
@@ -213,5 +217,31 @@ body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item, body .
 
 body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item.ui-state-highlight {
     background: var(--surface-600);
+    color: var(--surface-0);
+}
+
+body .ui-selectonemenu {
+    width: 58.3333%;
+}
+
+body .ui-selectonemenu-panel {
+    background: var(--surface-700);
+}
+
+body .ui-selectonemenu .ui-selectonemenu-label {
+    background: var(--surface-900);
+}
+
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item {
+    color: var(--surface-0);
+}
+
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-highlight {
+    background: var(--surface-800);
+    color: var(--surface-0);
+}
+
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-hover {
+    background: var(--surface-800);
     color: var(--surface-0);
 }

@@ -5,58 +5,68 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="filme-form">
             <p:panel header="#{msg['br.com.locadora.cadastrofilme']}">
                 <div class="grid">
                     <div class="col-10">
                         <div class="field">
-                            <h:outputLabel for="cliente"
-                                           value="#{msg['br.com.locadora.cliente']}"
+                            <h:outputLabel for="titulo"
+                                           value="#{msg['br.com.locadora.titulo']}"
                                            styleClass="col-2"/>
-                            <p:autoComplete id="cliente"
-                                            styleClass="w-7"
-                                            value="#{filmeBean.dependenteForm.cliente}"
-                                            completeMethod="#{filmeBean.completeCustomer}"
-                                            var="cliente"
-                                            itemLabel="#{cliente.nome}"
-                                            itemValue="#{cliente}"
-                                            converter="#{clienteConverter}"
-                                            forceSelection="true"
-                                            required="true"
-                                            scrollHeight="250"/>
-                        </div>
-                        <div class="field">
-                            <h:outputLabel for="nome"
-                                           value="#{msg['br.com.locadora.nome']}"
-                                           styleClass="col-2"/>
-                            <p:inputText id="nome"
+                            <p:inputText id="titulo"
                                          maxlength="50"
-                                         value="#{filmeBean.dependenteForm.nome}"
+                                         value="#{filmeBean.filmeForm.titulo}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="dataNascimento"
-                                           value="#{msg['br.com.locadora.datanascimento']}"
+                            <h:outputLabel for="descricao"
+                                           value="#{msg['br.com.locadora.descricao']}"
                                            styleClass="col-2"/>
-                            <p:calendar id="dataNascimento"
-                                        locale="#{languageBean.locale}"
-                                        navigator="true"
-                                        pattern="dd/MM/yyyy"
-                                        yearRange="c-100:c"
-                                        showOn="button"
-                                        value="#{filmeBean.dependenteForm.dataNascimento}"/>
+                            <p:inputTextarea id="descricao"
+                                             value="#{filmeBean.filmeForm.descricao}"
+                                             maxlength="500"
+                                             styleClass="col-7 unresizable">
+                            </p:inputTextarea>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="@next"
-                                           value="#{msg['br.com.locadora.cpf']}"
+                            <h:outputLabel for="anoLancamento"
+                                           value="#{msg['br.com.locadora.anolancamento']}"
                                            styleClass="col-2"/>
-                            <p:inputMask id="cpf"
-                                         maxlength="14"
-                                         value="#{filmeBean.dependenteForm.cpf}"
-                                         mask="999.999.999-99"
-                                         styleClass="col-2 ui-inputmask"
-                                         validateMask="true" />
+                            <p:inputNumber id="anoLancamento"
+                                           value="#{filmeBean.filmeForm.anoLancamento}"
+                                           minValue="#{filmeBean.minYearRelease}"
+                                           maxValue="#{filmeBean.maxYearRelease}"
+                                           styleClass="ui-inputtext"
+                                           required="true"/>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="generoFilme"
+                                           value="#{msg['br.com.locadora.generofilme']}"
+                                           styleClass="col-2"/>
+                            <p:selectOneMenu id="generoFilme"
+                                             value="#{filmeBean.filmeForm.genero}"
+                                             required="true">
+                                <f:selectItem itemLabel="#{msg['br.com.locadora.selecioneopcao']}" itemValue=""/>
+                                <f:selectItems var="generoFilme"
+                                               itemLabel="#{msg[generoFilme.label]}"
+                                               itemValue="#{generoFilme}"
+                                               value="#{filmeBean.moviesGenreList}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="classificacaoIndicativa"
+                                           value="#{msg['br.com.locadora.classificacaoindicativa']}"
+                                           styleClass="col-2"/>
+                            <p:selectOneMenu id="classificacaoIndicativa"
+                                             value="#{filmeBean.filmeForm.classificacaoIndicativa}"
+                                             required="true">
+                                <f:selectItem itemLabel="#{msg['br.com.locadora.selecioneopcao']}" itemValue=""/>
+                                <f:selectItems var="classificacaoIndicativa"
+                                               itemLabel="#{msg[classificacaoIndicativa.label]}"
+                                               itemValue="#{classificacaoIndicativa}"
+                                               value="#{filmeBean.ratingList}"/>
+                            </p:selectOneMenu>
                         </div>
                     </div>
                 </div>

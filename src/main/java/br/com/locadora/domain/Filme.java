@@ -7,7 +7,6 @@ import br.com.locadora.enums.Idioma;
 import br.com.locadora.enums.converter.ClassificacaoIndicativaConverter;
 import br.com.locadora.enums.converter.GeneroConverter;
 import br.com.locadora.enums.converter.IdiomaConverter;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -25,7 +24,7 @@ public class Filme {
     @Column(name = "flm_titulo", length = 50, nullable = false)
     private String titulo;
 
-    @Column(name = "flm_descricao", length = 150)
+    @Column(name = "flm_descricao", length = 500)
     private String descricao;
 
     @Column(name = "flm_ano_lancamento", nullable = false)

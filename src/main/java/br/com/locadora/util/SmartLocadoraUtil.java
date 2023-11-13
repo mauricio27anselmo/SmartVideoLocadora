@@ -4,13 +4,26 @@ import br.com.locadora.enums.ClassificacaoIndicativa;
 import br.com.locadora.enums.Genero;
 import br.com.locadora.enums.Idioma;
 
+import javax.faces.context.FacesContext;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class SmartLocadoraUtil {
 
     public static List<Genero> listAllMovieGenres() {
-        return Arrays.asList(Genero.values());
+        Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        switch (locale.getLanguage()) {
+            case "es":
+                return Arrays.stream(Genero.values()).sorted(Comparator.comparing(Genero::getEsOrder)).collect(Collectors.toList());
+            case "en":
+                return Arrays.stream(Genero.values()).sorted(Comparator.comparing(Genero::getEnOrder)).collect(Collectors.toList());
+            default:
+                return Arrays.stream(Genero.values()).sorted(Comparator.comparing(Genero::getPtOrder)).collect(Collectors.toList());
+        }
+
     }
 
     public static List<Idioma> listAllLanguages() {
@@ -18,7 +31,43 @@ public class SmartLocadoraUtil {
     }
 
     public static List<ClassificacaoIndicativa> listAllRatings() {
-        return Arrays.asList(ClassificacaoIndicativa.values());
+        Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        switch (locale.getLanguage()) {
+            case "es":
+                return listAllESRatings();
+            case "en":
+                return listAllENUSRatings();
+            default:
+                return listAllPTBRRatings();
+        }
+    }
+
+    private static List<ClassificacaoIndicativa> listAllPTBRRatings() {
+        FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        return Arrays.asList(ClassificacaoIndicativa.PT_BR_LIVRE,
+                ClassificacaoIndicativa.PT_BR_10_ANOS,
+                ClassificacaoIndicativa.PT_BR_12_ANOS,
+                ClassificacaoIndicativa.PT_BR_14_ANOS,
+                ClassificacaoIndicativa.PT_BR_16_ANOS,
+                ClassificacaoIndicativa.PT_BR_18_ANOS);
+    }
+
+    private static List<ClassificacaoIndicativa> listAllESRatings() {
+        FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        return Arrays.asList(ClassificacaoIndicativa.ES_LIVRE,
+                ClassificacaoIndicativa.ES_7_ANOS,
+                ClassificacaoIndicativa.ES_12_ANOS,
+                ClassificacaoIndicativa.ES_16_ANOS,
+                ClassificacaoIndicativa.ES_18_ANOS);
+    }
+
+    private static List<ClassificacaoIndicativa> listAllENUSRatings() {
+        FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        return Arrays.asList(ClassificacaoIndicativa.EN_US_G,
+                ClassificacaoIndicativa.EN_US_PG,
+                ClassificacaoIndicativa.EN_US_PG_13,
+                ClassificacaoIndicativa.EN_US_R,
+                ClassificacaoIndicativa.ES_US_NC_17);
     }
 
 }
