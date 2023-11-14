@@ -1,11 +1,12 @@
 package br.com.locadora.bean;
 
-import br.com.locadora.datamodel.FilmeDataModel;
-import br.com.locadora.domain.Cliente;
+import br.com.locadora.domain.Ator;
+import br.com.locadora.domain.Diretor;
 import br.com.locadora.domain.Filme;
 import br.com.locadora.enums.ClassificacaoIndicativa;
 import br.com.locadora.enums.Genero;
-import br.com.locadora.service.ClienteService;
+import br.com.locadora.service.AtorService;
+import br.com.locadora.service.DiretorService;
 import br.com.locadora.service.FilmeService;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraUtil;
@@ -22,13 +23,15 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class FilmeBean extends SmartLocadoraBean {
+public class FilmeFormBean extends SmartLocadoraFormBean {
 
     private FilmeService filmeService;
 
-    private Filme filmeForm;
+    private AtorService atorService;
 
-    private FilmeDataModel filmeDataModel;
+    private DiretorService diretorService;
+
+    private Filme filmeForm;
 
     private int minYearRelease;
 
@@ -44,10 +47,6 @@ public class FilmeBean extends SmartLocadoraBean {
 
     public void setFilmeForm(Filme filmeForm) {
         this.filmeForm = filmeForm;
-    }
-
-    public FilmeDataModel getFilmeDataModel() {
-        return filmeDataModel;
     }
 
     public int getMinYearRelease() {
@@ -69,9 +68,10 @@ public class FilmeBean extends SmartLocadoraBean {
     @PostConstruct
     public void init() {
         filmeService = FilmeService.getInstance();
+        atorService = AtorService.getInstance();
+        diretorService = DiretorService.getInstance();
         filmeForm = new Filme();
-        loadClientByIdFromRequest();
-        list();
+        loadEntityByIdFromRequest();
         maxYearRelease = Calendar.getInstance().get(GregorianCalendar.YEAR);
         minYearRelease = maxYearRelease - 150;
         moviesGenreList = SmartLocadoraUtil.listAllMovieGenres();
@@ -79,15 +79,10 @@ public class FilmeBean extends SmartLocadoraBean {
     }
 
     @Override
-    public void navigateToRegistrationPage() {
-        redirectToPage("/pages/filme/filmeManter.xhtml");
-    }
-
-    @Override
     public void save() {
         try {
             boolean isEditing = filmeForm != null && filmeForm.getFilmeID() != null;
-            filmeService.save(filmeForm, filmeForm.getFilmeID());
+            filmeService.save(filmeForm);
             if (!isEditing) {
                 handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
                 filmeForm = new Filme();
@@ -99,17 +94,28 @@ public class FilmeBean extends SmartLocadoraBean {
         }
     }
 
-    @Override
-    public void delete() {
+    public List<Ator> completeActor(String query) {
         try {
-            filmeService.delete(filmeForm);
-            handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
+            String queryLowerCase = query.toLowerCase();
+            return atorService.findByName(queryLowerCase);
         } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.excluirfalha");
+            handleErrorMessage("br.com.locadora.acao.consultaratorfalha");
+            return Collections.emptyList();
         }
     }
-    
-    private void loadClientByIdFromRequest() {
+
+    public List<Diretor> completeDirector(String query) {
+        try {
+            String queryLowerCase = query.toLowerCase();
+            return diretorService.findByName(queryLowerCase);
+        } catch (NegocioException ex) {
+            handleErrorMessage("br.com.locadora.acao.consultardiretorfalha");
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    protected void loadEntityByIdFromRequest() {
         try {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
@@ -118,14 +124,6 @@ public class FilmeBean extends SmartLocadoraBean {
             }
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultarfilmefalha");
-        }
-    }
-
-    private void list() {
-        try {
-            filmeDataModel = new FilmeDataModel(filmeService);
-        } catch (Exception ex) {
-            handleErrorMessage("br.com.locadora.acao.listarfilmesfalha");
         }
     }
 }

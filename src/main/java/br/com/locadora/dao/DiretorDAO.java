@@ -1,12 +1,9 @@
 package br.com.locadora.dao;
 
-import br.com.locadora.domain.Cliente;
-import br.com.locadora.domain.Dependente;
-import br.com.locadora.domain.Filme;
+import br.com.locadora.domain.Diretor;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
-import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,33 +15,32 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class FilmeDAO extends SmartLocadoraDAO<Filme> {
+public class DiretorDAO extends SmartLocadoraDAO<Diretor> {
 
-    private static final Logger logger = LogManager.getLogger(FilmeDAO.class);
+    private static final Logger logger = LogManager.getLogger(DiretorDAO.class);
 
-    private static FilmeDAO instance;
+    private static DiretorDAO instance;
 
-    private FilmeDAO() {
-        super(Filme.class);
+    private DiretorDAO() {
+        super(Diretor.class);
     }
 
-    public static FilmeDAO getInstance() {
+    public static DiretorDAO getInstance() {
         if (instance == null) {
-            instance = new FilmeDAO();
+            instance = new DiretorDAO();
         }
         return instance;
     }
 
     @Override
-    public List<Filme> load(PageableFilter filter) throws DAOException {
+    public List<Diretor> load(PageableFilter filter) throws DAOException {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Criteria criteria = session.createCriteria(Filme.class);
+            Criteria criteria = session.createCriteria(Diretor.class);
             applySorting(criteria, filter);
             criteria.setFirstResult(filter.getFirst());
             criteria.setMaxResults(filter.getPageSize());
-            return (List<Filme>) criteria.list();
+            return (List<Diretor>) criteria.list();
         } catch (Exception ex) {
             throw new DAOException("Erro ao listar registros", ex);
         }
@@ -53,7 +49,7 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> {
     @Override
     public int count(PageableFilter filter) throws DAOException {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Criteria criteria = session.createCriteria(Filme.class);
+            Criteria criteria = session.createCriteria(Diretor.class);
             criteria.setProjection(Projections.rowCount());
             return ((Long) criteria.uniqueResult()).intValue();
         } catch (Exception ex) {
@@ -61,24 +57,19 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> {
         }
     }
 
-    @Override
-    public Filme findById(long id) throws DAOException {
+    public List<Diretor> findByName(String name) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Filme entity = null;
+        List<Diretor> records = new ArrayList<>();
         try {
-            entity = session.get(Filme.class, id);
-            if (entity == null) {
-                throw new DAOException(SmartLocadoraConstantes.REGISTRO_NAO_ENCONTRADO);
-            }
-            Hibernate.initialize(entity.getElenco());
-            Hibernate.initialize(entity.getDirecao());
+            Criteria criteria = session.createCriteria(Diretor.class);
+            criteria.add(Restrictions.ilike("nome", "%" + name + "%"));
+            records = (List<Diretor>) criteria.list();
         } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+            throw new DAOException("Erro ao listar registros");
         } finally {
             session.close();
         }
-        return entity;
+        return records;
     }
 
 }

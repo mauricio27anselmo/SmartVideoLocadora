@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class ClienteBean extends SmartLocadoraBean {
+public class ClienteFormBean extends SmartLocadoraFormBean {
 
     private ClienteService clienteService;
 
@@ -37,13 +37,7 @@ public class ClienteBean extends SmartLocadoraBean {
     public void init() {
         clienteService = ClienteService.getInstance();
         clienteForm = new Cliente();
-        loadClientByIdFromRequest();
-        list();
-    }
-
-    @Override
-    public void navigateToRegistrationPage() {
-        redirectToPage("/pages/cliente/clienteManter.xhtml");
+        loadEntityByIdFromRequest();
     }
 
     @Override
@@ -63,16 +57,7 @@ public class ClienteBean extends SmartLocadoraBean {
     }
 
     @Override
-    public void delete() {
-        try {
-            clienteService.delete(clienteForm);
-            handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
-        } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.excluirfalha");
-        }
-    }
-
-    private void loadClientByIdFromRequest() {
+    protected void loadEntityByIdFromRequest() {
         try {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
@@ -81,14 +66,6 @@ public class ClienteBean extends SmartLocadoraBean {
             }
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultarclientefalha");
-        }
-    }
-
-    private void list() {
-        try {
-            clienteDataModel = new ClienteDataModel(clienteService);
-        } catch (Exception ex) {
-            handleErrorMessage("br.com.locadora.acao.listarclientesfalha");
         }
     }
 }

@@ -1,6 +1,5 @@
 package br.com.locadora.bean;
 
-import br.com.locadora.datamodel.DependenteDataModel;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.service.ClienteService;
@@ -17,15 +16,13 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class DependenteBean extends SmartLocadoraBean {
+public class DependenteFormBean extends SmartLocadoraFormBean {
 
     private DependenteService dependenteService;
 
     private ClienteService clienteService;
 
     private Dependente dependenteForm;
-
-    private DependenteDataModel dependenteDataModel;
 
     public Dependente getDependenteForm() {
         return dependenteForm;
@@ -35,22 +32,12 @@ public class DependenteBean extends SmartLocadoraBean {
         this.dependenteForm = dependenteForm;
     }
 
-    public DependenteDataModel getDependenteDataModel() {
-        return dependenteDataModel;
-    }
-
     @PostConstruct
     public void init() {
         dependenteService = DependenteService.getInstance();
         clienteService = ClienteService.getInstance();
         dependenteForm = new Dependente();
-        loadClientByIdFromRequest();
-        list();
-    }
-
-    @Override
-    public void navigateToRegistrationPage() {
-        redirectToPage("/pages/dependente/dependenteManter.xhtml");
+        loadEntityByIdFromRequest();
     }
 
     @Override
@@ -69,16 +56,6 @@ public class DependenteBean extends SmartLocadoraBean {
         }
     }
 
-    @Override
-    public void delete() {
-        try {
-            dependenteService.delete(dependenteForm);
-            handleSuccessMessage("br.com.locadora.acao.excluirsucesso");
-        } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.excluirfalha");
-        }
-    }
-
     public List<Cliente> completeCustomer(String query) {
         try {
             String queryLowerCase = query.toLowerCase();
@@ -89,7 +66,8 @@ public class DependenteBean extends SmartLocadoraBean {
         }
     }
 
-    private void loadClientByIdFromRequest() {
+    @Override
+    protected void loadEntityByIdFromRequest() {
         try {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
@@ -98,14 +76,6 @@ public class DependenteBean extends SmartLocadoraBean {
             }
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
-        }
-    }
-
-    private void list() {
-        try {
-            dependenteDataModel = new DependenteDataModel(dependenteService);
-        } catch (Exception ex) {
-            handleErrorMessage("br.com.locadora.acao.listardependentesfalha");
         }
     }
 }

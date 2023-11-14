@@ -1,7 +1,6 @@
 package br.com.locadora.bean;
 
 import br.com.locadora.util.FacesUtil;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
