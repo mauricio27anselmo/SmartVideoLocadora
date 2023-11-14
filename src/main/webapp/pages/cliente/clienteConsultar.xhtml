@@ -14,13 +14,13 @@
                             <h:outputLabel for="nome"
                                            value="#{msg['br.com.locadora.nome']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="nome" value="#{clienteBean.clienteForm.nome}"/>
+                            <h:outputText id="nome" value="#{clienteFormBean.clienteForm.nome}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{clienteBean.clienteForm.dataNascimento}">
+                            <h:outputText id="dataNascimento" value="#{clienteFormBean.clienteForm.dataNascimento}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </div>
@@ -28,19 +28,19 @@
                             <p:outputLabel for="endereco"
                                            value="#{msg['br.com.locadora.endereco']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="endereco" value="#{clienteBean.clienteForm.endereco}"/>
+                            <h:outputText id="endereco" value="#{clienteFormBean.clienteForm.endereco}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="email"
                                            value="#{msg['br.com.locadora.email']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="email" value="#{clienteBean.clienteForm.email}"/>
+                            <h:outputText id="email" value="#{clienteFormBean.clienteForm.email}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="cpf"
                                            value="#{msg['br.com.locadora.cpf']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cpf" value="#{clienteBean.clienteForm.cpf}"/>
+                            <h:outputText id="cpf" value="#{clienteFormBean.clienteForm.cpf}"/>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                       value="#{msg['br.com.locadora.editar']}"
                                       icon="pi pi-pencil"
                                       outcome="/pages/cliente/clienteManter.jsf">
-                            <f:param name="id" value="#{clienteBean.clienteForm.clienteID}" />
+                            <f:param name="id" value="#{clienteFormBean.clienteForm.clienteID}" />
                         </p:linkButton>
                     </div>
                 </f:facet>

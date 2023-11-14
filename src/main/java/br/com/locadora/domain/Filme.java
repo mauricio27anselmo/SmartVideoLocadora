@@ -42,7 +42,7 @@ public class Filme {
     @Column(name = "flm_idioma", nullable = false)
     private Idioma idioma;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "smt_filme_ator",
             joinColumns = { @JoinColumn(name = "flm_id") },
@@ -50,7 +50,7 @@ public class Filme {
     )
     private List<Ator> elenco;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "smt_filme_diretor",
             joinColumns = { @JoinColumn(name = "flm_id") },

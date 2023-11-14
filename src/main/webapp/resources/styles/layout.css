@@ -220,6 +220,20 @@ body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item.ui-stat
     color: var(--surface-0);
 }
 
+body .ui-autocomplete .ui-autocomplete-multiple-container {
+    width: 100%;
+    height: auto;
+}
+
+body .ui-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-input-token input {
+    color: var(--surface-0);
+}
+
+body .ui-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-token {
+    background: var(--surface-700);
+    color: var(--surface-0);
+}
+
 body .ui-selectonemenu {
     width: 58.3333%;
 }
@@ -243,5 +257,9 @@ body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-s
 
 body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-hover {
     background: var(--surface-800);
+    color: var(--surface-0);
+}
+
+body .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
     color: var(--surface-0);
 }

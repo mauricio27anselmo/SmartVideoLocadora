@@ -13,7 +13,10 @@ public class ClassificacaoIndicativaConverter implements AttributeConverter<Clas
 
     @Override
     public Long convertToDatabaseColumn(ClassificacaoIndicativa rating) {
-        return Optional.ofNullable(rating.getId()).orElse(null);
+        if (Optional.ofNullable(rating.getId()).isPresent()) {
+            return rating.getId();
+        }
+        return null;
     }
 
     @Override

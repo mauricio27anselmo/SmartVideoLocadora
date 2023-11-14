@@ -14,19 +14,19 @@
                             <h:outputLabel for="cliente"
                                            value="#{msg['br.com.locadora.cliente']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cliente" value="#{dependenteBean.dependenteForm.cliente.nome}"/>
+                            <h:outputText id="cliente" value="#{dependenteFormBean.dependenteForm.cliente.nome}"/>
                         </div>
                         <div class="field">
                             <h:outputLabel for="nome"
                                            value="#{msg['br.com.locadora.nome']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="nome" value="#{dependenteBean.dependenteForm.nome}"/>
+                            <h:outputText id="nome" value="#{dependenteFormBean.dependenteForm.nome}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{dependenteBean.dependenteForm.dataNascimento}">
+                            <h:outputText id="dataNascimento" value="#{dependenteFormBean.dependenteForm.dataNascimento}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </div>
@@ -34,7 +34,7 @@
                             <p:outputLabel for="cpf"
                                            value="#{msg['br.com.locadora.cpf']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cpf" value="#{dependenteBean.dependenteForm.cpf}"/>
+                            <h:outputText id="cpf" value="#{dependenteFormBean.dependenteForm.cpf}"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                       value="#{msg['br.com.locadora.editar']}"
                                       icon="pi pi-pencil"
                                       outcome="/pages/dependente/dependenteManter.jsf">
-                            <f:param name="id" value="#{dependenteBean.dependenteForm.dependenteID}" />
+                            <f:param name="id" value="#{dependenteFormBean.dependenteForm.dependenteID}" />
                         </p:linkButton>
                     </div>
                 </f:facet>

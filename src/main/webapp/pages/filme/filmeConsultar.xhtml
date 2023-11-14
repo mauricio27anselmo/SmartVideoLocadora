@@ -5,36 +5,59 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="filme-form">
             <p:panel header="#{msg['br.com.locadora.cadastrofilme']}">
                 <div class="grid">
                     <div class="col-10">
                         <div class="field">
-                            <h:outputLabel for="cliente"
-                                           value="#{msg['br.com.locadora.cliente']}"
+                            <h:outputLabel for="titulo"
+                                           value="#{msg['br.com.locadora.titulo']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cliente" value="#{filmeBean.dependenteForm.cliente.nome}"/>
+                            <h:outputText id="titulo" value="#{filmeFormBean.filmeForm.titulo}"/>
                         </div>
                         <div class="field">
-                            <h:outputLabel for="nome"
-                                           value="#{msg['br.com.locadora.nome']}"
+                            <h:outputLabel for="descricao"
+                                           value="#{msg['br.com.locadora.descricao']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="nome" value="#{filmeBean.dependenteForm.nome}"/>
+                            <h:outputText id="descricao" value="#{filmeFormBean.filmeForm.descricao}"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="dataNascimento"
-                                           value="#{msg['br.com.locadora.datanascimento']}"
+                            <h:outputLabel for="anoLancamento"
+                                           value="#{msg['br.com.locadora.anolancamento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{filmeBean.dependenteForm.dataNascimento}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                            <h:outputText id="anoLancamento" value="#{filmeFormBean.filmeForm.anoLancamento}"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="cpf"
-                                           value="#{msg['br.com.locadora.cpf']}"
+                            <h:outputLabel for="genero"
+                                           value="#{msg['br.com.locadora.generofilme']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cpf" value="#{filmeBean.dependenteForm.cpf}"/>
+                            <h:outputText id="genero" value="#{msg[filmeFormBean.filmeForm.genero.label]}"/>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="classificacaoIndicativa"
+                                           value="#{msg['br.com.locadora.classificacaoindicativa']}"
+                                           styleClass="col-2"/>
+                            <h:outputText id="classificacaoIndicativa"
+                                          value="#{msg[filmeFormBean.filmeForm.classificacaoIndicativa.label]}"/>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="elenco"
+                                           value="#{msg['br.com.locadora.elenco']}"
+                                           styleClass="col-2"/>
+                            <ui:repeat id="elenco" value="#{filmeFormBean.filmeForm.elenco}" var="ator"
+                                       varStatus="atorStatusList">
+                                <h:outputText value="#{ator.nome}"/>#{not atorStatusList.last ? ', ' : ''}
+                            </ui:repeat>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="direcao"
+                                           value="#{msg['br.com.locadora.direcao']}"
+                                           styleClass="col-2"/>
+                            <ui:repeat id="direcao" value="#{filmeFormBean.filmeForm.direcao}" var="diretor"
+                                       varStatus="diretorStatusList">
+                                <h:outputText value="#{diretor.nome}"/>#{not diretorStatusList.last ? ', ' : ''}
+                            </ui:repeat>
                         </div>
                     </div>
                 </div>
@@ -49,7 +72,7 @@
                                       value="#{msg['br.com.locadora.editar']}"
                                       icon="pi pi-pencil"
                                       outcome="/pages/filme/filmeManter.jsf">
-                            <f:param name="id" value="#{filmeBean.dependenteForm.dependenteID}" />
+                            <f:param name="id" value="#{filmeFormBean.filmeForm.filmeID}"/>
                         </p:linkButton>
                     </div>
                 </f:facet>

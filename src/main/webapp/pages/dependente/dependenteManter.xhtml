@@ -16,8 +16,8 @@
                                            styleClass="col-2"/>
                             <p:autoComplete id="cliente"
                                             styleClass="w-7"
-                                            value="#{dependenteBean.dependenteForm.cliente}"
-                                            completeMethod="#{dependenteBean.completeCustomer}"
+                                            value="#{dependenteFormBean.dependenteForm.cliente}"
+                                            completeMethod="#{dependenteFormBean.completeCustomer}"
                                             var="cliente"
                                             itemLabel="#{cliente.nome}"
                                             itemValue="#{cliente}"
@@ -32,7 +32,7 @@
                                            styleClass="col-2"/>
                             <p:inputText id="nome"
                                          maxlength="50"
-                                         value="#{dependenteBean.dependenteForm.nome}"
+                                         value="#{dependenteFormBean.dependenteForm.nome}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -45,7 +45,7 @@
                                         pattern="dd/MM/yyyy"
                                         yearRange="c-100:c"
                                         showOn="button"
-                                        value="#{dependenteBean.dependenteForm.dataNascimento}"/>
+                                        value="#{dependenteFormBean.dependenteForm.dataNascimento}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="@next"
@@ -53,7 +53,7 @@
                                            styleClass="col-2"/>
                             <p:inputMask id="cpf"
                                          maxlength="14"
-                                         value="#{dependenteBean.dependenteForm.cpf}"
+                                         value="#{dependenteFormBean.dependenteForm.cpf}"
                                          mask="999.999.999-99"
                                          styleClass="col-2 ui-inputmask"
                                          validateMask="true" />
@@ -70,7 +70,7 @@
                         <p:commandButton id="btnSalvar"
                                          value="#{msg['br.com.locadora.salvar']}"
                                          icon="pi pi-save"
-                                         actionListener="#{dependenteBean.save()}"
+                                         actionListener="#{dependenteFormBean.save()}"
                                          update=":dependente-form :mensagem ">
                         </p:commandButton>
                     </div>

@@ -13,7 +13,10 @@ public class IdiomaConverter implements AttributeConverter<Idioma, Long> {
 
     @Override
     public Long convertToDatabaseColumn(Idioma language) {
-        return Optional.ofNullable(language.getId()).orElse(null);
+        if (Optional.ofNullable(language.getId()).isPresent()) {
+            return language.getId();
+        }
+        return null;
     }
 
     @Override

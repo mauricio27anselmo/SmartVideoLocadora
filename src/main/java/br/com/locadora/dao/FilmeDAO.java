@@ -7,7 +7,11 @@ import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.NegocioException;
+import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -17,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class FilmeDAO extends SmartLocadoraDAO<Filme> {
+
+    private static final Logger logger = LogManager.getLogger(FilmeDAO.class);
 
     private static FilmeDAO instance;
 
@@ -53,6 +59,26 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> {
         } catch (Exception ex) {
             throw new DAOException("Erro ao listar registros", ex);
         }
+    }
+
+    @Override
+    public Filme findById(long id) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Filme entity = null;
+        try {
+            entity = session.get(Filme.class, id);
+            if (entity == null) {
+                throw new DAOException(SmartLocadoraConstantes.REGISTRO_NAO_ENCONTRADO);
+            }
+            Hibernate.initialize(entity.getDirecao());
+            Hibernate.initialize(entity.getElenco());
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+        } finally {
+            session.close();
+        }
+        return entity;
     }
 
 }

@@ -16,7 +16,8 @@
                                            styleClass="col-2"/>
                             <p:inputText id="titulo"
                                          maxlength="50"
-                                         value="#{filmeBean.filmeForm.titulo}"
+                                         value="#{filmeFormBean.filmeForm.titulo}"
+                                         required="true"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -24,7 +25,7 @@
                                            value="#{msg['br.com.locadora.descricao']}"
                                            styleClass="col-2"/>
                             <p:inputTextarea id="descricao"
-                                             value="#{filmeBean.filmeForm.descricao}"
+                                             value="#{filmeFormBean.filmeForm.descricao}"
                                              maxlength="500"
                                              styleClass="col-7 unresizable">
                             </p:inputTextarea>
@@ -34,9 +35,9 @@
                                            value="#{msg['br.com.locadora.anolancamento']}"
                                            styleClass="col-2"/>
                             <p:inputNumber id="anoLancamento"
-                                           value="#{filmeBean.filmeForm.anoLancamento}"
-                                           minValue="#{filmeBean.minYearRelease}"
-                                           maxValue="#{filmeBean.maxYearRelease}"
+                                           value="#{filmeFormBean.filmeForm.anoLancamento}"
+                                           minValue="#{filmeFormBean.minYearRelease}"
+                                           maxValue="#{filmeFormBean.maxYearRelease}"
                                            styleClass="ui-inputtext"
                                            required="true"/>
                         </div>
@@ -45,13 +46,13 @@
                                            value="#{msg['br.com.locadora.generofilme']}"
                                            styleClass="col-2"/>
                             <p:selectOneMenu id="generoFilme"
-                                             value="#{filmeBean.filmeForm.genero}"
+                                             value="#{filmeFormBean.filmeForm.genero}"
                                              required="true">
                                 <f:selectItem itemLabel="#{msg['br.com.locadora.selecioneopcao']}" itemValue=""/>
                                 <f:selectItems var="generoFilme"
                                                itemLabel="#{msg[generoFilme.label]}"
                                                itemValue="#{generoFilme}"
-                                               value="#{filmeBean.moviesGenreList}"/>
+                                               value="#{filmeFormBean.moviesGenreList}"/>
                             </p:selectOneMenu>
                         </div>
                         <div class="field">
@@ -59,14 +60,48 @@
                                            value="#{msg['br.com.locadora.classificacaoindicativa']}"
                                            styleClass="col-2"/>
                             <p:selectOneMenu id="classificacaoIndicativa"
-                                             value="#{filmeBean.filmeForm.classificacaoIndicativa}"
+                                             value="#{filmeFormBean.filmeForm.classificacaoIndicativa}"
                                              required="true">
                                 <f:selectItem itemLabel="#{msg['br.com.locadora.selecioneopcao']}" itemValue=""/>
                                 <f:selectItems var="classificacaoIndicativa"
                                                itemLabel="#{msg[classificacaoIndicativa.label]}"
                                                itemValue="#{classificacaoIndicativa}"
-                                               value="#{filmeBean.ratingList}"/>
+                                               value="#{filmeFormBean.ratingList}"/>
                             </p:selectOneMenu>
+                        </div>
+                        <div class="field flex align-items-center">
+                            <h:outputLabel for="elenco"
+                                           value="#{msg['br.com.locadora.elenco']}"
+                                           styleClass="col-2"/>
+                            <p:autoComplete id="elenco"
+                                            styleClass="w-7"
+                                            value="#{filmeFormBean.filmeForm.elenco}"
+                                            completeMethod="#{filmeFormBean.completeActor}"
+                                            var="ator"
+                                            itemLabel="#{ator.nome}"
+                                            itemValue="#{ator}"
+                                            multiple="true"
+                                            converter="#{atorConverter}"
+                                            forceSelection="true"
+                                            required="true"
+                                            scrollHeight="250"/>
+                        </div>
+                        <div class="field flex align-items-center">
+                            <h:outputLabel for="direcao"
+                                           value="#{msg['br.com.locadora.direcao']}"
+                                           styleClass="col-2"/>
+                            <p:autoComplete id="direcao"
+                                            styleClass="w-7"
+                                            value="#{filmeFormBean.filmeForm.direcao}"
+                                            completeMethod="#{filmeFormBean.completeDirector}"
+                                            var="diretor"
+                                            itemLabel="#{diretor.nome}"
+                                            itemValue="#{diretor}"
+                                            multiple="true"
+                                            converter="#{diretorConverter}"
+                                            forceSelection="true"
+                                            required="true"
+                                            scrollHeight="250"/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +115,7 @@
                         <p:commandButton id="btnSalvar"
                                          value="#{msg['br.com.locadora.salvar']}"
                                          icon="pi pi-save"
-                                         actionListener="#{filmeBean.save()}"
+                                         actionListener="#{filmeFormBean.save()}"
                                          update=":filme-form :mensagem ">
                         </p:commandButton>
                     </div>

@@ -12,7 +12,7 @@
                     <p:commandButton id="btnNovo"
                                      value="#{msg['br.com.locadora.novocliente']}"
                                      icon="pi pi-plus"
-                                     action="#{clienteBean.navigateToRegistrationPage()}"
+                                     action="#{clienteListBean.navigateToRegistrationPage()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </p:toolbarGroup>
@@ -20,7 +20,7 @@
 
             <p:dataTable id="datatable-clientes"
                          var="cliente"
-                         value="#{clienteBean.clienteDataModel}"
+                         value="#{clienteListBean.clienteDataModel}"
                          rowKey="#{cliente.clienteID}"
                          rows="15"
                          paginator="true"
@@ -78,13 +78,13 @@
                                          icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteCustomerDialog').show()">
-                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteForm}"/>
+                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteListBean.clienteForm}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
                 <f:facet name="footer">
                     <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{clienteBean.clienteDataModel.rowCount}" />
+                        <f:param value="#{clienteListBean.clienteDataModel.rowCount}" />
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
@@ -92,7 +92,7 @@
         <h:form id="dialogs">
             <p:confirmDialog widgetVar="deleteCustomerDialog" showEffect="fade" width="500"
                              message="#{msg['br.com.locadora.dialog.excluircliente']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{clienteBean.delete()}"
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{clienteListBean.delete()}"
                                  process="@this" update=":datatable-clientes :mensagem"
                                  oncomplete="PF('deleteCustomerDialog').hide()" />
                 <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"

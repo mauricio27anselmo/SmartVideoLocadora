@@ -78,21 +78,6 @@ public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
         return records;
     }
 
-    public Cliente findByCPF(String cpf) throws DAOException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Cliente entity;
-        try {
-            Criteria criteria = session.createCriteria(Cliente.class);
-            criteria.add(Restrictions.eq("cpf", cpf));
-            entity = (Cliente) criteria.uniqueResult();
-        } catch (Exception ex) {
-            throw new DAOException("Erro ao listar registros");
-        } finally {
-            session.close();
-        }
-        return entity;
-    }
-
     private Dependente findDependentByCPF(String cpf) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Dependente entity;

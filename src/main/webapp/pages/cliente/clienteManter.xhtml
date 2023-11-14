@@ -16,7 +16,7 @@
                                            styleClass="col-2"/>
                             <p:inputText id="nome"
                                          maxlength="50"
-                                         value="#{clienteBean.clienteForm.nome}"
+                                         value="#{clienteFormBean.clienteForm.nome}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -29,7 +29,7 @@
                                         pattern="dd/MM/yyyy"
                                         yearRange="c-100:c"
                                         showOn="button"
-                                        value="#{clienteBean.clienteForm.dataNascimento}"/>
+                                        value="#{clienteFormBean.clienteForm.dataNascimento}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="endereco"
@@ -37,7 +37,7 @@
                                            styleClass="col-2"/>
                             <p:inputText id="endereco"
                                          maxlength="200"
-                                         value="#{clienteBean.clienteForm.endereco}"
+                                         value="#{clienteFormBean.clienteForm.endereco}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -46,7 +46,7 @@
                                            styleClass="col-2"/>
                             <p:inputText id="email"
                                          maxlength="30"
-                                         value="#{clienteBean.clienteForm.email}"
+                                         value="#{clienteFormBean.clienteForm.email}"
                                          styleClass="col-7 ui-inputtext"/>
                         </div>
                         <div class="field">
@@ -55,7 +55,7 @@
                                            styleClass="col-2"/>
                             <p:inputMask id="cpf"
                                          maxlength="14"
-                                         value="#{clienteBean.clienteForm.cpf}"
+                                         value="#{clienteFormBean.clienteForm.cpf}"
                                          mask="999.999.999-99"
                                          styleClass="col-2 ui-inputmask"
                                          validateMask="true" />
@@ -72,7 +72,7 @@
                         <p:commandButton id="btnSalvar"
                                          value="#{msg['br.com.locadora.salvar']}"
                                          icon="pi pi-save"
-                                         actionListener="#{clienteBean.save()}"
+                                         actionListener="#{clienteFormBean.save()}"
                                          update=":cliente-form :mensagem ">
                         </p:commandButton>
                     </div>

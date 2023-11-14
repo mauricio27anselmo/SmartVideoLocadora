@@ -12,7 +12,10 @@ public class GeneroConverter implements AttributeConverter<Genero, Long> {
 
     @Override
     public Long convertToDatabaseColumn(Genero movieGenre) {
-        return Optional.ofNullable(movieGenre.getId()).orElse(null);
+        if (Optional.ofNullable(movieGenre.getId()).isPresent()) {
+            return movieGenre.getId();
+        }
+        return null;
     }
 
     @Override

@@ -12,7 +12,7 @@
                     <p:commandButton id="btnNovo"
                                      value="#{msg['br.com.locadora.novodependente']}"
                                      icon="pi pi-plus"
-                                     action="#{dependenteBean.navigateToRegistrationPage()}"
+                                     action="#{dependenteListBean.navigateToRegistrationPage()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </p:toolbarGroup>
@@ -20,7 +20,7 @@
 
             <p:dataTable id="datatable-dependentes"
                          var="dependente"
-                         value="#{dependenteBean.dependenteDataModel}"
+                         value="#{dependenteListBean.dependenteDataModel}"
                          rowKey="#{dependente.dependenteID}"
                          rows="15"
                          paginator="true"
@@ -82,13 +82,13 @@
                                          icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteDependentDialog').show()">
-                            <f:setPropertyActionListener value="#{dependente}" target="#{dependenteBean.dependenteForm}"/>
+                            <f:setPropertyActionListener value="#{dependente}" target="#{dependenteListBean.dependenteForm}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
                 <f:facet name="footer">
                     <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{dependenteBean.dependenteDataModel.rowCount}" />
+                        <f:param value="#{dependenteListBean.dependenteDataModel.rowCount}" />
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
@@ -96,7 +96,7 @@
         <h:form id="dialogs">
             <p:confirmDialog widgetVar="deleteDependentDialog" showEffect="fade" width="500"
                              message="#{msg['br.com.locadora.dialog.excluirdependente']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{dependenteBean.delete()}"
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{dependenteListBean.delete()}"
                                  process="@this" update=":datatable-dependentes :mensagem"
                                  oncomplete="PF('deleteDependentDialog').hide()" />
                 <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"

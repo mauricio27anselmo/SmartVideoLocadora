@@ -10,18 +10,6 @@ abstract class SmartLocadoraBean {
 
     public abstract void init();
 
-    public void navigateToRegistrationPage() {
-        throw new NotImplementedException();
-    }
-
-    public void save() {
-        throw new NotImplementedException();
-    }
-
-    public void delete() {
-        throw new NotImplementedException();
-    }
-
     protected void handleSuccessMessage(String messageKey) {
         String message = FacesUtil.getMsg(messageKey);
         FacesUtil.addMsgInfo(message);
