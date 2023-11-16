@@ -5,10 +5,7 @@ import br.com.locadora.enums.Genero;
 import br.com.locadora.enums.Idioma;
 
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SmartLocadoraUtil {
@@ -40,6 +37,21 @@ public class SmartLocadoraUtil {
             default:
                 return listAllPTBRRatings();
         }
+    }
+    
+    public static Idioma getLanguageFromLocale() {
+        Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        if (Optional.ofNullable(locale).isPresent()) {
+            switch (locale.getLanguage()) {
+                case "es":
+                    return Idioma.ESPANHOL;
+                case "en":
+                    return Idioma.INGLES;
+                default:
+                    return Idioma.PORTUGUES;
+            }
+        }
+        return Idioma.PORTUGUES;
     }
 
     private static List<ClassificacaoIndicativa> listAllPTBRRatings() {
