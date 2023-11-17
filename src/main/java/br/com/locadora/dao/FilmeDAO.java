@@ -2,6 +2,7 @@ package br.com.locadora.dao;
 
 import br.com.locadora.domain.Filme;
 import br.com.locadora.filter.PageableFilter;
+import br.com.locadora.interfaces.dao.IFilmeDAO;
 import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
@@ -16,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
-public class FilmeDAO extends SmartLocadoraDAO<Filme> {
+public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
 
     private static final Logger logger = LogManager.getLogger(FilmeDAO.class);
 

@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.ClienteDAO;
 import br.com.locadora.domain.Cliente;
+import br.com.locadora.interfaces.service.IClienteService;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ClienteService extends SmartLocadoraService<Cliente> {
+public class ClienteService extends SmartLocadoraService<Cliente> implements IClienteService {
 
     private static final Logger logger = LogManager.getLogger(ClienteService.class);
 
@@ -33,6 +34,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
         return instance;
     }
 
+    @Override
     public void save(Cliente entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent() || StringUtils.isBlank(entity.getCpf())) {
@@ -50,6 +52,7 @@ public class ClienteService extends SmartLocadoraService<Cliente> {
         }
     }
 
+    @Override
     public List<Cliente> findByName(String name) throws NegocioException {
         try {
             if (StringUtils.isEmpty(name)) {

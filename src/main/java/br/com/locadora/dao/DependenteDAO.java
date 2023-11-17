@@ -3,6 +3,7 @@ package br.com.locadora.dao;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.filter.PageableFilter;
+import br.com.locadora.interfaces.dao.IDependenteDAO;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.NegocioException;
@@ -14,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import java.util.List;
 import java.util.Optional;
 
-public class DependenteDAO extends SmartLocadoraDAO<Dependente> {
+public class DependenteDAO extends SmartLocadoraDAO<Dependente> implements IDependenteDAO {
 
 	private static DependenteDAO instance;
 

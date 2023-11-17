@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.DiretorDAO;
 import br.com.locadora.domain.Diretor;
+import br.com.locadora.interfaces.service.IDiretorService;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class DiretorService extends SmartLocadoraService<Diretor> {
+public class DiretorService extends SmartLocadoraService<Diretor> implements IDiretorService {
 
     private static final Logger logger = LogManager.getLogger(DiretorService.class);
 
@@ -33,6 +34,7 @@ public class DiretorService extends SmartLocadoraService<Diretor> {
         return instance;
     }
 
+    @Override
     public void save(Diretor entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
@@ -45,6 +47,7 @@ public class DiretorService extends SmartLocadoraService<Diretor> {
         }
     }
 
+    @Override
     public List<Diretor> findByName(String name) throws NegocioException {
         try {
             if (StringUtils.isEmpty(name)) {

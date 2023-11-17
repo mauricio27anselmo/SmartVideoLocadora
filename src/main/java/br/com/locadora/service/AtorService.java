@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.AtorDAO;
 import br.com.locadora.domain.Ator;
+import br.com.locadora.interfaces.service.IAtorService;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class AtorService extends SmartLocadoraService<Ator> {
+public class AtorService extends SmartLocadoraService<Ator> implements IAtorService {
 
     private static final Logger logger = LogManager.getLogger(AtorService.class);
 
@@ -33,6 +34,7 @@ public class AtorService extends SmartLocadoraService<Ator> {
         return instance;
     }
 
+    @Override
     public void save(Ator entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
@@ -45,6 +47,7 @@ public class AtorService extends SmartLocadoraService<Ator> {
         }
     }
 
+    @Override
     public List<Ator> findByName(String name) throws NegocioException {
         try {
             if (StringUtils.isEmpty(name)) {

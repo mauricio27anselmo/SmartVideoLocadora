@@ -81,7 +81,8 @@ jacocoTestReport {
                     'br/com/locadora/main/**',
                     'br/com/locadora/util/**',
                     'br/com/locadora/converter/**',
-                    'br/com/locadora/permissions/**']).asFileTree
+                    'br/com/locadora/permissions/**',
+                    'br/com/locadora/interfaces/**']).asFileTree
         }))
     }
 }

@@ -2,13 +2,12 @@ package br.com.locadora.dao;
 
 import br.com.locadora.domain.Ator;
 import br.com.locadora.filter.PageableFilter;
+import br.com.locadora.interfaces.dao.IAtorDAO;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
-import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtorDAO extends SmartLocadoraDAO<Ator> {
+public class AtorDAO extends SmartLocadoraDAO<Ator> implements IAtorDAO {
 
     private static final Logger logger = LogManager.getLogger(AtorDAO.class);
 
@@ -57,6 +56,7 @@ public class AtorDAO extends SmartLocadoraDAO<Ator> {
         }
     }
 
+    @Override
     public List<Ator> findByName(String name) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<Ator> records = new ArrayList<>();

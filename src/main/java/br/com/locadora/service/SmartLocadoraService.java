@@ -21,7 +21,7 @@ public abstract class SmartLocadoraService<T> {
         this.dao = dao;
     }
 
-    public  T findById(Long id) throws NegocioException{
+    public T findById(Long id) throws NegocioException {
         try {
             if (!Optional.ofNullable(id).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
@@ -33,7 +33,7 @@ public abstract class SmartLocadoraService<T> {
         }
     }
 
-    public void save(T entity, Long id) throws NegocioException{
+    public void save(T entity, Long id) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
@@ -45,7 +45,7 @@ public abstract class SmartLocadoraService<T> {
         }
     }
 
-    public  void delete(T entity) throws NegocioException{
+    public void delete(T entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
@@ -57,7 +57,7 @@ public abstract class SmartLocadoraService<T> {
         }
     }
 
-    public List<T> load(PageableFilter filter) throws NegocioException{
+    public List<T> load(PageableFilter filter) throws NegocioException {
         try {
             if (!Optional.ofNullable(filter).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);

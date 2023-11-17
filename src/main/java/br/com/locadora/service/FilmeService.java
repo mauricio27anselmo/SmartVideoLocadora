@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.FilmeDAO;
 import br.com.locadora.domain.Filme;
+import br.com.locadora.interfaces.service.IFilmeService;
 import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class FilmeService extends SmartLocadoraService<Filme> {
+public class FilmeService extends SmartLocadoraService<Filme> implements IFilmeService {
 
     private static final Logger logger = LogManager.getLogger(FilmeService.class);
 
@@ -34,6 +35,7 @@ public class FilmeService extends SmartLocadoraService<Filme> {
         return instance;
     }
 
+    @Override
     public void save(Filme entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {

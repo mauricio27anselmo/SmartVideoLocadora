@@ -2,6 +2,7 @@ package br.com.locadora.service;
 
 import br.com.locadora.dao.DependenteDAO;
 import br.com.locadora.domain.Dependente;
+import br.com.locadora.interfaces.service.IDependenteService;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class DependenteService extends SmartLocadoraService<Dependente> {
+public class DependenteService extends SmartLocadoraService<Dependente> implements IDependenteService {
 
     private static final Logger logger = LogManager.getLogger(DependenteService.class);
 
@@ -31,6 +32,7 @@ public class DependenteService extends SmartLocadoraService<Dependente> {
         return instance;
     }
 
+    @Override
     public void save(Dependente entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent() || StringUtils.isBlank(entity.getCpf())) {

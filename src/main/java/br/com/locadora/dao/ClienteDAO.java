@@ -3,6 +3,7 @@ package br.com.locadora.dao;
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
 import br.com.locadora.filter.PageableFilter;
+import br.com.locadora.interfaces.dao.IClienteDAO;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.NegocioException;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
+public class ClienteDAO extends SmartLocadoraDAO<Cliente> implements IClienteDAO {
 
     private static ClienteDAO instance;
 
@@ -63,6 +64,7 @@ public class ClienteDAO extends SmartLocadoraDAO<Cliente> {
         super.save(entity, isNew);
     }
 
+    @Override
     public List<Cliente> findByName(String name) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<Cliente> records = new ArrayList<>();
