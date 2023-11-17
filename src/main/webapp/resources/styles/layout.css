@@ -203,6 +203,10 @@ body .ui-dialog .ui-dialog-content, body .ui-dialog .ui-dialog-footer {
     color: var(--surface-0);
 }
 
+body .ui-dialog .ui-dialog-content {
+    padding: 2rem 1.5rem .2rem 1.5rem;
+}
+
 body .ui-autocomplete-panel {
     padding: 0;
     background: var(--surface-800);

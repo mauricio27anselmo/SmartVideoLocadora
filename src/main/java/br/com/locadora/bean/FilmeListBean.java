@@ -34,11 +34,12 @@ public class FilmeListBean extends SmartLocadoraListBean {
     @PostConstruct
     public void init() {
         filmeService = FilmeService.getInstance();
+        selectedMovie = new Filme();
         list();
     }
 
     @Override
-    public void navigateToRegistrationPage() {
+    public void addEntity() {
         redirectToPage("/pages/filme/filmeManter.xhtml");
     }
 

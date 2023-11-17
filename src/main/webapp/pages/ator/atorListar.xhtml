@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo" >
+        <p:panel header="#{msg['br.com.locadora.listagemator']}">
+            <p:toolbar styleClass="custom-toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton id="btnNovo"
+                                     value="#{msg['br.com.locadora.novoator']}"
+                                     icon="pi pi-plus"
+                                     process="@this"
+                                     update=":dialogs:manage-actor-content"
+                                     actionListener="#{atorListBean.addEntity()}"
+                                     oncomplete="PF('manageActorDialog').show()"
+                                     styleClass="ui-button-success">
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="datatable-atores"
+                         var="ator"
+                         value="#{atorListBean.atorDataModel}"
+                         rowKey="#{ator.atorID}"
+                         rows="15"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="15"
+                         selectionMode="single">
+
+                <p:column headerText="#{msg['br.com.locadora.nome']}"
+                          sortBy="#{ator.nome}">
+                    <h:outputText value="#{ator.nome}" />
+                </p:column>
+                <p:column>
+                    <div class="datatable-actions">
+                        <p:tooltip for="btnEditar"
+                                   value="#{msg['br.com.locadora.editar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+
+                        <p:commandButton id="btnEditar"
+                                         styleClass="rounded-button"
+                                         icon="pi pi-pencil"
+                                         process="@this"
+                                         update=":dialogs:manage-actor-content"
+                                         oncomplete="PF('manageActorDialog').show()">
+                            <f:setPropertyActionListener value="#{ator}" target="#{atorListBean.atorForm}"/>
+                        </p:commandButton>
+
+                        <p:tooltip for="btnExcluir"
+                                   value="#{msg['br.com.locadora.excluir']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+
+                        <p:commandButton id="btnExcluir"
+                                         styleClass="rounded-button ui-button-danger"
+                                         icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('deleteActorDialog').show()">
+                            <f:setPropertyActionListener value="#{ator}" target="#{atorListBean.selectedActor}"/>
+                        </p:commandButton>
+                    </div>
+                </p:column>
+                <f:facet name="footer">
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
+                        <f:param value="#{atorListBean.atorDataModel.rowCount}" />
+                    </h:outputFormat>
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+        <h:form id="dialogs">
+            <p:dialog widgetVar="manageActorDialog"
+                      showEffect="fade"
+                      width="600"
+                      modal="true"
+                      header="#{msg['br.com.locadora.cadastroator']}">
+
+                <p:outputPanel id="manage-actor-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty atorListBean.atorForm}">
+                        <div class="grid">
+                            <div class="col">
+                                <div class="field">
+                                    <h:outputLabel for="nome"
+                                                   value="#{msg['br.com.locadora.nome']}"
+                                                   styleClass="w-2"/>
+                                    <p:inputText id="nome"
+                                                 maxlength="50"
+                                                 value="#{atorListBean.atorForm.nome}"
+                                                 styleClass="w-10 ui-inputtext"/>
+                                </div>
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button" styleClass="ui-button-secondary" icon="pi pi-ban"
+                                     onclick="PF('manageActorDialog').hide()" />
+                    <p:commandButton value="#{msg['br.com.locadora.salvar']}"
+                                     icon="pi pi-save"
+                                     actionListener="#{atorListBean.save()}"
+                                     process="manage-actor-content @this"
+                                     update="manage-actor-content :datatable-atores :mensagem"
+                                     oncomplete="PF('manageActorDialog').hide()" />
+                </f:facet>
+            </p:dialog>
+            <p:confirmDialog widgetVar="deleteActorDialog" showEffect="fade" width="500"
+                             message="#{msg['br.com.locadora.dialog.excluirator']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{atorListBean.delete()}"
+                                 process="@this" update=":datatable-atores :mensagem"
+                                 oncomplete="PF('deleteActorDialog').hide()" />
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteActorDialog').hide()" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

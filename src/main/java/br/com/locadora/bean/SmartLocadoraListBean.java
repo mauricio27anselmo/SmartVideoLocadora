@@ -4,7 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 abstract class SmartLocadoraListBean extends SmartLocadoraBean {
 
-    public void navigateToRegistrationPage() {
+    public void addEntity() {
         throw new NotImplementedException();
     }
 
