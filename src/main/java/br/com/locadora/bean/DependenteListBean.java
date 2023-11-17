@@ -39,7 +39,7 @@ public class DependenteListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    public void navigateToRegistrationPage() {
+    public void addEntity() {
         redirectToPage("/pages/dependente/dependenteManter.xhtml");
     }
 

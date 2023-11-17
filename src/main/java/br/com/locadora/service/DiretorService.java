@@ -4,12 +4,14 @@ import br.com.locadora.dao.DiretorDAO;
 import br.com.locadora.domain.Diretor;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
+import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class DiretorService extends SmartLocadoraService<Diretor> {
 
@@ -29,6 +31,18 @@ public class DiretorService extends SmartLocadoraService<Diretor> {
             instance = new DiretorService();
         }
         return instance;
+    }
+
+    public void save(Diretor entity) throws NegocioException {
+        try {
+            if (!Optional.ofNullable(entity).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+            diretorDAO.save(entity, !Optional.ofNullable(entity.getDiretorID()).isPresent());
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
+        }
     }
 
     public List<Diretor> findByName(String name) throws NegocioException {

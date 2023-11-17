@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo" >
+        <p:panel header="#{msg['br.com.locadora.listagemdiretor']}">
+            <p:toolbar styleClass="custom-toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton id="btnNovo"
+                                     value="#{msg['br.com.locadora.novodiretor']}"
+                                     icon="pi pi-plus"
+                                     process="@this"
+                                     update=":dialogs:manage-director-content"
+                                     actionListener="#{diretorListBean.addEntity()}"
+                                     oncomplete="PF('manageDirectorDialog').show()"
+                                     styleClass="ui-button-success">
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="datatable-diretores"
+                         var="diretor"
+                         value="#{diretorListBean.diretorDataModel}"
+                         rowKey="#{diretor.diretorID}"
+                         rows="15"
+                         pagindiretor="true"
+                         pagindiretorPosition="bottom"
+                         rowsPerPageTemplate="15"
+                         selectionMode="single">
+
+                <p:column headerText="#{msg['br.com.locadora.nome']}"
+                          sortBy="#{diretor.nome}">
+                    <h:outputText value="#{diretor.nome}" />
+                </p:column>
+                <p:column>
+                    <div class="datatable-actions">
+                        <p:tooltip for="btnEditar"
+                                   value="#{msg['br.com.locadora.editar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+
+                        <p:commandButton id="btnEditar"
+                                         styleClass="rounded-button"
+                                         icon="pi pi-pencil"
+                                         process="@this"
+                                         update=":dialogs:manage-director-content"
+                                         oncomplete="PF('manageDirectorDialog').show()">
+                            <f:setPropertyActionListener value="#{diretor}" target="#{diretorListBean.diretorForm}"/>
+                        </p:commandButton>
+
+                        <p:tooltip for="btnExcluir"
+                                   value="#{msg['br.com.locadora.excluir']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+
+                        <p:commandButton id="btnExcluir"
+                                         styleClass="rounded-button ui-button-danger"
+                                         icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('deleteDirectorDialog').show()">
+                            <f:setPropertyActionListener value="#{diretor}" target="#{diretorListBean.selectedDirector}"/>
+                        </p:commandButton>
+                    </div>
+                </p:column>
+                <f:facet name="footer">
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
+                        <f:param value="#{diretorListBean.diretorDataModel.rowCount}" />
+                    </h:outputFormat>
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+        <h:form id="dialogs">
+            <p:dialog widgetVar="manageDirectorDialog"
+                      showEffect="fade"
+                      width="600"
+                      modal="true"
+                      header="#{msg['br.com.locadora.cadastrodiretor']}">
+
+                <p:outputPanel id="manage-director-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty diretorListBean.diretorForm}">
+                        <div class="grid">
+                            <div class="col">
+                                <div class="field">
+                                    <h:outputLabel for="nome"
+                                                   value="#{msg['br.com.locadora.nome']}"
+                                                   styleClass="w-2"/>
+                                    <p:inputText id="nome"
+                                                 maxlength="50"
+                                                 value="#{diretorListBean.diretorForm.nome}"
+                                                 styleClass="w-10 ui-inputtext"/>
+                                </div>
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button" styleClass="ui-button-secondary" icon="pi pi-ban"
+                                     onclick="PF('manageDirectorDialog').hide()" />
+                    <p:commandButton value="#{msg['br.com.locadora.salvar']}"
+                                     icon="pi pi-save"
+                                     actionListener="#{diretorListBean.save()}"
+                                     process="manage-director-content @this"
+                                     update="manage-director-content :datatable-diretores :mensagem"
+                                     oncomplete="PF('manageDirectorDialog').hide()" />
+                </f:facet>
+            </p:dialog>
+            <p:confirmDialog widgetVar="deleteDirectorDialog" showEffect="fade" width="500"
+                             message="#{msg['br.com.locadora.dialog.excluirdiretor']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{diretorListBean.delete()}"
+                                 process="@this" update=":datatable-diretores :mensagem"
+                                 oncomplete="PF('deleteDirectorDialog').hide()" />
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteDirectorDialog').hide()" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
