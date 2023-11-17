@@ -3,10 +3,10 @@ package br.com.locadora.service;
 import br.com.locadora.dao.FilmeDAO;
 import br.com.locadora.domain.Filme;
 import br.com.locadora.interfaces.service.IFilmeService;
-import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import br.com.locadora.util.SmartLocadoraUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,11 +20,8 @@ public class FilmeService extends SmartLocadoraService<Filme> implements IFilmeS
 
     private FilmeDAO filmeDAO;
 
-    private Profile profile;
-
     private FilmeService() {
         filmeDAO = FilmeDAO.getInstance();
-        profile = Profile.getInstance();
         super.setDao(filmeDAO);
     }
 
@@ -41,7 +38,7 @@ public class FilmeService extends SmartLocadoraService<Filme> implements IFilmeS
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            entity.setIdioma(profile.getLanguage());
+            entity.setIdioma(SmartLocadoraUtil.getLanguageFromLocale());
             filmeDAO.save(entity, !Optional.ofNullable(entity.getFilmeID()).isPresent());
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);

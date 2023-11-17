@@ -4,18 +4,15 @@ import br.com.locadora.dao.FilmeDAO;
 import br.com.locadora.domain.Filme;
 import br.com.locadora.enums.Idioma;
 import br.com.locadora.filter.PageableFilter;
-import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import br.com.locadora.util.SmartLocadoraUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -29,9 +26,6 @@ class FilmeServiceTest {
 
     @Mock
     private FilmeDAO filmeDAO;
-
-    @Mock
-    private Profile profile;
 
     @BeforeEach
     void init() {
@@ -73,46 +67,56 @@ class FilmeServiceTest {
 
     @Test
     void saveExceptionTest() throws DAOException, NegocioException {
-        Filme filme = new Filme();
-        boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(filmeDAO).save(filme, isNew);
-        Assertions.assertThrows(NegocioException.class, () -> filmeService.save(filme), "br.com.locadora.acao.salvarfalha");
-        Mockito.verify(filmeDAO, Mockito.never()).save(filme, false);
-        Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, true);
+        try (MockedStatic<SmartLocadoraUtil> staticMock = Mockito.mockStatic(SmartLocadoraUtil.class)) {
+            staticMock.when(SmartLocadoraUtil::getLanguageFromLocale).thenReturn(Idioma.PORTUGUES);
+            Filme filme = new Filme();
+            boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
+            Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(filmeDAO).save(filme, isNew);
+            Assertions.assertThrows(NegocioException.class, () -> filmeService.save(filme), "br.com.locadora.acao.salvarfalha");
+            Mockito.verify(filmeDAO, Mockito.never()).save(filme, false);
+            Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, true);
+        }
     }
 
     @Test
     void updateExceptionTest() throws DAOException, NegocioException {
-        Filme filme = new Filme();
-        filme.setFilmeID(1L);
-        boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(filmeDAO).save(filme, isNew);
-        Assertions.assertThrows(NegocioException.class, () -> filmeService.save(filme), "br.com.locadora.acao.salvarfalha");
-        Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, false);
-        Mockito.verify(filmeDAO, Mockito.never()).save(filme, true);
+        try (MockedStatic<SmartLocadoraUtil> staticMock = Mockito.mockStatic(SmartLocadoraUtil.class)) {
+            staticMock.when(SmartLocadoraUtil::getLanguageFromLocale).thenReturn(Idioma.PORTUGUES);
+            Filme filme = new Filme();
+            filme.setFilmeID(1L);
+            boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
+            Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(filmeDAO).save(filme, isNew);
+            Assertions.assertThrows(NegocioException.class, () -> filmeService.save(filme), "br.com.locadora.acao.salvarfalha");
+            Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, false);
+            Mockito.verify(filmeDAO, Mockito.never()).save(filme, true);
+        }
     }
 
     @Test
     void saveTest() throws DAOException, NegocioException {
-        Filme filme = new Filme();
-        boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
-        Mockito.when(profile.getLanguage()).thenReturn(Idioma.PORTUGUES);
-        Mockito.doNothing().when(filmeDAO).save(filme, isNew);
-        Assertions.assertDoesNotThrow(() -> filmeService.save(filme));
-        Mockito.verify(filmeDAO, Mockito.never()).save(filme, false);
-        Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, true);
+        try (MockedStatic<SmartLocadoraUtil> staticMock = Mockito.mockStatic(SmartLocadoraUtil.class)) {
+            staticMock.when(SmartLocadoraUtil::getLanguageFromLocale).thenReturn(Idioma.PORTUGUES);
+            Filme filme = new Filme();
+            boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
+            Mockito.doNothing().when(filmeDAO).save(filme, isNew);
+            Assertions.assertDoesNotThrow(() -> filmeService.save(filme));
+            Mockito.verify(filmeDAO, Mockito.never()).save(filme, false);
+            Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, true);
+        }
     }
 
     @Test
     void updateTest() throws DAOException, NegocioException {
-        Filme filme = new Filme();
-        filme.setFilmeID(1L);
-        boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
-        Mockito.when(profile.getLanguage()).thenReturn(Idioma.PORTUGUES);
-        Mockito.doNothing().when(filmeDAO).save(filme, isNew);
-        Assertions.assertDoesNotThrow(() -> filmeService.save(filme));
-        Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, false);
-        Mockito.verify(filmeDAO, Mockito.never()).save(filme, true);
+        try (MockedStatic<SmartLocadoraUtil> staticMock = Mockito.mockStatic(SmartLocadoraUtil.class)) {
+            staticMock.when(SmartLocadoraUtil::getLanguageFromLocale).thenReturn(Idioma.PORTUGUES);
+            Filme filme = new Filme();
+            filme.setFilmeID(1L);
+            boolean isNew = !Optional.ofNullable(filme.getFilmeID()).isPresent();
+            Mockito.doNothing().when(filmeDAO).save(filme, isNew);
+            Assertions.assertDoesNotThrow(() -> filmeService.save(filme));
+            Mockito.verify(filmeDAO, Mockito.times(1)).save(filme, false);
+            Mockito.verify(filmeDAO, Mockito.never()).save(filme, true);
+        }
     }
 
     @Test
@@ -139,7 +143,7 @@ class FilmeServiceTest {
     }
 
     @Test
-    void deleteTest() throws DAOException, NegocioException {
+    void deleteTest() throws DAOException {
         Filme filme = new Filme();
         filme.setFilmeID(1L);
         Mockito.doNothing().when(filmeDAO).delete(filme);

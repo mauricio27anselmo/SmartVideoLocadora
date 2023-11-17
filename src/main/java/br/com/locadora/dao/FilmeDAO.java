@@ -3,10 +3,10 @@ package br.com.locadora.dao;
 import br.com.locadora.domain.Filme;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.interfaces.dao.IFilmeDAO;
-import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import br.com.locadora.util.SmartLocadoraUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -38,7 +38,7 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
     public List<Filme> load(PageableFilter filter) throws DAOException {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(Filme.class);
-            criteria.add(Restrictions.eq("idioma", Profile.getInstance().getLanguage()));
+            criteria.add(Restrictions.eq("idioma", SmartLocadoraUtil.getLanguageFromLocale()));
             applySorting(criteria, filter);
             criteria.setFirstResult(filter.getFirst());
             criteria.setMaxResults(filter.getPageSize());
@@ -52,7 +52,7 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
     public int count(PageableFilter filter) throws DAOException {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(Filme.class);
-            criteria.add(Restrictions.eq("idioma", Profile.getInstance().getLanguage()));
+            criteria.add(Restrictions.eq("idioma", SmartLocadoraUtil.getLanguageFromLocale()));
             criteria.setProjection(Projections.rowCount());
             return ((Long) criteria.uniqueResult()).intValue();
         } catch (Exception ex) {

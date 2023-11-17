@@ -1,11 +1,7 @@
 package br.com.locadora.bean;
 
-import br.com.locadora.enums.Idioma;
-import br.com.locadora.permisions.Profile;
 import br.com.locadora.util.FacesUtil;
-import br.com.locadora.util.SmartLocadoraUtil;
 
-import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,20 +35,9 @@ public class AuthenticationBean {
         this.password = password;
     }
 
-    @PreDestroy
-    public void beforeDestroy(){
-        Profile.getInstance().clear();
-    }
-
     public String login() throws IOException, ServletException {
         if (username.equals("usuario") && password.equals("senha")) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", username);
-            Idioma language = SmartLocadoraUtil.getLanguageFromLocale();
-            Profile.getInstance().setUsername(username);
-            Profile.getInstance().setPassword(password);
-            Profile.getInstance().setLanguage(language);
-            setUsername("");
-            setPassword("");
             return "/pages/principal.xhtml?faces-redirect=true";
         }
         FacesContext context = FacesContext.getCurrentInstance();
@@ -65,7 +50,6 @@ public class AuthenticationBean {
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(false);
         session.invalidate();
-        Profile.getInstance().clear();
         externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
     }
 }
