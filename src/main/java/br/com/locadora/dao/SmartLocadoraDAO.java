@@ -100,7 +100,7 @@ public abstract class SmartLocadoraDAO<T> {
         }
     }
 
-    private void cancelTransaction(Transaction transaction) {
+    protected void cancelTransaction(Transaction transaction) {
         try {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();

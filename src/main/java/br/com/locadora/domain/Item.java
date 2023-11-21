@@ -1,9 +1,7 @@
 package br.com.locadora.domain;
 
 import br.com.locadora.enums.StatusItem;
-import br.com.locadora.enums.TipoFilme;
 import br.com.locadora.enums.converter.StatusItemConverter;
-import br.com.locadora.enums.converter.TipoFilmeConverter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "smt_item")
-public class Item {
+public class Item implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +68,10 @@ public class Item {
                 ", statusItem=" + statusItem +
                 ", valor=" + valor +
                 '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
@@ -80,6 +81,20 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
         return entity;
     }
 
-
-
+    @Override
+    public List<Filme> findByName(String name) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Filme> records = new ArrayList<>();
+        try {
+            Criteria criteria = session.createCriteria(Filme.class);
+            criteria.add(Restrictions.ilike("titulo", "%" + name + "%"));
+            criteria.add(Restrictions.eq("idioma", SmartLocadoraUtil.getLanguageFromLocale()));
+            records = (List<Filme>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return records;
+    }
 }

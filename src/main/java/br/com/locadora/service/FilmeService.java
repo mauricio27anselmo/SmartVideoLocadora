@@ -7,9 +7,12 @@ import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
 import br.com.locadora.util.SmartLocadoraUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class FilmeService extends SmartLocadoraService<Filme> implements IFilmeService {
@@ -43,6 +46,19 @@ public class FilmeService extends SmartLocadoraService<Filme> implements IFilmeS
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
+        }
+    }
+
+    @Override
+    public List<Filme> findByName(String name) throws NegocioException {
+        try {
+            if (StringUtils.isEmpty(name)) {
+                return Collections.emptyList();
+            }
+            return filmeDAO.findByName(name);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException(ex.getMessage(), ex);
         }
     }
 }

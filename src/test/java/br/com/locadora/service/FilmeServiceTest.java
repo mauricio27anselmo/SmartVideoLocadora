@@ -16,6 +16,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -194,4 +195,30 @@ class FilmeServiceTest {
         Assertions.assertEquals(quantidadeEsperada, filmeService.count(pageableFilter));
     }
 
+    @Test
+    void findByNameNullTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), filmeService.findByName(null));
+        Mockito.verify(filmeDAO, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameEmptyTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), filmeService.findByName(""));
+        Mockito.verify(filmeDAO, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameExceptionTest() throws DAOException {
+        String name = "Teste";
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(filmeDAO).findByName(name);
+        Assertions.assertThrows(NegocioException.class, () -> filmeService.findByName(name));
+        Mockito.verify(filmeDAO, Mockito.times(1)).findByName(name);
+    }
+
+    @Test
+    void findByNameTest() throws DAOException, NegocioException {
+        String name = "Teste";
+        Mockito.when(filmeDAO.findByName(name)).thenReturn(new ArrayList<>());
+        Assertions.assertNotNull(filmeService.findByName(name));
+    }
 }
