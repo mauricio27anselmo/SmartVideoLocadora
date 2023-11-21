@@ -20,6 +20,6 @@ Sistema voltado para lojas de videolocadoras que possibilita as seguintes açõe
 
 - Realize o download de todas as dependências Gradle para o projeto;
 - Realize o download de todas as dependências Node para o projeto dentro do diretório onde se encontra o arquivo package.json;
-- Configure o Java versão 8 para o projeto
-- Execute a classe HibernateApplication para poder realizar o mapeamento das tabelas para o banco de dados, definido pelo arquivo hibernate.cfg.xml
+- Configure o Java versão 8 para o projeto;
+- Execute a classe HibernateApplication para poder realizar o mapeamento das tabelas para o banco de dados, definido pelo arquivo hibernate.cfg.xml;    
 - Utilize um servidor Tomcat para poder iniciar a aplicação

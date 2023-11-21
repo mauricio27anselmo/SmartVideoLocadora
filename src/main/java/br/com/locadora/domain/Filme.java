@@ -4,9 +4,11 @@ package br.com.locadora.domain;
 import br.com.locadora.enums.ClassificacaoIndicativa;
 import br.com.locadora.enums.Genero;
 import br.com.locadora.enums.Idioma;
+import br.com.locadora.enums.TipoFilme;
 import br.com.locadora.enums.converter.ClassificacaoIndicativaConverter;
 import br.com.locadora.enums.converter.GeneroConverter;
 import br.com.locadora.enums.converter.IdiomaConverter;
+import br.com.locadora.enums.converter.TipoFilmeConverter;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -37,6 +39,10 @@ public class Filme {
     @Convert(converter = ClassificacaoIndicativaConverter.class)
     @Column(name = "flm_classificacao_indicativa", nullable = false)
     private ClassificacaoIndicativa classificacaoIndicativa;
+
+    @Convert(converter = TipoFilmeConverter.class)
+    @Column(name = "flm_tipo", nullable = false)
+    private TipoFilme tipoFilme;
 
     @Convert(converter = IdiomaConverter.class)
     @Column(name = "flm_idioma", nullable = false)
@@ -106,6 +112,14 @@ public class Filme {
         this.classificacaoIndicativa = classificacaoIndicativa;
     }
 
+    public TipoFilme getTipoFilme() {
+        return tipoFilme;
+    }
+
+    public void setTipoFilme(TipoFilme tipoFilme) {
+        this.tipoFilme = tipoFilme;
+    }
+
     public Idioma getIdioma() {
         return idioma;
     }
@@ -138,10 +152,9 @@ public class Filme {
                 ", descricao='" + descricao + '\'' +
                 ", anoLancamento=" + anoLancamento +
                 ", genero=" + genero +
-                ", faixaEtaria=" + classificacaoIndicativa +
+                ", classificacaoIndicativa=" + classificacaoIndicativa +
+                ", tipoFilme=" + tipoFilme +
                 ", idioma=" + idioma +
-                ", elenco=" + elenco +
-                ", direcao=" + direcao +
                 '}';
     }
 }

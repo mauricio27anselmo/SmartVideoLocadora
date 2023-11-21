@@ -40,6 +40,10 @@
                           sortBy="#{filme.genero.label}">
                     <h:outputText value="#{msg[filme.genero.label]}" />
                 </p:column>
+                <p:column headerText="#{msg['br.com.locadora.tipofilme']}"
+                          sortBy="#{filme.tipoFilme.label}">
+                    <h:outputText value="#{msg[filme.tipoFilme.label]}" />
+                </p:column>
                 <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}"
                           sortBy="#{filme.classificacaoIndicativa.label}">
                     <h:outputText value="#{msg[filme.classificacaoIndicativa.label]}" />

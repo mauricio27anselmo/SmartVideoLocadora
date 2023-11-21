@@ -5,6 +5,7 @@ import br.com.locadora.domain.Diretor;
 import br.com.locadora.domain.Filme;
 import br.com.locadora.enums.ClassificacaoIndicativa;
 import br.com.locadora.enums.Genero;
+import br.com.locadora.enums.TipoFilme;
 import br.com.locadora.service.AtorService;
 import br.com.locadora.service.DiretorService;
 import br.com.locadora.service.FilmeService;
@@ -41,6 +42,8 @@ public class FilmeFormBean extends SmartLocadoraFormBean {
 
     private List<ClassificacaoIndicativa> ratingList;
 
+    private List<TipoFilme> moviesTypeList;
+
     public Filme getFilmeForm() {
         return filmeForm;
     }
@@ -65,6 +68,14 @@ public class FilmeFormBean extends SmartLocadoraFormBean {
         return ratingList;
     }
 
+    public List<TipoFilme> getMoviesTypeList() {
+        return moviesTypeList;
+    }
+
+    public void setMoviesTypeList(List<TipoFilme> moviesTypeList) {
+        this.moviesTypeList = moviesTypeList;
+    }
+
     @PostConstruct
     public void init() {
         filmeService = FilmeService.getInstance();
@@ -76,6 +87,7 @@ public class FilmeFormBean extends SmartLocadoraFormBean {
         minYearRelease = maxYearRelease - 150;
         moviesGenreList = SmartLocadoraUtil.listAllMovieGenres();
         ratingList = SmartLocadoraUtil.listAllRatings();
+        moviesTypeList = SmartLocadoraUtil.listAllMoviesType();
     }
 
     @Override

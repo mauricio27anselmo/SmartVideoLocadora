@@ -1,8 +1,6 @@
 package br.com.locadora.util;
 
-import br.com.locadora.enums.ClassificacaoIndicativa;
-import br.com.locadora.enums.Genero;
-import br.com.locadora.enums.Idioma;
+import br.com.locadora.enums.*;
 
 import javax.faces.context.FacesContext;
 import java.util.*;
@@ -52,6 +50,14 @@ public class SmartLocadoraUtil {
             }
         }
         return Idioma.PORTUGUES;
+    }
+
+    public static List<TipoFilme> listAllMoviesType() {
+        return Arrays.asList(TipoFilme.values());
+    }
+
+    public static List<StatusItem> listAllStatusItem() {
+        return Arrays.asList(StatusItem.values());
     }
 
     private static List<ClassificacaoIndicativa> listAllPTBRRatings() {

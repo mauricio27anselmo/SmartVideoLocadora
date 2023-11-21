@@ -69,6 +69,19 @@
                                                value="#{filmeFormBean.ratingList}"/>
                             </p:selectOneMenu>
                         </div>
+                        <div class="field">
+                            <h:outputLabel for="tipoFilme"
+                                           value="#{msg['br.com.locadora.tipofilme']}"
+                                           styleClass="col-2"/>
+                            <p:selectOneMenu id="tipoFilme"
+                                             value="#{filmeFormBean.filmeForm.tipoFilme}"
+                                             required="true">
+                                <f:selectItems var="tipoFilme"
+                                               itemLabel="#{msg[tipoFilme.label]}"
+                                               itemValue="#{tipoFilme}"
+                                               value="#{filmeFormBean.moviesTypeList}"/>
+                            </p:selectOneMenu>
+                        </div>
                         <div class="field flex align-items-center">
                             <h:outputLabel for="elenco"
                                            value="#{msg['br.com.locadora.elenco']}"
