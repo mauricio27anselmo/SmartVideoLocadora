@@ -62,6 +62,12 @@ class DiretorServiceTest {
     }
 
     @Test
+    void saveOrUpdateNullTest() throws DAOException, NegocioException {
+        Assertions.assertThrows(NegocioException.class, () -> diretorService.save(null));
+        Mockito.verify(diretorDAO, Mockito.never()).save(Mockito.any(Diretor.class), Mockito.anyBoolean());
+    }
+
+    @Test
     void saveExceptionTest() throws DAOException, NegocioException {
         Diretor diretor = new Diretor();
         diretor.setNome("Teste");

@@ -62,6 +62,12 @@ class AtorServiceTest {
     }
 
     @Test
+    void saveOrUpdateNullTest() throws DAOException, NegocioException {
+        Assertions.assertThrows(NegocioException.class, () -> atorService.save(null));
+        Mockito.verify(atorDAO, Mockito.never()).save(Mockito.any(Ator.class), Mockito.anyBoolean());
+    }
+
+    @Test
     void saveExceptionTest() throws DAOException, NegocioException {
         Ator ator = new Ator();
         ator.setNome("Teste");

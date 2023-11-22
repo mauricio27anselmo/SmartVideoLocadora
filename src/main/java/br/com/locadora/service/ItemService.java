@@ -60,7 +60,7 @@ public class ItemService extends SmartLocadoraService<Item> implements IItemServ
     @Override
     public void save(Item entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent()) {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getItemID()).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             itemDAO.save(entity, false);
