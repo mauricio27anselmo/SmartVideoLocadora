@@ -1,4 +1,4 @@
-#Smart Video Locadora
+## Smart Video Locadora
 
 Sistema voltado para lojas de videolocadoras que possibilita as seguintes ações:
 
@@ -16,7 +16,7 @@ Sistema voltado para lojas de videolocadoras que possibilita as seguintes açõe
 - Node
 - JUnit5 e Mockito 4
 
-##Uso
+## Uso
 
 - Realize o download de todas as dependências Gradle para o projeto;
 - Realize o download de todas as dependências Node para o projeto dentro do diretório onde se encontra o arquivo package.json;
