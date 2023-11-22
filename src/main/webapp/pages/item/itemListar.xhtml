@@ -6,50 +6,70 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <p:panel header="#{msg['br.com.locadora.listagemator']}">
+        <p:panel header="#{msg['br.com.locadora.listagemitem']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
                     <p:commandButton id="btnNovo"
-                                     value="#{msg['br.com.locadora.novoator']}"
+                                     value="#{msg['br.com.locadora.novoitem']}"
                                      icon="pi pi-plus"
-                                     process="@this"
-                                     update=":dialogs:manage-actor-content"
-                                     actionListener="#{atorListBean.addEntity()}"
-                                     oncomplete="PF('manageActorDialog').show()"
+                                     action="#{itemListBean.addEntity()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <p:dataTable id="datatable-atores"
-                         var="ator"
-                         value="#{atorListBean.atorDataModel}"
-                         rowKey="#{ator.atorID}"
+            <p:dataTable id="datatable-items"
+                         var="item"
+                         value="#{itemListBean.itemDataModel}"
+                         rowKey="#{item.itemID}"
                          rows="15"
                          paginator="true"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="15"
                          selectionMode="single">
 
-                <p:column headerText="#{msg['br.com.locadora.nome']}"
-                          sortBy="#{ator.nome}">
-                    <h:outputText value="#{ator.nome}" />
+                <p:column headerText="#{msg['br.com.locadora.codigo']}"
+                          sortBy="#{item.itemID}">
+                    <h:outputText value="#{item.itemID}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.filme']}"
+                          sortBy="#{item.filme.titulo}">
+                    <h:outputText value="#{item.filme.titulo}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
+                    <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.statusitem']}">
+                    <h:outputText value="#{msg[item.statusItem.label]}" />
+                </p:column>
+                <p:column headerText="#{msg['br.com.locadora.preco']}">
+                    <h:outputText value="#{item.valor}" />
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
+                        <p:tooltip for="btnConsultar"
+                                   value="#{msg['br.com.locadora.consultar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnConsultar"
+                                      type="button"
+                                      icon="pi pi-eye"
+                                      outcome="/pages/item/itemConsultar.jsf"
+                                      styleClass="rounded-button ui-button-secondary">
+                            <f:param name="id" value="#{item.itemID}" />
+                        </p:linkButton>
+
                         <p:tooltip for="btnEditar"
                                    value="#{msg['br.com.locadora.editar']}"
                                    autoHide="true"
                                    position="bottom"/>
-
-                        <p:commandButton id="btnEditar"
-                                         styleClass="rounded-button"
-                                         icon="pi pi-pencil"
-                                         process="@this"
-                                         update=":dialogs:manage-actor-content"
-                                         oncomplete="PF('manageActorDialog').show()">
-                            <f:setPropertyActionListener value="#{ator}" target="#{atorListBean.atorForm}"/>
-                        </p:commandButton>
+                        <p:linkButton id="btnEditar"
+                                      type="button"
+                                      icon="pi pi-pencil"
+                                      outcome="/pages/item/itemEditar.jsf"
+                                      styleClass="rounded-button">
+                            <f:param name="id" value="#{item.itemID}" />
+                        </p:linkButton>
 
                         <p:tooltip for="btnExcluir"
                                    value="#{msg['br.com.locadora.excluir']}"
@@ -60,61 +80,26 @@
                                          styleClass="rounded-button ui-button-danger"
                                          icon="pi pi-trash"
                                          process="@this"
-                                         oncomplete="PF('deleteActorDialog').show()">
-                            <f:setPropertyActionListener value="#{ator}" target="#{atorListBean.selectedActor}"/>
+                                         oncomplete="PF('deleteDependentDialog').show()">
+                            <f:setPropertyActionListener value="#{item}" target="#{itemListBean.selectedItem}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
                 <f:facet name="footer">
                     <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{atorListBean.atorDataModel.rowCount}" />
+                        <f:param value="#{itemListBean.itemDataModel.rowCount}" />
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
         </p:panel>
         <h:form id="dialogs">
-            <p:dialog widgetVar="manageActorDialog"
-                      showEffect="fade"
-                      width="600"
-                      modal="true"
-                      header="#{msg['br.com.locadora.cadastroator']}">
-
-                <p:outputPanel id="manage-actor-content" class="ui-fluid">
-                    <p:outputPanel rendered="#{not empty atorListBean.atorForm}">
-                        <div class="grid">
-                            <div class="col">
-                                <div class="field">
-                                    <h:outputLabel for="nome"
-                                                   value="#{msg['br.com.locadora.nome']}"
-                                                   styleClass="w-2"/>
-                                    <p:inputText id="nome"
-                                                 maxlength="50"
-                                                 value="#{atorListBean.atorForm.nome}"
-                                                 styleClass="w-10 ui-inputtext"/>
-                                </div>
-                            </div>
-                        </div>
-                    </p:outputPanel>
-                </p:outputPanel>
-
-                <f:facet name="footer">
-                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button" styleClass="ui-button-secondary" icon="pi pi-ban"
-                                     onclick="PF('manageActorDialog').hide()" />
-                    <p:commandButton value="#{msg['br.com.locadora.salvar']}"
-                                     icon="pi pi-save"
-                                     actionListener="#{atorListBean.save()}"
-                                     process="manage-actor-content @this"
-                                     update="manage-actor-content :datatable-atores :mensagem"
-                                     oncomplete="PF('manageActorDialog').hide()" />
-                </f:facet>
-            </p:dialog>
-            <p:confirmDialog widgetVar="deleteActorDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirator']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{atorListBean.delete()}"
-                                 process="@this" update=":datatable-atores :mensagem"
-                                 oncomplete="PF('deleteActorDialog').hide()" />
+            <p:confirmDialog widgetVar="deleteDependentDialog" showEffect="fade" width="500"
+                             message="#{msg['br.com.locadora.dialog.excluiritem']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{itemListBean.delete()}"
+                                 process="@this" update=":datatable-items :mensagem"
+                                 oncomplete="PF('deleteDependentDialog').hide()" />
                 <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteActorDialog').hide()" />
+                                 onclick="PF('deleteDependentDialog').hide()" />
             </p:confirmDialog>
         </h:form>
     </ui:define>

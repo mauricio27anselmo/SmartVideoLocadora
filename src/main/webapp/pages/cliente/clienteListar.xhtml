@@ -78,7 +78,7 @@
                                          icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteCustomerDialog').show()">
-                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteListBean.clienteForm}"/>
+                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteListBean.selectedClient}"/>
                         </p:commandButton>
                     </div>
                 </p:column>

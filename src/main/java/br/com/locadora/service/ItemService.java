@@ -63,7 +63,7 @@ public class ItemService extends SmartLocadoraService<Item> implements IItemServ
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
-            itemDAO.save(entity, !Optional.ofNullable(entity.getItemID()).isPresent());
+            itemDAO.save(entity, false);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);

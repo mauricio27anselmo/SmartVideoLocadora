@@ -7,11 +7,11 @@ import java.util.stream.Stream;
 
 public enum StatusItem {
 
-	DISPONIVEL(1L,"br.com.locadora.statusfilme.disponivel"),
-	RESERVADO(2L,"br.com.locadora.statusfilme.reservado"),
-	LOCADO(3L,"br.com.locadora.statusfilme.locado"),
-	ATRASADO(4L,"br.com.locadora.statusfilme.devolucaoematraso"),
-	EXTRAVIADO( 5L,"br.com.locadora.statusfilme.extraviado");
+	DISPONIVEL(1L,"br.com.locadora.statusitem.disponivel"),
+	RESERVADO(2L,"br.com.locadora.statusitem.reservado"),
+	LOCADO(3L,"br.com.locadora.statusitem.locado"),
+	ATRASADO(4L,"br.com.locadora.statusitem.devolucaoatrasada"),
+	EXTRAVIADO( 5L,"br.com.locadora.statusitem.extraviado");
 
 	public final Long id;
 	public final String label;

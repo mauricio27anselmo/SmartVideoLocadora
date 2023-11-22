@@ -7,7 +7,7 @@
 
     <ui:define name="conteudo">
         <h:form id="item-form">
-            <p:panel header="#{msg['br.com.locadora.cadastroitem']}">
+            <p:panel header="#{msg['br.com.locadora.inclusaoitemestoque']}">
                 <div class="grid">
                     <div class="col-10">
                         <div class="field">
@@ -61,6 +61,7 @@
                             <p:inputNumber id="quantidade"
                                            value="#{itemAddFormBean.quantity}"
                                            minValue="1"
+                                           maxValue="20"
                                            decimalPlaces="0"
                                            required="true"
                                            styleClass="w-7 ui-inputnumber"/>

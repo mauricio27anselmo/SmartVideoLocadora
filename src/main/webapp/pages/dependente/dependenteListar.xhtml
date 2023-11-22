@@ -82,7 +82,7 @@
                                          icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteDependentDialog').show()">
-                            <f:setPropertyActionListener value="#{dependente}" target="#{dependenteListBean.dependenteForm}"/>
+                            <f:setPropertyActionListener value="#{dependente}" target="#{dependenteListBean.selectedDependent}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
