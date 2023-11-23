@@ -14,27 +14,29 @@
                             <h:outputLabel for="cliente"
                                            value="#{msg['br.com.locadora.cliente']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cliente" value="#{dependenteFormBean.dependenteForm.cliente.nome}"/>
+                            <h:outputText id="cliente"
+                                          value="#{dependenteFormBean.dependenteForm.cliente.nome}"/>
                         </div>
                         <div class="field">
                             <h:outputLabel for="nome"
                                            value="#{msg['br.com.locadora.nome']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="nome" value="#{dependenteFormBean.dependenteForm.nome}"/>
+                            <h:outputText id="nome"
+                                          value="#{dependenteFormBean.dependenteForm.nome}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{dependenteFormBean.dependenteForm.dataNascimento}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                            <h:outputText id="dataNascimento"
+                                          value="#{dependenteFormBean.dependenteForm.dataNascimento}" converter="localDateConverter"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="cpf"
                                            value="#{msg['br.com.locadora.cpf']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="cpf" value="#{dependenteFormBean.dependenteForm.cpf}"/>
+                            <h:outputText id="cpf"
+                                          value="#{dependenteFormBean.dependenteForm.cpf}"/>
                         </div>
                     </div>
                 </div>

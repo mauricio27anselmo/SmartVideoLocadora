@@ -20,9 +20,7 @@
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{clienteFormBean.clienteForm.dataNascimento}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                            <h:outputText id="dataNascimento" value="#{clienteFormBean.clienteForm.dataNascimento}" converter="localDateConverter"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="endereco"

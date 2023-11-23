@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -238,4 +239,30 @@ class DependenteServiceTest {
         Assertions.assertEquals(quantidadeEsperada, dependenteService.count(pageableFilter));
     }
 
+    @Test
+    void findByNameNullTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), dependenteService.findByName(null));
+        Mockito.verify(dependenteDAO, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameEmptyTest() throws DAOException, NegocioException {
+        Assertions.assertEquals(Collections.emptyList(), dependenteService.findByName(""));
+        Mockito.verify(dependenteDAO, Mockito.never()).findByName(Mockito.anyString());
+    }
+
+    @Test
+    void findByNameExceptionTest() throws DAOException {
+        String name = "Teste";
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(dependenteDAO).findByName(name);
+        Assertions.assertThrows(NegocioException.class, () -> dependenteService.findByName(name));
+        Mockito.verify(dependenteDAO, Mockito.times(1)).findByName(name);
+    }
+
+    @Test
+    void findByNameTest() throws DAOException, NegocioException {
+        String name = "Teste";
+        Mockito.when(dependenteDAO.findByName(name)).thenReturn(new ArrayList<>());
+        Assertions.assertNotNull(dependenteService.findByName(name));
+    }
 }

@@ -17,4 +17,6 @@ public interface IDependenteService {
     List<Dependente> load(PageableFilter filter) throws NegocioException;
 
     int count(PageableFilter filter) throws NegocioException;
+
+    List<Dependente> findByName(String name) throws NegocioException;
 }

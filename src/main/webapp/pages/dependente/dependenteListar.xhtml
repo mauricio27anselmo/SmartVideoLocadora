@@ -42,9 +42,7 @@
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.datanascimento']}"
                           sortBy="#{dependente.dataNascimento}">
-                    <h:outputText value="#{dependente.dataNascimento}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
+                    <h:outputText value="#{dependente.dataNascimento}" converter="localDateConverter"/>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">

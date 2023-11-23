@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class DependenteService extends SmartLocadoraService<Dependente> implements IDependenteService {
@@ -47,6 +49,19 @@ public class DependenteService extends SmartLocadoraService<Dependente> implemen
                 message = "br.com.locadora.acao.dependenteduplicado";
             }
             throw new NegocioException(message, ex);
+        }
+    }
+
+    @Override
+    public List<Dependente> findByName(String name) throws NegocioException {
+        try {
+            if (StringUtils.isEmpty(name)) {
+                return Collections.emptyList();
+            }
+            return dependenteDAO.findByName(name);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException(ex.getMessage(), ex);
         }
     }
 }

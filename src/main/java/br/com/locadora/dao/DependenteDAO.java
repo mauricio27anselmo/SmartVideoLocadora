@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,22 @@ public class DependenteDAO extends SmartLocadoraDAO<Dependente> implements IDepe
 			throw new NegocioException("br.com.locadora.acao.clienteduplicado");
 		}
 		super.save(entity, isNew);
+	}
+
+	@Override
+	public List<Dependente> findByName(String name) throws DAOException {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Dependente> records = new ArrayList<>();
+		try {
+			Criteria criteria = session.createCriteria(Dependente.class);
+			criteria.add(Restrictions.ilike("nome", "%" + name + "%"));
+			records = (List<Dependente>) criteria.list();
+		} catch (Exception ex) {
+			throw new DAOException("Erro ao listar registros");
+		} finally {
+			session.close();
+		}
+		return records;
 	}
 
 	private Cliente findCustomerByCPF(String cpf) throws DAOException {

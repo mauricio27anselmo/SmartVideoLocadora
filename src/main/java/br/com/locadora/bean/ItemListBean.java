@@ -40,7 +40,7 @@ public class ItemListBean extends SmartLocadoraListBean {
 
     @Override
     public void addEntity() {
-        redirectToPage("/pages/item/itemAdicionar.xhtml");
+        redirectToPage("/pages/item/itemIncluir.xhtml");
     }
 
     @Override

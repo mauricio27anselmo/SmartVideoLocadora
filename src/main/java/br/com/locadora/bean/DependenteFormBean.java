@@ -61,7 +61,7 @@ public class DependenteFormBean extends SmartLocadoraFormBean {
             String queryLowerCase = query.toLowerCase();
             return clienteService.findByName(queryLowerCase);
         } catch (NegocioException ex) {
-            handleErrorMessage("br.com.locadora.acao.consultardependentefalha");
+            handleErrorMessage("br.com.locadora.acao.consultarclientefalha");
             return Collections.emptyList();
         }
     }

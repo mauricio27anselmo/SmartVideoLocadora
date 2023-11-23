@@ -107,11 +107,13 @@ body [id$="cliente-form:dataNascimento_input"], body [id$="dependente-form:dataN
     width: 16.6667%;
 }
 
-body [id$="dependente-form:cliente_input"], body [id$="item-form:filme_input"] {
+body [id$="dependente-form:cliente_input"], body [id$="item-form:filme_input"],
+body [id$="locacao-form:cliente_input"], body [id$="locacao-form:dependente_input"] {
     width: 100%;
 }
 
-body [id$="filme-form:anoLancamento_input"], body [id$="item-form:preco_input"], body [id$="item-form:quantidade_input"] {
+body [id$="filme-form:anoLancamento_input"], body [id$="item-form:preco_input"],
+body [id$="item-form:quantidade_input"] {
     width: 8.3333%;
 }
 
@@ -266,4 +268,18 @@ body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-s
 
 body .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
     color: var(--surface-0);
+}
+
+body .ui-toggleswitch .ui-toggleswitch-slider {
+    background: #dee2e6;
+    border: solid rgba(0,0,0,0);
+}
+
+body .ui-toggleswitch .ui-toggleswitch-slider:before, body .ui-toggleswitch .ui-toggleswitch-handler {
+    background: var(--surface-900);
+    color: rgba(255,255,255,.87);
+}
+
+body .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
+    background: #2196f3;
 }

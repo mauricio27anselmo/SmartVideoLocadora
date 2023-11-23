@@ -19,4 +19,6 @@ public interface IDependenteDAO {
 
     Dependente findById(long id) throws DAOException;
 
+    List<Dependente> findByName(String name) throws DAOException;
+
 }

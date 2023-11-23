@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/templateLocadora.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo" >
+        <h:form id="locacao-form">
+            <p:panel header="#{msg['br.com.locadora.cadastrolocacao']}">
+                <div class="grid">
+                    <div class="col-7">
+                        <div class="field">
+                            <h:outputLabel for="cliente"
+                                           value="#{msg['br.com.locadora.cliente']}"
+                                           styleClass="col-3"/>
+                            <p:autoComplete id="cliente"
+                                            styleClass="w-9"
+                                            value="#{locacaoAddFormBean.locacaoForm.cliente}"
+                                            completeMethod="#{locacaoAddFormBean.completeCustomer}"
+                                            var="cliente"
+                                            readonly="#{locacaoAddFormBean.enabledDependent}"
+                                            itemLabel="#{cliente.nome}"
+                                            itemValue="#{cliente}"
+                                            converter="#{clienteConverter}"
+                                            forceSelection="true"
+                                            required="true"
+                                            scrollHeight="250">
+                                <p:ajax event="itemSelect"
+                                        listener="#{locacaoAddFormBean.removeSelectedDependent}"
+                                        update="dependente"/>
+                            </p:autoComplete>
+                            <div class="field flex align-items-center justify-content-end gap-1">
+                                <h:outputLabel for="ativacaoDependente"
+                                               styleClass="block p-2"
+                                               value="#{msg['br.com.locadoracao.acao.habilitardependente']}"/>
+                                <p:toggleSwitch id="ativacaoDependente"
+                                                styleClass="block"
+                                                value="#{locacaoAddFormBean.enabledDependent}">
+                                    <p:ajax event="change"
+                                            listener="#{locacaoAddFormBean.removeSelectedDependent}"
+                                            update="cliente dependente"/>
+                                </p:toggleSwitch>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <h:outputLabel for="dependente"
+                                           value="#{msg['br.com.locadora.dependente']}"
+                                           styleClass="col-3"/>
+                            <p:autoComplete id="dependente"
+                                            styleClass="w-9"
+                                            value="#{locacaoAddFormBean.locacaoForm.dependente}"
+                                            completeMethod="#{locacaoAddFormBean.completeDependent}"
+                                            var="dependente"
+                                            itemLabel="#{dependente.nome}"
+                                            itemValue="#{dependente}"
+                                            converter="#{dependenteConverter}"
+                                            forceSelection="true"
+                                            disabled="#{not locacaoAddFormBean.enabledDependent}"
+                                            required="#{locacaoAddFormBean.enabledDependent}"
+                                            scrollHeight="250">
+                                <p:ajax event="itemSelect"
+                                        listener="#{locacaoAddFormBean.onItemDependentSelect}"
+                                        update="cliente"/>
+                            </p:autoComplete>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="dataNascimento"
+                                           value="#{msg['br.com.locadora.datadevolucaoprevista']}"
+                                           styleClass="col-3"/>
+                            <p:calendar id="dataNascimento"
+                                        locale="#{languageBean.locale}"
+                                        navigator="true"
+                                        pattern="dd/MM/yyyy"
+                                        mask="dd/MM/yyyy"
+                                        showOn="button"
+                                        mindate="#{locacaoAddFormBean.minDate}"
+                                        value="#{locacaoAddFormBean.locacaoForm.dataDevolucaoPrevista}"/>
+                        </div>
+                    </div>
+                </div>
+                <f:facet name="footer">
+                    <div class="flex justify-content-end gap-2">
+                        <p:linkButton id="btnVoltar"
+                                      value="#{msg['br.com.locadora.voltar']}"
+                                      styleClass="ui-button-secondary"
+                                      icon="pi pi-arrow-left"
+                                      outcome="/pages/locacao/locacaoListar.jsf"/>
+                        <p:commandButton id="btnSalvar"
+                                         value="#{msg['br.com.locadora.salvar']}"
+                                         icon="pi pi-save"
+                                         actionListener="#{locacaoAddFormBean.save()}"
+                                         update=":locacao-form :mensagem ">
+                        </p:commandButton>
+                    </div>
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
