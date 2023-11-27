@@ -102,13 +102,13 @@ public class ItemDAO extends SmartLocadoraDAO<Item> implements IItemDAO {
     }
 
     @Override
-    public void updateRentedItems(List<Long> itemsID) throws DAOException {
+    public void updateItems(List<Long> itemsID, StatusItem newStatus) throws DAOException {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             CriteriaUpdate<Item> update = session.getCriteriaBuilder().createCriteriaUpdate(Item.class);
             Root<Item> itemRoot = update.from(Item.class);
-            update.set("statusItem", StatusItem.LOCADO);
+            update.set("statusItem", newStatus);
             Expression<Long> expression = itemRoot.get("itemID");
             Predicate inPredicate = expression.in(itemsID);
             update.where(inPredicate);

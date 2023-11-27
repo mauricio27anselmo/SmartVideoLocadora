@@ -6,47 +6,47 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <p:panel header="#{msg['br.com.locadora.listagemfilme']}">
+        <p:panel header="#{msg['br.com.locadora.listagemlocacao']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
                     <p:commandButton id="btnNovo"
-                                     value="#{msg['br.com.locadora.novofilme']}"
+                                     value="#{msg['br.com.locadora.novalocacao']}"
                                      icon="pi pi-plus"
-                                     action="#{filmeListBean.addEntity()}"
+                                     action="#{locacaoListBean.addEntity()}"
                                      styleClass="ui-button-success">
                     </p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <p:dataTable id="datatable-filmes"
-                         var="filme"
-                         value="#{filmeListBean.filmeDataModel}"
-                         rowKey="#{filme.filmeID}"
+            <p:dataTable id="datatable-locacaos"
+                         var="locacao"
+                         value="#{locacaoListBean.locacaoDataModel}"
+                         rowKey="#{locacao.locacaoID}"
                          rows="15"
                          paginator="true"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="15"
                          selectionMode="single">
 
-                <p:column headerText="#{msg['br.com.locadora.titulo']}"
-                          sortBy="#{filme.titulo}">
-                    <h:outputText value="#{filme.titulo}" />
+                <p:column headerText="#{msg['br.com.locadora.codigo']}"
+                          sortBy="#{locacao.locacaoID}">
+                    <h:outputText value="#{locacao.locacaoID}" />
                 </p:column>
-                <p:column headerText="#{msg['br.com.locadora.anolancamento']}"
-                          sortBy="#{filme.anoLancamento}">
-                    <h:outputText value="#{filme.anoLancamento}" />
+                <p:column headerText="#{msg['br.com.locadora.cliente']}"
+                          sortBy="#{locacao.cliente.nome}">
+                    <h:outputText value="#{locacao.cliente.nome}" />
                 </p:column>
-                <p:column headerText="#{msg['br.com.locadora.generofilme']}"
-                          sortBy="#{filme.genero.label}">
-                    <h:outputText value="#{msg[filme.genero.label]}" />
+                <p:column headerText="#{msg['br.com.locadora.datalocacao']}"
+                          sortBy="#{locacao.dataDevolucaoLocacao}">
+                    <h:outputText value="#{locacao.dataLocacao}" converter="localDateTimeConverter"/>
                 </p:column>
-                <p:column headerText="#{msg['br.com.locadora.tipofilme']}"
-                          sortBy="#{filme.tipoFilme.label}">
-                    <h:outputText value="#{msg[filme.tipoFilme.label]}" />
+                <p:column headerText="#{msg['br.com.locadora.datadevolucaoprevista']}"
+                          sortBy="#{locacao.dataDevolucaoPrevista}">
+                    <h:outputText value="#{locacao.dataDevolucaoPrevista}" converter="localDateTimeConverter"/>
                 </p:column>
-                <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}"
-                          sortBy="#{filme.classificacaoIndicativa.label}">
-                    <h:outputText value="#{msg[filme.classificacaoIndicativa.label]}" />
+                <p:column headerText="#{msg['br.com.locadora.valortotal']}"
+                          sortBy="#{locacao.valorTotal}">
+                    <h:outputText value="#{locacao.valorTotal}" />
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -57,21 +57,9 @@
                         <p:linkButton id="btnConsultar"
                                       type="button"
                                       icon="pi pi-eye"
-                                      outcome="/pages/filme/filmeConsultar.jsf"
+                                      outcome="/pages/locacao/locacaoConsultar.jsf"
                                       styleClass="rounded-button ui-button-secondary">
-                            <f:param name="id" value="#{filme.filmeID}" />
-                        </p:linkButton>
-
-                        <p:tooltip for="btnEditar"
-                                   value="#{msg['br.com.locadora.editar']}"
-                                   autoHide="true"
-                                   position="bottom"/>
-                        <p:linkButton id="btnEditar"
-                                      type="button"
-                                      icon="pi pi-pencil"
-                                      outcome="/pages/filme/filmeManter.jsf"
-                                      styleClass="rounded-button">
-                            <f:param name="id" value="#{filme.filmeID}" />
+                            <f:param name="id" value="#{locacao.locacaoID}" />
                         </p:linkButton>
 
                         <p:tooltip for="btnExcluir"
@@ -83,26 +71,26 @@
                                          styleClass="rounded-button ui-button-danger"
                                          icon="pi pi-trash"
                                          process="@this"
-                                         oncomplete="PF('deleteMovieDialog').show()">
-                            <f:setPropertyActionListener value="#{filme}" target="#{filmeListBean.selectedMovie}"/>
+                                         oncomplete="PF('deleteRentalDialog').show()">
+                            <f:setPropertyActionListener value="#{locacao}" target="#{locacaoListBean.selectedRental}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
                 <f:facet name="footer">
                     <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{filmeListBean.filmeDataModel.rowCount}" />
+                        <f:param value="#{locacaoListBean.locacaoDataModel.rowCount}" />
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
         </p:panel>
         <h:form id="dialogs">
-            <p:confirmDialog widgetVar="deleteMovieDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirfilme']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{filmeListBean.delete()}"
-                                 process="@this" update=":datatable-filmes :mensagem"
-                                 oncomplete="PF('deleteMovieDialog').hide()" />
+            <p:confirmDialog widgetVar="deleteRentalDialog" showEffect="fade" width="500"
+                             message="#{msg['br.com.locadora.dialog.excluirlocacao']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{locacaoListBean.delete()}"
+                                 process="@this" update=":datatable-locacaos :mensagem"
+                                 oncomplete="PF('deleteRentalDialog').hide()" />
                 <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteMovieDialog').hide()" />
+                                 onclick="PF('deleteRentalDialog').hide()" />
             </p:confirmDialog>
         </h:form>
     </ui:define>

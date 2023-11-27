@@ -39,6 +39,11 @@ public class ClienteListBean extends SmartLocadoraListBean {
     }
 
     @Override
+    public void addEntity() {
+        redirectToPage("/pages/cliente/clienteManter.xhtml");
+    }
+
+    @Override
     public void delete() {
         try {
             clienteService.delete(selectedClient);

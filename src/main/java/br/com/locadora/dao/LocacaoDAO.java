@@ -2,6 +2,7 @@ package br.com.locadora.dao;
 
 import br.com.locadora.domain.Item;
 import br.com.locadora.domain.Locacao;
+import br.com.locadora.enums.StatusItem;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.interfaces.dao.ILocacaoDAO;
 import br.com.locadora.util.*;
@@ -45,7 +46,8 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.persist(entity);
-            itemDAO.updateRentedItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())));
+            itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.LOCADO);
+            transaction.commit();
         } catch (PersistenceException ex) {
             cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);

@@ -1,6 +1,7 @@
 package br.com.locadora.interfaces.dao;
 
 import br.com.locadora.domain.Item;
+import br.com.locadora.enums.StatusItem;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
@@ -23,6 +24,6 @@ public interface IItemDAO {
 
     List<Item> findByMovieName(String name) throws DAOException;
 
-    void updateRentedItems(List<Long> itemsID) throws DAOException;
+    void updateItems(List<Long> itemsID, StatusItem newStatus) throws DAOException;
 
 }

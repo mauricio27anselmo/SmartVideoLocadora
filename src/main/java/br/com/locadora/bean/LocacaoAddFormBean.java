@@ -164,16 +164,16 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
     }
 
     private void clear() {
-        locacaoForm = new Locacao();
-        locacaoForm.setDataDevolucaoPrevista(minDate);
-        locacaoForm.setItens(new ArrayList<>());
-        locacaoForm.setValorTotalBruto(BigDecimal.ZERO);
-        locacaoForm.setValorTotal(BigDecimal.ZERO);
         LocalDateTime today = LocalDateTime.now();
         minDate = today.plusDays(3);
         enabledDependent = false;
         movieTitleFilter = "";
         availableItems = new ArrayList<>();
+        locacaoForm = new Locacao();
+        locacaoForm.setDataDevolucaoPrevista(minDate);
+        locacaoForm.setItens(new ArrayList<>());
+        locacaoForm.setValorTotalBruto(BigDecimal.ZERO);
+        locacaoForm.setValorTotal(BigDecimal.ZERO);
     }
 
 }

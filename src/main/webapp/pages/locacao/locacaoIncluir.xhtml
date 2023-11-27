@@ -65,10 +65,10 @@
                             </p:autoComplete>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="dataNascimento"
+                            <p:outputLabel for="dataDevolucaoPrevista"
                                            value="#{msg['br.com.locadora.datadevolucaoprevista']}"
                                            styleClass="col-3"/>
-                            <p:calendar id="dataNascimento"
+                            <p:calendar id="dataDevolucaoPrevista"
                                         locale="#{languageBean.locale}"
                                         navigator="true"
                                         pattern="dd/MM/yyyy"
@@ -111,7 +111,7 @@
                                      oncomplete="PF('moviesInventoryDialog').show()">
                     </p:commandButton>
                 </div>
-                <p:panel header="Carrinho">
+                <p:panel header="#{msg['br.com.locadora.carrinho']}">
                     <p:dataTable id="datatable-carrinho"
                                  var="item"
                                  value="#{locacaoAddFormBean.locacaoForm.itens}"
