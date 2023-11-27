@@ -19,4 +19,6 @@ public interface IItemService {
     List<Item> load(PageableFilter filter) throws NegocioException;
 
     int count(PageableFilter filter) throws NegocioException;
+
+    List<Item> findByMovieName(String name) throws NegocioException;
 }

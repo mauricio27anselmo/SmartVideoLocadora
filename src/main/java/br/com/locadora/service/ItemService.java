@@ -69,4 +69,17 @@ public class ItemService extends SmartLocadoraService<Item> implements IItemServ
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
         }
     }
+
+    @Override
+    public List<Item> findByMovieName(String name) throws NegocioException {
+        try {
+            if (StringUtils.isEmpty(name)) {
+                return Collections.emptyList();
+            }
+            return itemDAO.findByMovieName(name);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException(ex.getMessage(), ex);
+        }
+    }
 }

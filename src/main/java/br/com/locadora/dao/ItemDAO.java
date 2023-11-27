@@ -1,6 +1,7 @@
 package br.com.locadora.dao;
 
 import br.com.locadora.domain.Item;
+import br.com.locadora.enums.StatusItem;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.interfaces.dao.IItemDAO;
 import br.com.locadora.util.DAOException;
@@ -76,4 +77,21 @@ public class ItemDAO extends SmartLocadoraDAO<Item> implements IItemDAO {
         }
     }
 
+    @Override
+    public List<Item> findByMovieName(String name) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Item> records = new ArrayList<>();
+        try {
+            Criteria criteria = session.createCriteria(Item.class);
+            criteria.add(Restrictions.eq("statusItem", StatusItem.DISPONIVEL));
+            criteria.createAlias("filme", "flm");
+            criteria.add(Restrictions.ilike("flm.titulo", "%" + name + "%"));
+            records = (List<Item>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return records;
+    }
 }

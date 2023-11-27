@@ -76,6 +76,18 @@ body .ui-button.ui-button-danger.ui-state-hover {
     border: 1px solid var(--red-500);
 }
 
+body .ui-button.ui-button-help {
+    background: var(--purple-700);
+    color: var(--surface-900);
+    border: 1px solid var(--purple-700);
+}
+
+body .ui-button.ui-button-help.ui-state-hover {
+    background: var(--purple-500);
+    color: var(--surface-900);
+    border: 1px solid var(--purple-500);
+}
+
 body .ui-inputfield {
     background: var(--surface-900);
     color: var(--surface-0)
@@ -272,14 +284,19 @@ body .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
 
 body .ui-toggleswitch .ui-toggleswitch-slider {
     background: #dee2e6;
-    border: solid rgba(0,0,0,0);
+    border: solid rgba(0, 0, 0, 0);
 }
 
 body .ui-toggleswitch .ui-toggleswitch-slider:before, body .ui-toggleswitch .ui-toggleswitch-handler {
     background: var(--surface-900);
-    color: rgba(255,255,255,.87);
+    color: rgba(255, 255, 255, .87);
 }
 
 body .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
     background: #2196f3;
+}
+
+body .ui-dataview .ui-dataview-content {
+    background: var(--surface-900);
+    color: var(--surface-0);
 }

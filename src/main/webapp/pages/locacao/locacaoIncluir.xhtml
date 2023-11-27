@@ -33,7 +33,7 @@
                             <div class="field flex align-items-center justify-content-end gap-1">
                                 <h:outputLabel for="ativacaoDependente"
                                                styleClass="block p-2"
-                                               value="#{msg['br.com.locadoracao.acao.habilitardependente']}"/>
+                                               value="#{msg['br.com.locadora.acao.habilitardependente']}"/>
                                 <p:toggleSwitch id="ativacaoDependente"
                                                 styleClass="block"
                                                 value="#{locacaoAddFormBean.enabledDependent}">
@@ -77,8 +77,84 @@
                                         mindate="#{locacaoAddFormBean.minDate}"
                                         value="#{locacaoAddFormBean.locacaoForm.dataDevolucaoPrevista}"/>
                         </div>
+                        <div class="field">
+                            <p:outputLabel for="valorBruto"
+                                           value="#{msg['br.com.locadora.valorbruto']}"
+                                           styleClass="col-3"/>
+                            <p:inputNumber id="valorBruto"
+                                           value="#{locacaoAddFormBean.locacaoForm.valorTotalBruto}"
+                                           decimalSeparator=","
+                                           thousandSeparator="."
+                                           decimalPlaces="2"
+                                           readonly="true"
+                                           styleClass="w-9 ui-inputnumber"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="valorTotal"
+                                           value="#{msg['br.com.locadora.valortotal']}"
+                                           styleClass="col-3"/>
+                            <p:inputNumber id="valorTotal"
+                                           value="#{locacaoAddFormBean.locacaoForm.valorTotal}"
+                                           decimalSeparator=","
+                                           thousandSeparator="."
+                                           decimalPlaces="2"
+                                           required="true"
+                                           styleClass="w-9 ui-inputnumber"/>
+                        </div>
                     </div>
                 </div>
+                <div class="col flex justify-content-end pb-3">
+                    <p:commandButton id="btnAcessarEstoque"
+                                     value="#{msg['br.com.locadora.adicionaritenscarrinho']}"
+                                     styleClass="ui-button-success"
+                                     icon="pi pi-cart-plus"
+                                     oncomplete="PF('moviesInventoryDialog').show()">
+                    </p:commandButton>
+                </div>
+                <p:panel header="Carrinho">
+                    <p:dataTable id="datatable-carrinho"
+                                 var="item"
+                                 value="#{locacaoAddFormBean.locacaoForm.itens}"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowsPerPageTemplate="5"
+                                 rows="5">
+                        <p:column headerText="#{msg['br.com.locadora.codigo']}">
+                            <h:outputText value="#{item.itemID}" />
+                        </p:column>
+                        <p:column headerText="#{msg['br.com.locadora.titulo']}">
+                            <h:outputText value="#{item.filme.titulo}" />
+                        </p:column>
+                        <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}">
+                            <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}" />
+                        </p:column>
+                        <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
+                            <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                        </p:column>
+                        <p:column headerText="#{msg['br.com.locadora.statusitem']}">
+                            <h:outputText value="#{msg[item.statusItem.label]}" />
+                        </p:column>
+                        <p:column headerText="#{msg['br.com.locadora.preco']}">
+                            <h:outputText value="#{item.valor}" />
+                        </p:column>
+                        <p:column>
+                            <div class="flex justify-center">
+                                <p:tooltip for="btnRemoverItem"
+                                           value="#{msg['br.com.locadora.acao.removeritem']}"
+                                           autoHide="true"
+                                           position="bottom"/>
+
+                                <p:commandButton id="btnRemoverItem"
+                                                 styleClass="rounded-button ui-button-danger"
+                                                 icon="pi pi-times"
+                                                 update="datatable-carrinho :mensagem :locacao-form:valorBruto :locacao-form:valorTotal"
+                                                 actionListener="#{locacaoAddFormBean.removeItemFromCart(item)}"
+                                                 process="@this">
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
                 <f:facet name="footer">
                     <div class="flex justify-content-end gap-2">
                         <p:linkButton id="btnVoltar"
@@ -95,6 +171,78 @@
                     </div>
                 </f:facet>
             </p:panel>
+        </h:form>
+        <h:form id="dialogs">
+            <p:dialog widgetVar="moviesInventoryDialog"
+                      showEffect="fade"
+                      width="1200"
+                      modal="true"
+                      header="#{msg['br.com.locadora.estoque']}">
+                <p:ajax event="close" update=":locacao-form:datatable-carrinho :locacao-form:valorBruto :locacao-form:valorTotal" />
+
+                <div class="grid">
+                    <div class="col">
+                        <div class="field flex align-items-center justify-content-start gap-2">
+                            <h:outputLabel for="nome"
+                                           value="#{msg['br.com.locadora.filme']}"
+                                           styleClass="col-1"/>
+                            <p:inputText id="nome"
+                                         maxlength="50"
+                                         placeholder="#{msg['br.com.locadora.filme.placeholder']}"
+                                         value="#{locacaoAddFormBean.movieTitleFilter}"
+                                         styleClass="col-6 ui-inputtext"/>
+                            <p:commandButton id="btnPesquisar"
+                                             value="#{msg['br.com.locadora.acao.pesquisar']}"
+                                             styleClass="ui-button-secondary"
+                                             icon="pi pi-search"
+                                             update="datatable-estoque"
+                                             actionListener="#{locacaoAddFormBean.searchItemsByMovieTitle}">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+                <p:dataTable id="datatable-estoque"
+                             var="item"
+                             value="#{locacaoAddFormBean.availableItems}"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             rows="5">
+                    <p:column headerText="#{msg['br.com.locadora.codigo']}">
+                        <h:outputText value="#{item.itemID}" />
+                    </p:column>
+                    <p:column headerText="#{msg['br.com.locadora.titulo']}">
+                        <h:outputText value="#{item.filme.titulo}" />
+                    </p:column>
+                    <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}">
+                        <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}" />
+                    </p:column>
+                    <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
+                        <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                    </p:column>
+                    <p:column headerText="#{msg['br.com.locadora.statusitem']}">
+                        <h:outputText value="#{msg[item.statusItem.label]}" />
+                    </p:column>
+                    <p:column headerText="#{msg['br.com.locadora.preco']}">
+                        <h:outputText value="#{item.valor}" />
+                    </p:column>
+                    <p:column>
+                        <div class="flex justify-center">
+                            <p:tooltip for="btnAdicionarCarrinho"
+                                       value="#{msg['br.com.locadora.acao.adicionarcarrinho']}"
+                                       autoHide="true"
+                                       position="bottom"/>
+
+                            <p:commandButton id="btnAdicionarCarrinho"
+                                             styleClass="rounded-button ui-button-success"
+                                             icon="pi pi-cart-plus"
+                                             update="datatable-estoque :mensagem"
+                                             actionListener="#{locacaoAddFormBean.addItemtoCart(item)}"
+                                             process="@this">
+                            </p:commandButton>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
         </h:form>
     </ui:define>
 

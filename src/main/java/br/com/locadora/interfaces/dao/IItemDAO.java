@@ -21,4 +21,6 @@ public interface IItemDAO {
 
     Item findById(long id) throws DAOException;
 
+    List<Item> findByMovieName(String name) throws DAOException;
+
 }

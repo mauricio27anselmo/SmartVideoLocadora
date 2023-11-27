@@ -2,9 +2,11 @@ package br.com.locadora.bean;
 
 import br.com.locadora.domain.Cliente;
 import br.com.locadora.domain.Dependente;
+import br.com.locadora.domain.Item;
 import br.com.locadora.domain.Locacao;
 import br.com.locadora.service.ClienteService;
 import br.com.locadora.service.DependenteService;
+import br.com.locadora.service.ItemService;
 import br.com.locadora.service.LocacaoService;
 import br.com.locadora.util.NegocioException;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -14,10 +16,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ManagedBean
 @ViewScoped
@@ -29,11 +34,17 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
 
     private DependenteService dependenteService;
 
+    private ItemService itemService;
+
     private Locacao locacaoForm;
 
     private LocalDateTime minDate;
 
     private Boolean enabledDependent;
+
+    private String movieTitleFilter;
+
+    private List<Item> availableItems;
 
     public Locacao getLocacaoForm() {
         return locacaoForm;
@@ -55,16 +66,38 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
         this.enabledDependent = enabledDependent;
     }
 
+    public String getMovieTitleFilter() {
+        return movieTitleFilter;
+    }
+
+    public void setMovieTitleFilter(String movieTitleFilter) {
+        this.movieTitleFilter = movieTitleFilter;
+    }
+
+    public List<Item> getAvailableItems() {
+        return availableItems;
+    }
+
+    public void setAvailableItems(List<Item> availableItems) {
+        this.availableItems = availableItems;
+    }
+
     @PostConstruct
     public void init() {
         locacaoService = LocacaoService.getInstance();
         clienteService = ClienteService.getInstance();
         dependenteService = DependenteService.getInstance();
-        locacaoForm = new Locacao();
+        itemService = ItemService.getInstance();
         LocalDateTime today = LocalDateTime.now();
         minDate = today.plusDays(3);
+        locacaoForm = new Locacao();
         locacaoForm.setDataDevolucaoPrevista(minDate);
+        locacaoForm.setItens(new ArrayList<>());
+        locacaoForm.setValorTotalBruto(BigDecimal.ZERO);
+        locacaoForm.setValorTotal(BigDecimal.ZERO);
         enabledDependent = false;
+        movieTitleFilter = "";
+        availableItems = new ArrayList<>();
     }
 
     @Override
@@ -103,6 +136,39 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
         }
     }
 
+    public void searchItemsByMovieTitle() {
+        try {
+            if (StringUtils.isNotBlank(this.movieTitleFilter)) {
+                String queryLowerCase = this.movieTitleFilter.toLowerCase();
+                availableItems = itemService.findByMovieName(queryLowerCase);
+            } else {
+                availableItems = Collections.emptyList();
+            }
+        } catch (NegocioException ex) {
+            handleErrorMessage("br.com.locadora.acao.consultaritemfalha");
+            availableItems = Collections.emptyList();
+        }
+    }
+
+    public void addItemtoCart(Item selectedItem) {
+        this.locacaoForm.getItens().add(selectedItem);
+        availableItems = availableItems.stream().filter(item -> !item.getItemID().equals(selectedItem.getItemID())).collect(Collectors.toList());
+        BigDecimal newGrossTotalValue = locacaoForm.getValorTotalBruto().add(selectedItem.getValor());
+        locacaoForm.setValorTotalBruto(newGrossTotalValue);
+        locacaoForm.setValorTotal(newGrossTotalValue);
+        handleSuccessMessage("br.com.locadora.acao.adicionaritenscarrinhosucesso");
+    }
+
+    public void removeItemFromCart(Item selectedItem) {
+        List<Item> updatedItemsCart = locacaoForm.getItens().stream().filter(item -> !item.getItemID().equals(selectedItem.getItemID())).collect(Collectors.toList());
+        this.locacaoForm.setItens(updatedItemsCart);
+        BigDecimal newGrossTotalValue = locacaoForm.getValorTotalBruto().subtract(selectedItem.getValor());
+        locacaoForm.setValorTotalBruto(newGrossTotalValue);
+        locacaoForm.setValorTotal(newGrossTotalValue);
+        handleSuccessMessage("br.com.locadora.acao.removeritenscarrinhosucesso");
+    }
+
+
     public void removeSelectedDependent() {
         locacaoForm.setDependente(null);
     }
@@ -110,4 +176,5 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
     public void onItemDependentSelect() {
         locacaoForm.setCliente(locacaoForm.getDependente().getCliente());
     }
+
 }
