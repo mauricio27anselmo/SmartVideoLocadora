@@ -63,6 +63,9 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
 
     private void validateRental(Locacao entity) throws NegocioException {
         validateItems(entity);
+        if (!Optional.ofNullable(entity.getCliente()).isPresent()) {
+            throw new NegocioException("br.com.locadora.acao.locacaopessoanaoinformada");
+        }
         validateAgeRange(entity);
         if (entity.getValorTotal() == null || entity.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
             throw new NegocioException("br.com.locadora.valortotalacimazeroerro");
