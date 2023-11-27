@@ -1,6 +1,7 @@
 package br.com.locadora.bean;
 
 import br.com.locadora.util.FacesUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,6 +28,16 @@ abstract class SmartLocadoraBean {
     protected void redirectToPage(String pagePath) {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            externalContext.redirect(pagePath);
+        } catch (Exception e) {
+            handleErrorMessage("br.com.locadora.acao.redirecionarpaginafalha");
+        }
+    }
+
+    protected void redirectToPage(String pagePath, Long id) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            pagePath += "?id=" + id;
             externalContext.redirect(pagePath);
         } catch (Exception e) {
             handleErrorMessage("br.com.locadora.acao.redirecionarpaginafalha");

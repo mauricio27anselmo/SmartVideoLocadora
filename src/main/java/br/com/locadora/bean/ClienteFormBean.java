@@ -19,18 +19,12 @@ public class ClienteFormBean extends SmartLocadoraFormBean {
 
     private Cliente clienteForm;
 
-    private ClienteDataModel clienteDataModel;
-
     public Cliente getClienteForm() {
         return clienteForm;
     }
 
     public void setClienteForm(Cliente clienteForm) {
         this.clienteForm = clienteForm;
-    }
-
-    public ClienteDataModel getClienteDataModel() {
-        return clienteDataModel;
     }
 
     @PostConstruct
