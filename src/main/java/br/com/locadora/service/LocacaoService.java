@@ -29,12 +29,9 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
 
     private static LocacaoService instance;
 
-    private ItemService itemService;
-
     private LocacaoDAO filmeDAO;
 
     private LocacaoService() {
-        itemService = ItemService.getInstance();
         filmeDAO = LocacaoDAO.getInstance();
         super.setDao(filmeDAO);
     }
@@ -47,14 +44,28 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
     }
 
     @Override
-    public void save(Locacao entity) throws NegocioException {
+    public void add(Locacao entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             validateRental(entity);
             entity.setDataLocacao(LocalDateTime.now());
-            filmeDAO.saveNew(entity);
+            filmeDAO.add(entity);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
+        }
+    }
+
+    @Override
+    public void save(Locacao entity) throws NegocioException {
+        try {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getLocacaoID()).isPresent() || !Optional.ofNullable(entity.getDataDevolucaoPrevista()).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+            validateTotalValue(entity);
+            filmeDAO.save(entity);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
@@ -67,9 +78,7 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
             throw new NegocioException("br.com.locadora.acao.locacaopessoanaoinformada");
         }
         validateAgeRange(entity);
-        if (entity.getValorTotal() == null || entity.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new NegocioException("br.com.locadora.valortotalacimazeroerro");
-        }
+        validateTotalValue(entity);
     }
 
     private void validateItems(Locacao entity) throws NegocioException {
@@ -98,4 +107,11 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
             throw new NegocioException("br.com.locadora.acao.locacaoidadenaopermitida");
         }
     }
+
+    private void validateTotalValue(Locacao entity) throws NegocioException {
+        if (entity.getValorTotal() == null || entity.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new NegocioException("br.com.locadora.valortotalacimazeroerro");
+        }
+    }
+
 }

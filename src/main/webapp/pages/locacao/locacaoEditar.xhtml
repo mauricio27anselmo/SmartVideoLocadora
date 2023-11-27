@@ -35,8 +35,14 @@
                             <p:outputLabel for="dataDevolucaoPrevista"
                                            value="#{msg['br.com.locadora.datadevolucaoprevista']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataDevolucaoPrevista"
-                                          value="#{locacaoFormBean.locacaoForm.dataDevolucaoPrevista}" converter="localDateTimeConverter"/>
+                            <p:calendar id="dataDevolucaoPrevista"
+                                        locale="#{languageBean.locale}"
+                                        navigator="true"
+                                        pattern="dd/MM/yyyy"
+                                        mask="dd/MM/yyyy"
+                                        showOn="button"
+                                        mindate="#{locacaoFormBean.minDate}"
+                                        value="#{locacaoFormBean.locacaoForm.dataDevolucaoPrevista}"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="valorBruto"
@@ -49,8 +55,13 @@
                             <p:outputLabel for="valorTotal"
                                            value="#{msg['br.com.locadora.valortotal']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="valorTotal"
-                                          value="#{locacaoFormBean.locacaoForm.valorTotal}"/>
+                            <p:inputNumber id="valorTotal"
+                                           value="#{locacaoAddFormBean.locacaoForm.valorTotal}"
+                                           decimalSeparator=","
+                                           thousandSeparator="."
+                                           decimalPlaces="2"
+                                           required="true"
+                                           styleClass="w-9 ui-inputnumber"/>
                         </div>
                     </div>
                 </div>
@@ -89,12 +100,12 @@
                                       styleClass="ui-button-secondary"
                                       icon="pi pi-arrow-left"
                                       outcome="/pages/locacao/locacaoListar.jsf"/>
-                        <p:linkButton id="btnEditar"
-                                      value="#{msg['br.com.locadora.editar']}"
-                                      icon="pi pi-pencil"
-                                      outcome="/pages/locacao/locacaoEditar.jsf">
-                            <f:param name="id" value="#{locacaoFormBean.locacaoForm.locacaoID}" />
-                        </p:linkButton>
+                        <p:commandButton id="btnSalvar"
+                                         value="#{msg['br.com.locadora.salvar']}"
+                                         icon="pi pi-save"
+                                         actionListener="#{locacaoFormBean.save()}"
+                                         update=":locacao-form :mensagem ">
+                        </p:commandButton>
                     </div>
                 </f:facet>
             </p:panel>

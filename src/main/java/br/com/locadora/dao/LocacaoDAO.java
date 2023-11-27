@@ -41,7 +41,7 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
     }
 
     @Override
-    public void saveNew(Locacao entity) throws DAOException {
+    public void add(Locacao entity) throws DAOException {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -52,6 +52,26 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
             cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);
             throw new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA, ex);
+        } catch (Exception ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+        }
+    }
+
+    @Override
+    public void save(Locacao entity) throws DAOException, NegocioException {
+        super.save(entity, false);
+    }
+
+    @Override
+    public void delete(Locacao entity) throws DAOException {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.delete(entity);
+            itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.DISPONIVEL);
+            transaction.commit();
         } catch (Exception ex) {
             cancelTransaction(transaction);
             logger.error(ex.getMessage(), ex);

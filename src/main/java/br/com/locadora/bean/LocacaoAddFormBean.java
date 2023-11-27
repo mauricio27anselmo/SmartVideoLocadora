@@ -9,18 +9,15 @@ import br.com.locadora.service.DependenteService;
 import br.com.locadora.service.ItemService;
 import br.com.locadora.service.LocacaoService;
 import br.com.locadora.util.NegocioException;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,7 +91,7 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
     @Override
     public void save() {
         try {
-            locacaoService.save(locacaoForm);
+            locacaoService.add(locacaoForm);
             handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
             clear();
         } catch (NegocioException ex) {

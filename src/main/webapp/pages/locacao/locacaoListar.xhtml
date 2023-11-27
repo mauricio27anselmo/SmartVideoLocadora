@@ -62,6 +62,18 @@
                             <f:param name="id" value="#{locacao.locacaoID}" />
                         </p:linkButton>
 
+                        <p:tooltip for="btnEditar"
+                                   value="#{msg['br.com.locadora.editar']}"
+                                   autoHide="true"
+                                   position="bottom"/>
+                        <p:linkButton id="btnEditar"
+                                      type="button"
+                                      icon="pi pi-pencil"
+                                      outcome="/pages/locacao/locacaoEditar.jsf"
+                                      styleClass="rounded-button">
+                            <f:param name="id" value="#{locacao.locacaoID}" />
+                        </p:linkButton>
+
                         <p:tooltip for="btnExcluir"
                                    value="#{msg['br.com.locadora.excluir']}"
                                    autoHide="true"

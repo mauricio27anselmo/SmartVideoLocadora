@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.time.LocalDateTime;
 
 @ManagedBean
 @ViewScoped
@@ -19,12 +20,18 @@ public class LocacaoFormBean extends SmartLocadoraFormBean {
 
     private Locacao locacaoForm;
 
+    private LocalDateTime minDate;
+
     public Locacao getLocacaoForm() {
         return locacaoForm;
     }
 
     public void setLocacaoForm(Locacao locacaoForm) {
         this.locacaoForm = locacaoForm;
+    }
+
+    public LocalDateTime getMinDate() {
+        return minDate;
     }
 
     @PostConstruct
@@ -35,12 +42,23 @@ public class LocacaoFormBean extends SmartLocadoraFormBean {
     }
 
     @Override
+    public void save() {
+        try {
+            locacaoService.save(locacaoForm);
+            handleSuccessMessage("br.com.locadora.acao.editarsucesso");
+        } catch (NegocioException ex) {
+            handleErrorMessage(ex.getMessage());
+        }
+    }
+
+    @Override
     protected void loadEntityByIdFromRequest() {
         try {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
             if (StringUtils.isNotBlank(id)) {
                 locacaoForm = locacaoService.findById(Long.parseLong(id));
+                minDate = locacaoForm.getDataLocacao().plusDays(3);
             }
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultarlocacaofalha");
