@@ -14,7 +14,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
+import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,5 +99,30 @@ public class ItemDAO extends SmartLocadoraDAO<Item> implements IItemDAO {
             session.close();
         }
         return records;
+    }
+
+    @Override
+    public void updateRentedItems(List<Long> itemsID) throws DAOException {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            CriteriaUpdate<Item> update = session.getCriteriaBuilder().createCriteriaUpdate(Item.class);
+            Root<Item> itemRoot = update.from(Item.class);
+            update.set("statusItem", StatusItem.LOCADO);
+            Expression<Long> expression = itemRoot.get("itemID");
+            Predicate inPredicate = expression.in(itemsID);
+            update.where(inPredicate);
+            Query<Item> query = session.createQuery(update);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (PersistenceException ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA, ex);
+        } catch (Exception ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+        }
     }
 }

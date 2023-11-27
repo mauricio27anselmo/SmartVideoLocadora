@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ILocacaoDAO {
 
-    void save(Locacao entity, boolean isNew) throws DAOException, NegocioException;
+    void saveNew(Locacao entity) throws DAOException, NegocioException;
 
     void delete(Locacao entity) throws DAOException;
 

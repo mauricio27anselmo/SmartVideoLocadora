@@ -88,29 +88,15 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
         clienteService = ClienteService.getInstance();
         dependenteService = DependenteService.getInstance();
         itemService = ItemService.getInstance();
-        LocalDateTime today = LocalDateTime.now();
-        minDate = today.plusDays(3);
-        locacaoForm = new Locacao();
-        locacaoForm.setDataDevolucaoPrevista(minDate);
-        locacaoForm.setItens(new ArrayList<>());
-        locacaoForm.setValorTotalBruto(BigDecimal.ZERO);
-        locacaoForm.setValorTotal(BigDecimal.ZERO);
-        enabledDependent = false;
-        movieTitleFilter = "";
-        availableItems = new ArrayList<>();
+        clear();
     }
 
     @Override
     public void save() {
         try {
-            boolean isEditing = locacaoForm != null && locacaoForm.getLocacaoID() != null;
             locacaoService.save(locacaoForm);
-            if (!isEditing) {
-                handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
-                locacaoForm = new Locacao();
-            } else {
-                handleSuccessMessage("br.com.locadora.acao.editarsucesso");
-            }
+            handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
+            clear();
         } catch (NegocioException ex) {
             handleErrorMessage(ex.getMessage());
         }
@@ -175,6 +161,19 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
 
     public void onItemDependentSelect() {
         locacaoForm.setCliente(locacaoForm.getDependente().getCliente());
+    }
+
+    private void clear() {
+        locacaoForm = new Locacao();
+        locacaoForm.setDataDevolucaoPrevista(minDate);
+        locacaoForm.setItens(new ArrayList<>());
+        locacaoForm.setValorTotalBruto(BigDecimal.ZERO);
+        locacaoForm.setValorTotal(BigDecimal.ZERO);
+        LocalDateTime today = LocalDateTime.now();
+        minDate = today.plusDays(3);
+        enabledDependent = false;
+        movieTitleFilter = "";
+        availableItems = new ArrayList<>();
     }
 
 }

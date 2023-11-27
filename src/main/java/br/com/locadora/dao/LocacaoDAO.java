@@ -1,22 +1,23 @@
 package br.com.locadora.dao;
 
+import br.com.locadora.domain.Item;
 import br.com.locadora.domain.Locacao;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.interfaces.dao.ILocacaoDAO;
-import br.com.locadora.util.DAOException;
-import br.com.locadora.util.HibernateUtil;
-import br.com.locadora.util.SmartLocadoraConstantes;
-import br.com.locadora.util.SmartLocadoraUtil;
+import br.com.locadora.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO {
 
@@ -24,8 +25,11 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
 
     private static LocacaoDAO instance;
 
+    private ItemDAO itemDAO;
+
     private LocacaoDAO() {
         super(Locacao.class);
+        itemDAO = ItemDAO.getInstance();
     }
 
     public static LocacaoDAO getInstance() {
@@ -33,6 +37,24 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
             instance = new LocacaoDAO();
         }
         return instance;
+    }
+
+    @Override
+    public void saveNew(Locacao entity) throws DAOException {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(entity);
+            itemDAO.updateRentedItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())));
+        } catch (PersistenceException ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA, ex);
+        } catch (Exception ex) {
+            cancelTransaction(transaction);
+            logger.error(ex.getMessage(), ex);
+            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
+        }
     }
 
     @Override

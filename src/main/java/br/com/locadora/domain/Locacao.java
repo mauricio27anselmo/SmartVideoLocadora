@@ -37,7 +37,7 @@ public class Locacao {
     @JoinColumn(name = "loc_dep_id", referencedColumnName = "dep_id")
     private Dependente dependente;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "smt_locacao_item",
             joinColumns = { @JoinColumn(name = "loc_id") },
