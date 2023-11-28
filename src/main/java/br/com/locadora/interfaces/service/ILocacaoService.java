@@ -10,13 +10,15 @@ public interface ILocacaoService {
 
     Locacao findById(Long id) throws NegocioException;
 
-    void add(Locacao entity) throws NegocioException;
+    void insert(Locacao entity) throws NegocioException;
 
-    void save(Locacao entity) throws NegocioException;
+    void update(Locacao entity) throws NegocioException;
 
     void delete(Locacao entity) throws NegocioException;
 
     List<Locacao> load(PageableFilter filter) throws NegocioException;
 
     int count(PageableFilter filter) throws NegocioException;
+
+    void processReturn(Locacao entity) throws NegocioException;
 }

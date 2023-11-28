@@ -29,11 +29,11 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
 
     private static LocacaoService instance;
 
-    private LocacaoDAO filmeDAO;
+    private LocacaoDAO locacaoDAO;
 
     private LocacaoService() {
-        filmeDAO = LocacaoDAO.getInstance();
-        super.setDao(filmeDAO);
+        locacaoDAO = LocacaoDAO.getInstance();
+        super.setDao(locacaoDAO);
     }
 
     public static LocacaoService getInstance() {
@@ -44,14 +44,14 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
     }
 
     @Override
-    public void add(Locacao entity) throws NegocioException {
+    public void insert(Locacao entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             validateRental(entity);
             entity.setDataLocacao(LocalDateTime.now());
-            filmeDAO.add(entity);
+            locacaoDAO.insert(entity);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
@@ -59,16 +59,29 @@ public class LocacaoService extends SmartLocadoraService<Locacao> implements ILo
     }
 
     @Override
-    public void save(Locacao entity) throws NegocioException {
+    public void update(Locacao entity) throws NegocioException {
         try {
             if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getLocacaoID()).isPresent() || !Optional.ofNullable(entity.getDataDevolucaoPrevista()).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             validateTotalValue(entity);
-            filmeDAO.save(entity);
+            locacaoDAO.update(entity);
         } catch (DAOException ex) {
             logger.error(ex.getMessage(), ex);
             throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
+        }
+    }
+
+    @Override
+    public void processReturn(Locacao entity) throws NegocioException {
+        try {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getLocacaoID()).isPresent() || !Optional.ofNullable(entity.getDataDevolucao()).isPresent()) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+            locacaoDAO.processReturn(entity);
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException("br.com.locadora.acao.registrarbaixafalha", ex);
         }
     }
 

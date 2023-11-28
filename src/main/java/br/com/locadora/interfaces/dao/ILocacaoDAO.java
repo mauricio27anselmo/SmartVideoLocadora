@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ILocacaoDAO {
 
-    void add(Locacao entity) throws DAOException;
+    void insert(Locacao entity) throws DAOException, NegocioException;
 
-    void save(Locacao entity) throws DAOException, NegocioException;
+    void update(Locacao entity) throws DAOException, NegocioException;
 
     void delete(Locacao entity) throws DAOException;
 
@@ -20,4 +20,7 @@ public interface ILocacaoDAO {
     int count(PageableFilter filter) throws DAOException;
 
     Locacao findById(long id) throws DAOException;
+
+    void processReturn(Locacao entity) throws DAOException, NegocioException;
+
 }

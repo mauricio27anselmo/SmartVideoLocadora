@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .login-body {
-    background-color:var(--surface-700)
+    background-color: var(--surface-700)
 }
 
 .login-container {
@@ -15,7 +15,7 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    background-color:var(--surface-900)
+    background-color: var(--surface-900)
 }
 
 .custom-toolbar {
@@ -29,6 +29,12 @@
 .datatable-actions {
     display: flex;
     justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.datatable-actions-center {
+    display: flex;
+    justify-content: center;
     gap: 0.5rem;
 }
 

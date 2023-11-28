@@ -1,7 +1,6 @@
 package br.com.locadora.bean;
 
 import br.com.locadora.domain.Locacao;
-import br.com.locadora.service.ClienteService;
 import br.com.locadora.service.LocacaoService;
 import br.com.locadora.util.NegocioException;
 import org.apache.commons.lang3.StringUtils;
@@ -14,38 +13,32 @@ import java.time.LocalDateTime;
 
 @ManagedBean
 @ViewScoped
-public class LocacaoFormBean extends SmartLocadoraFormBean {
+public class DevolucaoFormBean extends SmartLocadoraFormBean {
 
     private LocacaoService locacaoService;
 
-    private Locacao locacaoForm;
+    private Locacao devolucaoForm;
 
-    private LocalDateTime minDate;
-
-    public Locacao getLocacaoForm() {
-        return locacaoForm;
+    public Locacao getDevolucaoForm() {
+        return devolucaoForm;
     }
 
-    public void setLocacaoForm(Locacao locacaoForm) {
-        this.locacaoForm = locacaoForm;
-    }
-
-    public LocalDateTime getMinDate() {
-        return minDate;
+    public void setDevolucaoForm(Locacao devolucaoForm) {
+        this.devolucaoForm = devolucaoForm;
     }
 
     @PostConstruct
     public void init() {
         locacaoService = LocacaoService.getInstance();
-        locacaoForm = new Locacao();
+        devolucaoForm = new Locacao();
         loadEntityByIdFromRequest();
     }
 
     @Override
     public void save() {
         try {
-            locacaoService.update(locacaoForm);
-            handleSuccessMessage("br.com.locadora.acao.editarsucesso");
+            locacaoService.processReturn(devolucaoForm);
+            handleSuccessMessage("br.com.locadora.acao.registrarbaixasucesso");
         } catch (NegocioException ex) {
             handleErrorMessage(ex.getMessage());
         }
@@ -57,8 +50,8 @@ public class LocacaoFormBean extends SmartLocadoraFormBean {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String id = facesContext.getExternalContext().getRequestParameterMap().get("id");
             if (StringUtils.isNotBlank(id)) {
-                locacaoForm = locacaoService.findById(Long.parseLong(id));
-                minDate = locacaoForm.getDataLocacao().plusDays(3);
+                devolucaoForm = locacaoService.findById(Long.parseLong(id));
+                devolucaoForm.setDataDevolucao(LocalDateTime.now());
             }
         } catch (NegocioException ex) {
             handleErrorMessage("br.com.locadora.acao.consultarlocacaofalha");

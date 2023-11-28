@@ -41,42 +41,20 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
     }
 
     @Override
-    public void add(Locacao entity) throws DAOException {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.persist(entity);
-            itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.LOCADO);
-            transaction.commit();
-        } catch (PersistenceException ex) {
-            cancelTransaction(transaction);
-            logger.error(ex.getMessage(), ex);
-            throw new DAOException(SmartLocadoraConstantes.VIOLACAO_REGRA_TABELA, ex);
-        } catch (Exception ex) {
-            cancelTransaction(transaction);
-            logger.error(ex.getMessage(), ex);
-            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
-        }
+    public void insert(Locacao entity) throws DAOException, NegocioException {
+        super.save(entity, true);
+        itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.LOCADO);
     }
 
     @Override
-    public void save(Locacao entity) throws DAOException, NegocioException {
+    public void update(Locacao entity) throws DAOException, NegocioException {
         super.save(entity, false);
     }
 
     @Override
     public void delete(Locacao entity) throws DAOException {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.delete(entity);
-            itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.DISPONIVEL);
-            transaction.commit();
-        } catch (Exception ex) {
-            cancelTransaction(transaction);
-            logger.error(ex.getMessage(), ex);
-            throw new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO, ex);
-        }
+        super.delete(entity);
+        itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.DISPONIVEL);
     }
 
     @Override
@@ -120,5 +98,11 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
             session.close();
         }
         return entity;
+    }
+
+    @Override
+    public void processReturn(Locacao entity) throws DAOException, NegocioException {
+        super.save(entity, false);
+        itemDAO.updateItems((entity.getItens().stream().map(Item::getItemID).collect(Collectors.toList())), StatusItem.DISPONIVEL);
     }
 }

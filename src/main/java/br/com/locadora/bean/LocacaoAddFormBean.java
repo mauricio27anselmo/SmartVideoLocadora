@@ -91,7 +91,7 @@ public class LocacaoAddFormBean extends SmartLocadoraFormBean {
     @Override
     public void save() {
         try {
-            locacaoService.add(locacaoForm);
+            locacaoService.insert(locacaoForm);
             handleSuccessMessage("br.com.locadora.acao.salvarsucesso");
             clear();
         } catch (NegocioException ex) {

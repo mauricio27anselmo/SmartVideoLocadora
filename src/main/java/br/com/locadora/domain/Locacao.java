@@ -20,8 +20,8 @@ public class Locacao {
     @Column(name = "loc_data_devolucao_prevista", nullable = false)
     private LocalDateTime dataDevolucaoPrevista;
 
-    @Column(name = "loc_data_devolucao_realizada")
-    private LocalDateTime dataDevolucaoRealizada;
+    @Column(name = "loc_data_devolucao")
+    private LocalDateTime dataDevolucao;
 
     @Column(name = "loc_valor_total_bruto")
     private BigDecimal valorTotalBruto;
@@ -69,12 +69,12 @@ public class Locacao {
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
     }
 
-    public LocalDateTime getDataDevolucaoRealizada() {
-        return dataDevolucaoRealizada;
+    public LocalDateTime getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setDataDevolucaoRealizada(LocalDateTime dataDevolucaoRealizada) {
-        this.dataDevolucaoRealizada = dataDevolucaoRealizada;
+    public void setDataDevolucao(LocalDateTime dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     public BigDecimal getValorTotalBruto() {
@@ -123,7 +123,7 @@ public class Locacao {
                 "locacaoID=" + locacaoID +
                 ", dataLocacao=" + dataLocacao +
                 ", dataDevolucaoPrevista=" + dataDevolucaoPrevista +
-                ", dataDevolucaoRealizada=" + dataDevolucaoRealizada +
+                ", dataDevolucao=" + dataDevolucao +
                 ", valorTotalBruto=" + valorTotalBruto +
                 ", valorTotal=" + valorTotal +
                 ", cliente=" + cliente +
