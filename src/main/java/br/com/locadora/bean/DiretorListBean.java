@@ -45,7 +45,7 @@ public class DiretorListBean extends SmartLocadoraListBean {
     public void init() {
         diretorService = DiretorService.getInstance();
         selectedDirector = new Diretor();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DiretorListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             diretorDataModel = new DiretorDataModel(diretorService);
         } catch (Exception ex) {

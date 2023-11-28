@@ -35,7 +35,7 @@ public class DependenteListBean extends SmartLocadoraListBean {
     public void init() {
         dependenteService = DependenteService.getInstance();
         selectedDependent = new Dependente();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DependenteListBean extends SmartLocadoraListBean {
         }
     }
 
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             dependenteDataModel = new DependenteDataModel(dependenteService);
         } catch (Exception ex) {

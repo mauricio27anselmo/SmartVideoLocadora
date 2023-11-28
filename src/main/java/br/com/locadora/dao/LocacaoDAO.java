@@ -7,6 +7,7 @@ import br.com.locadora.filter.LocacaoFilter;
 import br.com.locadora.filter.PageableFilter;
 import br.com.locadora.interfaces.dao.ILocacaoDAO;
 import br.com.locadora.util.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -114,6 +115,14 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
         LocacaoFilter locacaoFilter = (LocacaoFilter) filter;
         if (locacaoFilter.isReturn()) {
             criteria.add(Restrictions.isNull("dataDevolucao"));
+        }
+        if (StringUtils.isNotBlank(locacaoFilter.getClientName())) {
+            criteria.createAlias("cliente", "clt");
+            criteria.add(Restrictions.ilike("clt.nome", "%" + locacaoFilter.getClientName() + "%"));
+        }
+        if (StringUtils.isNotBlank(locacaoFilter.getDependentName())) {
+            criteria.createAlias("dependente", "dep");
+            criteria.add(Restrictions.ilike("dep.nome", "%" + locacaoFilter.getClientName() + "%"));
         }
     }
 }

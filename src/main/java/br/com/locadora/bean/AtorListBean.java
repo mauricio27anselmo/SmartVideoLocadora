@@ -45,7 +45,7 @@ public class AtorListBean extends SmartLocadoraListBean {
     public void init() {
         atorService = AtorService.getInstance();
         selectedActor = new Ator();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class AtorListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             atorDataModel = new AtorDataModel(atorService);
         } catch (Exception ex) {

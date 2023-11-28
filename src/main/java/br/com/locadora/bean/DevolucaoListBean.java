@@ -26,6 +26,10 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
         return externalFilter;
     }
 
+    public void setExternalFilter(LocacaoFilter externalFilter) {
+        this.externalFilter = externalFilter;
+    }
+
     public Locacao getSelectedRental() {
         return selectedRental;
     }
@@ -43,7 +47,7 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
         locacaoService = LocacaoService.getInstance();
         externalFilter = new LocacaoFilter();
         selectedRental = new Locacao();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -62,7 +66,17 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    public void applyFilter() {
+        try {
+            devolucaoDataModel.applyFilter(externalFilter);
+            handleSuccessMessage("br.com.locadora.acao.aplicarfiltrosucesso");
+        } catch (NegocioException ex) {
+            handleErrorMessage("br.com.locadora.acao.aplicarfiltrofalha");
+        }
+    }
+
+    @Override
+    protected void initializeDataModel() {
         try {
             devolucaoDataModel = new LocacaoDataModel(locacaoService, true);
         } catch (Exception ex) {

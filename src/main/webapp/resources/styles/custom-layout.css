@@ -32,12 +32,22 @@
     gap: 0.5rem;
 }
 
+.unresizable {
+    resize: none;
+}
+
 .datatable-actions-center {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
 }
 
-.unresizable {
-    resize: none;
+.filter-panel {
+    margin-bottom: 1rem;
+}
+
+.panel-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }

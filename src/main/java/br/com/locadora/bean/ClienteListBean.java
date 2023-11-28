@@ -35,7 +35,7 @@ public class ClienteListBean extends SmartLocadoraListBean {
     public void init() {
         clienteService = ClienteService.getInstance();
         selectedClient = new Cliente();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ClienteListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             clienteDataModel = new ClienteDataModel(clienteService);
         } catch (Exception ex) {

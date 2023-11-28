@@ -16,7 +16,7 @@ abstract class SmartLocadoraListBean extends SmartLocadoraBean {
         throw new NotImplementedException();
     }
 
-    protected void list() {
+    protected void initializeDataModel() {
         throw new NotImplementedException();
     }
 

@@ -6,6 +6,45 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
+        <h:form id="filtro-form">
+            <p:panel header="#{msg['br.com.locadora.filtros']}" styleClass="filter-panel">
+                <div class="grid">
+                    <div class="col-6">
+                        <div class="field">
+                            <h:outputLabel for="cliente"
+                                           value="#{msg['br.com.locadora.cliente']}"
+                                           styleClass="col-2"/>
+                            <p:inputText id="cliente"
+                                         maxlength="50"
+                                         value="#{locacaoListBean.externalFilter.clientName}"
+                                         styleClass="col-10 ui-inputtext"/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="field">
+                            <h:outputLabel for="dependente"
+                                           value="#{msg['br.com.locadora.dependente']}"
+                                           styleClass="col-2"/>
+                            <p:inputText id="dependente"
+                                         maxlength="50"
+                                         value="#{locacaoListBean.externalFilter.dependentName}"
+                                         styleClass="col-10 ui-inputtext"/>
+                        </div>
+                    </div>
+                </div>
+                <f:facet name="footer">
+                    <div class="panel-actions">
+                        <p:commandButton id="btnFiltrar"
+                                         value="#{msg['br.com.locadora.acao.filtrar']}"
+                                         icon="pi pi-filter-fill"
+                                         actionListener="#{locacaoListBean.applyFilter()}"
+                                         update=":datatable-locacoes">
+                        </p:commandButton>
+                    </div>
+                </f:facet>
+            </p:panel>
+        </h:form>
+
         <p:panel header="#{msg['br.com.locadora.listagemlocacao']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
@@ -18,7 +57,7 @@
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <p:dataTable id="datatable-locacaos"
+            <p:dataTable id="datatable-locacoes"
                          var="locacao"
                          value="#{locacaoListBean.locacaoDataModel}"
                          rowKey="#{locacao.locacaoID}"
@@ -99,7 +138,7 @@
             <p:confirmDialog widgetVar="deleteRentalDialog" showEffect="fade" width="500"
                              message="#{msg['br.com.locadora.dialog.excluirlocacao']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
                 <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{locacaoListBean.delete()}"
-                                 process="@this" update=":datatable-locacaos :mensagem"
+                                 process="@this" update=":datatable-locacoes :mensagem"
                                  oncomplete="PF('deleteRentalDialog').hide()" />
                 <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                                  onclick="PF('deleteRentalDialog').hide()" />

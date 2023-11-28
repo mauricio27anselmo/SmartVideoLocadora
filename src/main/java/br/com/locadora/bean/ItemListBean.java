@@ -35,7 +35,7 @@ public class ItemListBean extends SmartLocadoraListBean {
     public void init() {
         itemService = ItemService.getInstance();
         selectedItem = new Item();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ItemListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             itemDataModel = new ItemDataModel(itemService);
         } catch (Exception ex) {

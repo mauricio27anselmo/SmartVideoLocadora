@@ -2,6 +2,7 @@ package br.com.locadora.bean;
 
 import br.com.locadora.datamodel.LocacaoDataModel;
 import br.com.locadora.domain.Locacao;
+import br.com.locadora.filter.LocacaoFilter;
 import br.com.locadora.service.LocacaoService;
 import br.com.locadora.util.NegocioException;
 
@@ -15,9 +16,19 @@ public class LocacaoListBean extends SmartLocadoraListBean {
 
     private LocacaoService locacaoService;
 
+    private LocacaoFilter externalFilter;
+
     private Locacao selectedRental;
 
     private LocacaoDataModel locacaoDataModel;
+
+    public LocacaoFilter getExternalFilter() {
+        return externalFilter;
+    }
+
+    public void setExternalFilter(LocacaoFilter externalFilter) {
+        this.externalFilter = externalFilter;
+    }
 
     public Locacao getSelectedRental() {
         return selectedRental;
@@ -34,8 +45,9 @@ public class LocacaoListBean extends SmartLocadoraListBean {
     @PostConstruct
     public void init() {
         locacaoService = LocacaoService.getInstance();
+        externalFilter = new LocacaoFilter();
         selectedRental = new Locacao();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -54,7 +66,17 @@ public class LocacaoListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    public void applyFilter() {
+        try {
+            locacaoDataModel.applyFilter(externalFilter);
+            handleSuccessMessage("br.com.locadora.acao.aplicarfiltrosucesso");
+        } catch (NegocioException ex) {
+            handleErrorMessage("br.com.locadora.acao.aplicarfiltrofalha");
+        }
+    }
+
+    @Override
+    protected void initializeDataModel() {
         try {
             locacaoDataModel = new LocacaoDataModel(locacaoService);
         } catch (Exception ex) {

@@ -6,8 +6,46 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="conteudo" >
-        <p:panel header="#{msg['br.com.locadora.listagemdevolucao']}">
+        <h:form id="filtro-form">
+            <p:panel header="#{msg['br.com.locadora.filtros']}" styleClass="filter-panel">
+                <div class="grid">
+                    <div class="col-6">
+                        <div class="field">
+                            <h:outputLabel for="cliente"
+                                           value="#{msg['br.com.locadora.cliente']}"
+                                           styleClass="col-2"/>
+                            <p:inputText id="cliente"
+                                         maxlength="50"
+                                         value="#{devolucaoListBean.externalFilter.clientName}"
+                                         styleClass="col-10 ui-inputtext"/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="field">
+                            <h:outputLabel for="dependente"
+                                           value="#{msg['br.com.locadora.dependente']}"
+                                           styleClass="col-2"/>
+                            <p:inputText id="dependente"
+                                         maxlength="50"
+                                         value="#{devolucaoListBean.externalFilter.dependentName}"
+                                         styleClass="col-10 ui-inputtext"/>
+                        </div>
+                    </div>
+                </div>
+                <f:facet name="footer">
+                    <div class="panel-actions">
+                        <p:commandButton id="btnFiltrar"
+                                         value="#{msg['br.com.locadora.acao.filtrar']}"
+                                         icon="pi pi-filter-fill"
+                                         actionListener="#{devolucaoListBean.applyFilter()}"
+                                         update=":datatable-devolucoes">
+                        </p:commandButton>
+                    </div>
+                </f:facet>
+            </p:panel>
+        </h:form>
 
+        <p:panel header="#{msg['br.com.locadora.listagemdevolucao']}">
             <p:dataTable id="datatable-devolucoes"
                          var="locacao"
                          value="#{devolucaoListBean.devolucaoDataModel}"

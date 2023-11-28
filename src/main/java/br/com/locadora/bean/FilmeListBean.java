@@ -35,7 +35,7 @@ public class FilmeListBean extends SmartLocadoraListBean {
     public void init() {
         filmeService = FilmeService.getInstance();
         selectedMovie = new Filme();
-        list();
+        initializeDataModel();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FilmeListBean extends SmartLocadoraListBean {
     }
 
     @Override
-    protected void list() {
+    protected void initializeDataModel() {
         try {
             filmeDataModel = new FilmeDataModel(filmeService);
         } catch (Exception ex) {
