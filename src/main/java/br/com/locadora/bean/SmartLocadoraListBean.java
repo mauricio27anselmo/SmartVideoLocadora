@@ -12,7 +12,12 @@ abstract class SmartLocadoraListBean extends SmartLocadoraBean {
         throw new NotImplementedException();
     }
 
+    public void applyFilter() {
+        throw new NotImplementedException();
+    }
+
     protected void list() {
         throw new NotImplementedException();
     }
+
 }

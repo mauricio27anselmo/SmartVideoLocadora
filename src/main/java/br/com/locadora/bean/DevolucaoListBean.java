@@ -2,6 +2,7 @@ package br.com.locadora.bean;
 
 import br.com.locadora.datamodel.LocacaoDataModel;
 import br.com.locadora.domain.Locacao;
+import br.com.locadora.filter.LocacaoFilter;
 import br.com.locadora.service.LocacaoService;
 import br.com.locadora.util.NegocioException;
 
@@ -15,9 +16,15 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
 
     private LocacaoService locacaoService;
 
+    private LocacaoFilter externalFilter;
+
     private Locacao selectedRental;
 
     private LocacaoDataModel devolucaoDataModel;
+
+    public LocacaoFilter getExternalFilter() {
+        return externalFilter;
+    }
 
     public Locacao getSelectedRental() {
         return selectedRental;
@@ -34,6 +41,7 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
     @PostConstruct
     public void init() {
         locacaoService = LocacaoService.getInstance();
+        externalFilter = new LocacaoFilter();
         selectedRental = new Locacao();
         list();
     }
@@ -56,7 +64,7 @@ public class DevolucaoListBean extends SmartLocadoraListBean {
     @Override
     protected void list() {
         try {
-            devolucaoDataModel = new LocacaoDataModel(locacaoService);
+            devolucaoDataModel = new LocacaoDataModel(locacaoService, true);
         } catch (Exception ex) {
             handleErrorMessage("br.com.locadora.acao.listarlocacoesfalha");
         }

@@ -100,6 +100,10 @@ public abstract class SmartLocadoraDAO<T> {
         }
     }
 
+    protected void applyFilter(Criteria criteria, PageableFilter filter){
+        throw new NotImplementedException();
+    }
+
     protected void cancelTransaction(Transaction transaction) {
         try {
             if (transaction != null && transaction.isActive()) {
