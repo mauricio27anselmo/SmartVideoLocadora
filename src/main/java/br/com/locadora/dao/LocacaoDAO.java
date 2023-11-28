@@ -86,7 +86,7 @@ public class LocacaoDAO extends SmartLocadoraDAO<Locacao> implements ILocacaoDAO
     }
 
     @Override
-    public Locacao findById(long id) throws DAOException {
+    public Locacao findById(Long id) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Locacao entity = null;
         try {

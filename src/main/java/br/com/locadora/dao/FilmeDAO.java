@@ -62,7 +62,7 @@ public class FilmeDAO extends SmartLocadoraDAO<Filme> implements IFilmeDAO {
     }
 
     @Override
-    public Filme findById(long id) throws DAOException {
+    public Filme findById(Long id) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Filme entity = null;
         try {

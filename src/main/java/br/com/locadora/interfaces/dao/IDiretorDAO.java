@@ -17,7 +17,7 @@ public interface IDiretorDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Diretor findById(long id) throws DAOException;
+    Diretor findById(Long id) throws DAOException;
 
     List<Diretor> findByName(String name) throws DAOException;
 

@@ -20,7 +20,7 @@ public interface IItemDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Item findById(long id) throws DAOException;
+    Item findById(Long id) throws DAOException;
 
     List<Item> findByMovieName(String name) throws DAOException;
 

@@ -17,7 +17,7 @@ public interface IClienteDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Cliente findById(long id) throws DAOException;
+    Cliente findById(Long id) throws DAOException;
 
     List<Cliente> findByName(String name) throws DAOException;
 

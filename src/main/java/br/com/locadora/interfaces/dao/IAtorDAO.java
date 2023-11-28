@@ -17,7 +17,7 @@ public interface IAtorDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Ator findById(long id) throws DAOException;
+    Ator findById(Long id) throws DAOException;
 
     List<Ator> findByName(String name) throws DAOException;
 

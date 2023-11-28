@@ -17,7 +17,7 @@ public interface IDependenteDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Dependente findById(long id) throws DAOException;
+    Dependente findById(Long id) throws DAOException;
 
     List<Dependente> findByName(String name) throws DAOException;
 

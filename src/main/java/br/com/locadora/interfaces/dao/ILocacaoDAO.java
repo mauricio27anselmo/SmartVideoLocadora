@@ -19,7 +19,7 @@ public interface ILocacaoDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Locacao findById(long id) throws DAOException;
+    Locacao findById(Long id) throws DAOException;
 
     void processReturn(Locacao entity) throws DAOException, NegocioException;
 

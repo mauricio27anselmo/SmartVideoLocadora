@@ -70,7 +70,7 @@ public abstract class SmartLocadoraDAO<T> {
         throw new NotImplementedException();
     }
 
-    public T findById(long id) throws DAOException {
+    public T findById(Long id) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         T entity = null;
         try {

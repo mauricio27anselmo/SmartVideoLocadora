@@ -17,7 +17,7 @@ public interface IFilmeDAO {
 
     int count(PageableFilter filter) throws DAOException;
 
-    Filme findById(long id) throws DAOException;
+    Filme findById(Long id) throws DAOException;
 
     List<Filme> findByName(String name) throws DAOException;
 }
