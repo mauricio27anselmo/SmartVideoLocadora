@@ -66,38 +66,38 @@ class LocacaoServiceTest {
     }
 
     @Test
-    void addEntityNullTest() throws DAOException, NegocioException {
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(null));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+    void insertEntityNullTest() throws DAOException, NegocioException {
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(null));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addItemsNullTest() throws DAOException {
+    void insertItemsNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addItemsEmptyTest() throws DAOException {
+    void insertItemsEmptyTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setItens(Collections.emptyList());
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addClientNullTest() throws DAOException {
+    void insertClientNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setItens(Arrays.asList(new Item(), new Item(), new Item()));
         locacao.setCliente(null);
         locacao.setDependente(null);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addClientUnderageTest() throws DAOException {
+    void insertClientUnderageTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.now());
@@ -107,12 +107,12 @@ class LocacaoServiceTest {
         item.setFilme(filme);
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addDependentUnderageTest() throws DAOException {
+    void insertDependentUnderageTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.now());
@@ -125,12 +125,12 @@ class LocacaoServiceTest {
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
         locacao.setDependente(dependente);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addTotalValueNullTest() throws DAOException {
+    void insertTotalValueNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -140,12 +140,12 @@ class LocacaoServiceTest {
         item.setFilme(filme);
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addTotalValueZeroTest() throws DAOException {
+    void insertTotalValueZeroTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -156,12 +156,12 @@ class LocacaoServiceTest {
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
         locacao.setValorTotal(BigDecimal.ZERO);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addTotalValueNegativeTest() throws DAOException {
+    void insertTotalValueNegativeTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -172,12 +172,12 @@ class LocacaoServiceTest {
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
         locacao.setValorTotal(BigDecimal.ZERO.subtract(BigDecimal.TEN));
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).add(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).insert(Mockito.any(Locacao.class));
     }
 
     @Test
-    void addExceptionTest() throws DAOException {
+    void insertExceptionTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -188,13 +188,13 @@ class LocacaoServiceTest {
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
         locacao.setValorTotal(BigDecimal.valueOf(5.00));
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(locacaoDAO).add(locacao);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.times(1)).add(locacao);
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(locacaoDAO).insert(locacao);
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).insert(locacao);
     }
 
     @Test
-    void addTest() throws DAOException {
+    void insertTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -205,81 +205,124 @@ class LocacaoServiceTest {
         locacao.setItens(Arrays.asList(item, item, item));
         locacao.setCliente(cliente);
         locacao.setValorTotal(BigDecimal.valueOf(5.00));
-        Mockito.doNothing().when(locacaoDAO).add(locacao);
-        Assertions.assertDoesNotThrow(() -> locacaoService.add(locacao));
-        Mockito.verify(locacaoDAO, Mockito.times(1)).add(locacao);
+        Mockito.doNothing().when(locacaoDAO).insert(locacao);
+        Assertions.assertDoesNotThrow(() -> locacaoService.insert(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).insert(locacao);
     }
 
     @Test
-    void saveEntityNullTest() throws DAOException, NegocioException {
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(null));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+    void updateEntityNullTest() throws DAOException, NegocioException {
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(null));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveEntityIdNullTest() throws DAOException, NegocioException {
+    void updateEntityIdNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveEntityReturnDateNullTest() throws DAOException, NegocioException {
+    void updateEntityReturnDateNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveTotalValueNullTest() throws DAOException, NegocioException {
+    void updateTotalValueNullTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
         locacao.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(3));
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveTotalValueZeroTest() throws DAOException, NegocioException {
+    void updateTotalValueZeroTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
         locacao.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(3));
         locacao.setValorTotal(BigDecimal.ZERO);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveTotalValueNegativeTest() throws DAOException, NegocioException {
+    void updateTotalValueNegativeTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
         locacao.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(3));
         locacao.setValorTotal(BigDecimal.ZERO.subtract(BigDecimal.TEN));
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.never()).save(Mockito.any(Locacao.class));
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).update(Mockito.any(Locacao.class));
     }
 
     @Test
-    void saveExceptionTest() throws DAOException, NegocioException {
+    void updateExceptionTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
         locacao.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(3));
         locacao.setValorTotal(BigDecimal.valueOf(5.00));
-        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(locacaoDAO).save(locacao);
-        Assertions.assertThrows(NegocioException.class, () -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.times(1)).save(locacao);
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(locacaoDAO).update(locacao);
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).update(locacao);
     }
 
     @Test
-    void saveTest() throws DAOException, NegocioException {
+    void updateTest() throws DAOException, NegocioException {
         Locacao locacao = new Locacao();
         locacao.setLocacaoID(1L);
         locacao.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(3));
         locacao.setValorTotal(BigDecimal.valueOf(5.00));
-        Mockito.doNothing().when(locacaoDAO).save(locacao);
-        Assertions.assertDoesNotThrow(() -> locacaoService.save(locacao));
-        Mockito.verify(locacaoDAO, Mockito.times(1)).save(locacao);
+        Mockito.doNothing().when(locacaoDAO).update(locacao);
+        Assertions.assertDoesNotThrow(() -> locacaoService.update(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).update(locacao);
+    }
+
+    @Test
+    void processReturnEntityNullTest() throws DAOException, NegocioException {
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.processReturn(null));
+        Mockito.verify(locacaoDAO, Mockito.never()).processReturn(Mockito.any(Locacao.class));
+    }
+
+    @Test
+    void processReturnEntityIdNullTest() throws DAOException, NegocioException {
+        Locacao locacao = new Locacao();
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.processReturn(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).processReturn(Mockito.any(Locacao.class));
+    }
+
+    @Test
+    void processReturnEntityReturnDateNullTest() throws DAOException, NegocioException {
+        Locacao locacao = new Locacao();
+        locacao.setLocacaoID(1L);
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.processReturn(locacao));
+        Mockito.verify(locacaoDAO, Mockito.never()).processReturn(Mockito.any(Locacao.class));
+    }
+
+    @Test
+    void processReturnExceptionTest() throws DAOException, NegocioException {
+        Locacao locacao = new Locacao();
+        locacao.setLocacaoID(1L);
+        locacao.setDataDevolucao(LocalDateTime.now());
+        locacao.setValorTotal(BigDecimal.valueOf(5.00));
+        Mockito.doThrow(new DAOException(SmartLocadoraConstantes.ERRO_INESPERADO)).when(locacaoDAO).processReturn(locacao);
+        Assertions.assertThrows(NegocioException.class, () -> locacaoService.processReturn(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).processReturn(locacao);
+    }
+
+    @Test
+    void processReturnTest() throws DAOException, NegocioException {
+        Locacao locacao = new Locacao();
+        locacao.setLocacaoID(1L);
+        locacao.setDataDevolucao(LocalDateTime.now());
+        locacao.setValorTotal(BigDecimal.valueOf(5.00));
+        Mockito.doNothing().when(locacaoDAO).processReturn(locacao);
+        Assertions.assertDoesNotThrow(() -> locacaoService.processReturn(locacao));
+        Mockito.verify(locacaoDAO, Mockito.times(1)).processReturn(locacao);
     }
 
     @Test
