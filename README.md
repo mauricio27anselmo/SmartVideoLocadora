@@ -3,7 +3,7 @@
 Sistema voltado para lojas de videolocadoras que possibilita as seguintes ações:
 
 - Gerenciamento de cadastro de clientes e filmes;
-- Gerenciamento de serviços de reserva, locação e devolução de filmes;
+- Gerenciamento de serviços de locação e devolução de filmes;
 - Controle de estoque de filmes a serem locados
 
 ## Tecnologias
