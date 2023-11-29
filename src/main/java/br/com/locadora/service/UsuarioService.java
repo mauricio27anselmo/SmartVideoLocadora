@@ -8,6 +8,7 @@ import br.com.locadora.interfaces.service.IUsuarioService;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.SmartLocadoraConstantes;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
@@ -44,6 +45,8 @@ public class UsuarioService extends SmartLocadoraService<Usuario> implements IUs
     @Override
     public void authenticate(String username, String password) throws NegocioException {
         try {
+            validateNotNull(username);
+            validateNotNull(password);
             Usuario entity = Optional.ofNullable(usuarioDAO.findByName(username)).orElseThrow(() -> new NegocioException(SmartLocadoraConstantes.ERRO_INESPERADO));
             if (!checkPassword(password, entity.getSenha())) {
                 throw new NegocioException(SmartLocadoraConstantes.ERRO_INESPERADO);
@@ -58,9 +61,7 @@ public class UsuarioService extends SmartLocadoraService<Usuario> implements IUs
     @Override
     public void insert(Usuario entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getSenha()).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
+            validateUser(entity);
             String password = BCrypt.hashpw(entity.getSenha(), BCrypt.gensalt());
             Idioma language = Optional.ofNullable(entity.getIdioma()).orElse(Idioma.PORTUGUES);
             entity.setSenha(password);
@@ -72,20 +73,27 @@ public class UsuarioService extends SmartLocadoraService<Usuario> implements IUs
         }
     }
 
-    @Override
-    public void update(Usuario entity) throws NegocioException {
-        try {
-            if (!Optional.ofNullable(entity).isPresent()) {
-                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
-            }
-            usuarioDAO.update(entity);
-        } catch (DAOException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
-        }
-    }
-
     private boolean checkPassword(String plainTextPassword, String hashedPassword) {
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
+    }
+
+    private void validateUser(Usuario entity) throws NegocioException {
+        validateNotNull(entity);
+        validateNotNull(entity.getNome());
+        validateNotNull(entity.getSenha());
+        validateNotNull(entity.getEmail());
+    }
+
+    private void validateNotNull(Object value) throws NegocioException {
+        if (value instanceof String) {
+            String stringValue = (String) value;
+            if (StringUtils.isBlank(stringValue)) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+        } else {
+            if (value == null) {
+                throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
+            }
+        }
     }
 }

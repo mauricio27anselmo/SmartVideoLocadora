@@ -34,11 +34,6 @@ public class UsuarioDAO extends SmartLocadoraDAO<Usuario> implements IUsuarioDAO
     }
 
     @Override
-    public void update(Usuario entity) throws DAOException, NegocioException {
-        super.save(entity, false);
-    }
-
-    @Override
     public Usuario findByName(String name) throws DAOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Usuario usuario = null;
