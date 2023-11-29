@@ -35,6 +35,7 @@
         <mapping class="br.com.locadora.domain.Filme"/>
         <mapping class="br.com.locadora.domain.Item"/>
         <mapping class="br.com.locadora.domain.Locacao"/>
+        <mapping class="br.com.locadora.domain.Usuario"/>
     </session-factory>
 
 </hibernate-configuration>

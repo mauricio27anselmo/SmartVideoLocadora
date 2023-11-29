@@ -5,10 +5,11 @@ import br.com.locadora.interfaces.dao.IUsuarioDAO;
 import br.com.locadora.util.DAOException;
 import br.com.locadora.util.HibernateUtil;
 import br.com.locadora.util.NegocioException;
-import br.com.locadora.util.SmartLocadoraConstantes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 public class UsuarioDAO extends SmartLocadoraDAO<Usuario> implements IUsuarioDAO {
 
@@ -35,5 +36,21 @@ public class UsuarioDAO extends SmartLocadoraDAO<Usuario> implements IUsuarioDAO
     @Override
     public void update(Usuario entity) throws DAOException, NegocioException {
         super.save(entity, false);
+    }
+
+    @Override
+    public Usuario findByName(String name) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Usuario usuario = null;
+        try {
+            Criteria criteria = session.createCriteria(Usuario.class);
+            criteria.add(Restrictions.eq("nome", name));
+            usuario = (Usuario) criteria.uniqueResult();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao obter registros");
+        } finally {
+            session.close();
+        }
+        return usuario;
     }
 }

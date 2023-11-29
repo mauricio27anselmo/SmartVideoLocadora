@@ -14,4 +14,6 @@ public interface IUsuarioDAO {
 
     void delete(Usuario entity) throws DAOException;
 
+    Usuario findByName(String name) throws DAOException;
+
 }

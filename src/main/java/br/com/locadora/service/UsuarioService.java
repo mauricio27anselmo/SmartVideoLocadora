@@ -42,9 +42,23 @@ public class UsuarioService extends SmartLocadoraService<Usuario> implements IUs
     }
 
     @Override
+    public void authenticate(String username, String password) throws NegocioException {
+        try {
+            Usuario entity = Optional.ofNullable(usuarioDAO.findByName(username)).orElseThrow(() -> new NegocioException(SmartLocadoraConstantes.ERRO_INESPERADO));
+            if (!checkPassword(password, entity.getSenha())) {
+                throw new NegocioException(SmartLocadoraConstantes.ERRO_INESPERADO);
+            }
+        } catch (DAOException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new NegocioException("br.com.locadora.acao.salvarfalha", ex);
+        }
+
+    }
+
+    @Override
     public void insert(Usuario entity) throws NegocioException {
         try {
-            if (!Optional.ofNullable(entity).isPresent() ||!Optional.ofNullable(entity.getSenha()).isPresent()) {
+            if (!Optional.ofNullable(entity).isPresent() || !Optional.ofNullable(entity.getSenha()).isPresent()) {
                 throw new NegocioException(SmartLocadoraConstantes.PARAMETROS_INVALIDOS);
             }
             String password = BCrypt.hashpw(entity.getSenha(), BCrypt.gensalt());

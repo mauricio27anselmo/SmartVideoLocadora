@@ -1,6 +1,8 @@
 package br.com.locadora.bean;
 
+import br.com.locadora.service.UsuarioService;
 import br.com.locadora.util.FacesUtil;
+import br.com.locadora.util.NegocioException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +16,8 @@ import java.io.IOException;
 @ManagedBean
 @SessionScoped
 public class AuthenticationBean {
+
+    private UsuarioService usuarioService;
 
     private String username;
 
@@ -35,14 +39,16 @@ public class AuthenticationBean {
         this.password = password;
     }
 
-    public String login() throws IOException, ServletException {
-        if (username.equals("usuario") && password.equals("senha")) {
+    public String login() {
+        try {
+            UsuarioService.getInstance().authenticate(username, password);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", username);
             return "/pages/principal.xhtml?faces-redirect=true";
+        } catch (NegocioException ex) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, FacesUtil.getMsg("br.com.locadora.login.erro.resumo"), FacesUtil.getMsg("br.com.locadora.login.erro.detalhe")));
+            return null;
         }
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, FacesUtil.getMsg("br.com.locadora.login.erro.resumo"), FacesUtil.getMsg("br.com.locadora.login.erro.detalhe")));
-        return null;
     }
 
     public void logout() throws IOException {
@@ -52,4 +58,6 @@ public class AuthenticationBean {
         session.invalidate();
         externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
     }
+
+
 }

@@ -6,6 +6,8 @@ import br.com.locadora.util.NegocioException;
 
 public interface IUsuarioService {
 
+    void authenticate(String username, String password) throws NegocioException;
+
     Usuario findById(Long id) throws NegocioException;
 
     void insert(Usuario entity) throws NegocioException;
