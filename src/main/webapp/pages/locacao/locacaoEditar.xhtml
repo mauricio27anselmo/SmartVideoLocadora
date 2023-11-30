@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="locacao-form">
             <p:panel header="#{msg['br.com.locadora.cadastrolocacao']}">
                 <div class="grid">
@@ -29,7 +29,8 @@
                                            value="#{msg['br.com.locadora.datalocacao']}"
                                            styleClass="col-2"/>
                             <h:outputText id="dataLocacao"
-                                          value="#{locacaoFormBean.locacaoForm.dataLocacao}" converter="localDateTimeConverter"/>
+                                          value="#{locacaoFormBean.locacaoForm.dataLocacao}"
+                                          converter="localDateTimeConverter"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="dataDevolucaoPrevista"
@@ -74,22 +75,22 @@
                                  rowsPerPageTemplate="5"
                                  rows="5">
                         <p:column headerText="#{msg['br.com.locadora.codigo']}">
-                            <h:outputText value="#{item.itemID}" />
+                            <h:outputText value="#{item.itemID}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.titulo']}">
-                            <h:outputText value="#{item.filme.titulo}" />
+                            <h:outputText value="#{item.filme.titulo}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}">
-                            <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}" />
+                            <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
-                            <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                            <h:outputText value="#{msg[item.filme.tipoFilme.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.statusitem']}">
-                            <h:outputText value="#{msg[item.statusItem.label]}" />
+                            <h:outputText value="#{msg[item.statusItem.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.preco']}">
-                            <h:outputText value="#{item.valor}" />
+                            <h:outputText value="#{item.valor}"/>
                         </p:column>
                     </p:dataTable>
                 </p:panel>

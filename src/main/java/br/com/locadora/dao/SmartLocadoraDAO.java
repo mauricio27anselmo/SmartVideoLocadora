@@ -100,7 +100,7 @@ public abstract class SmartLocadoraDAO<T> {
         }
     }
 
-    protected void applyFilter(Criteria criteria, PageableFilter filter){
+    protected void applyFilter(Criteria criteria, PageableFilter filter) {
         throw new NotImplementedException();
     }
 

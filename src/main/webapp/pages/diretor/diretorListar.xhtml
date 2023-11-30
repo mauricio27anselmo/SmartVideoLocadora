@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <p:panel header="#{msg['br.com.locadora.listagemdiretor']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
@@ -33,7 +33,7 @@
 
                 <p:column headerText="#{msg['br.com.locadora.nome']}"
                           sortBy="#{diretor.nome}">
-                    <h:outputText value="#{diretor.nome}" />
+                    <h:outputText value="#{diretor.nome}"/>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -61,13 +61,14 @@
                                          icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteDirectorDialog').show()">
-                            <f:setPropertyActionListener value="#{diretor}" target="#{diretorListBean.selectedDirector}"/>
+                            <f:setPropertyActionListener value="#{diretor}"
+                                                         target="#{diretorListBean.selectedDirector}"/>
                         </p:commandButton>
                     </div>
                 </p:column>
                 <f:facet name="footer">
-                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{diretorListBean.diretorDataModel.rowCount}" />
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}">
+                        <f:param value="#{diretorListBean.diretorDataModel.rowCount}"/>
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
@@ -98,23 +99,27 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
-                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button" styleClass="ui-button-secondary" icon="pi pi-ban"
-                                     onclick="PF('manageDirectorDialog').hide()" />
+                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button"
+                                     styleClass="ui-button-secondary" icon="pi pi-ban"
+                                     onclick="PF('manageDirectorDialog').hide()"/>
                     <p:commandButton value="#{msg['br.com.locadora.salvar']}"
                                      icon="pi pi-save"
                                      actionListener="#{diretorListBean.save()}"
                                      process="manage-director-content @this"
                                      update="manage-director-content :datatable-diretores :mensagem"
-                                     oncomplete="PF('manageDirectorDialog').hide()" />
+                                     oncomplete="PF('manageDirectorDialog').hide()"/>
                 </f:facet>
             </p:dialog>
             <p:confirmDialog widgetVar="deleteDirectorDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirdiretor']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{diretorListBean.delete()}"
+                             message="#{msg['br.com.locadora.dialog.excluirdiretor']}"
+                             header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check"
+                                 actionListener="#{diretorListBean.delete()}"
                                  process="@this" update=":datatable-diretores :mensagem"
-                                 oncomplete="PF('deleteDirectorDialog').hide()" />
-                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteDirectorDialog').hide()" />
+                                 oncomplete="PF('deleteDirectorDialog').hide()"/>
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary"
+                                 icon="pi pi-times"
+                                 onclick="PF('deleteDirectorDialog').hide()"/>
             </p:confirmDialog>
         </h:form>
     </ui:define>

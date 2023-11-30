@@ -5,36 +5,36 @@ import javax.persistence.*;
 @Entity
 @Table(name = "smt_dependente")
 public class Dependente extends Pessoa {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "dep_id")
-	private Long dependenteID;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "dep_clt_id", referencedColumnName = "clt_id", nullable = false)
-	private Cliente cliente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "dep_id")
+    private Long dependenteID;
 
-	public Long getDependenteID() {
-		return dependenteID;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dep_clt_id", referencedColumnName = "clt_id", nullable = false)
+    private Cliente cliente;
 
-	public void setDependenteID(Long dependenteID) {
-		this.dependenteID = dependenteID;
-	}
+    public Long getDependenteID() {
+        return dependenteID;
+    }
 
-	public Cliente getCliente() {
-		return cliente;
-	}
+    public void setDependenteID(Long dependenteID) {
+        this.dependenteID = dependenteID;
+    }
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-	@Override
-	public String toString() {
-		return "Dependente{" +
-				"dependenteID=" + dependenteID +
-				", cliente=" + cliente +
-				'}';
-	}
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Dependente{" +
+                "dependenteID=" + dependenteID +
+                ", cliente=" + cliente +
+                '}';
+    }
 }

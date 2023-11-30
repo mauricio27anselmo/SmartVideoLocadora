@@ -36,7 +36,7 @@ public class SmartLocadoraUtil {
                 return listAllPTBRRatings();
         }
     }
-    
+
     public static Idioma getLanguageFromLocale() {
         Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
         if (Optional.ofNullable(locale).isPresent()) {

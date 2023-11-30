@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <p:panel header="#{msg['br.com.locadora.listagemator']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
@@ -33,7 +33,7 @@
 
                 <p:column headerText="#{msg['br.com.locadora.nome']}"
                           sortBy="#{ator.nome}">
-                    <h:outputText value="#{ator.nome}" />
+                    <h:outputText value="#{ator.nome}"/>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -66,8 +66,8 @@
                     </div>
                 </p:column>
                 <f:facet name="footer">
-                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{atorListBean.atorDataModel.rowCount}" />
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}">
+                        <f:param value="#{atorListBean.atorDataModel.rowCount}"/>
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
@@ -98,23 +98,27 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
-                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button" styleClass="ui-button-secondary" icon="pi pi-ban"
-                                     onclick="PF('manageActorDialog').hide()" />
+                    <p:commandButton value="#{msg['br.com.locadora.cancelar']}" type="button"
+                                     styleClass="ui-button-secondary" icon="pi pi-ban"
+                                     onclick="PF('manageActorDialog').hide()"/>
                     <p:commandButton value="#{msg['br.com.locadora.salvar']}"
                                      icon="pi pi-save"
                                      actionListener="#{atorListBean.save()}"
                                      process="manage-actor-content @this"
                                      update="manage-actor-content :datatable-atores :mensagem"
-                                     oncomplete="PF('manageActorDialog').hide()" />
+                                     oncomplete="PF('manageActorDialog').hide()"/>
                 </f:facet>
             </p:dialog>
             <p:confirmDialog widgetVar="deleteActorDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirator']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{atorListBean.delete()}"
+                             message="#{msg['br.com.locadora.dialog.excluirator']}"
+                             header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check"
+                                 actionListener="#{atorListBean.delete()}"
                                  process="@this" update=":datatable-atores :mensagem"
-                                 oncomplete="PF('deleteActorDialog').hide()" />
-                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteActorDialog').hide()" />
+                                 oncomplete="PF('deleteActorDialog').hide()"/>
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary"
+                                 icon="pi pi-times"
+                                 onclick="PF('deleteActorDialog').hide()"/>
             </p:confirmDialog>
         </h:form>
     </ui:define>

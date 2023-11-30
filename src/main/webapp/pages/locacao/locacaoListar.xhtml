@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="filtro-form">
             <p:panel header="#{msg['br.com.locadora.filtros']}" styleClass="filter-panel">
                 <div class="grid">
@@ -69,11 +69,11 @@
 
                 <p:column headerText="#{msg['br.com.locadora.codigo']}"
                           sortBy="#{locacao.locacaoID}">
-                    <h:outputText value="#{locacao.locacaoID}" />
+                    <h:outputText value="#{locacao.locacaoID}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.cliente']}"
                           sortBy="#{locacao.cliente.nome}">
-                    <h:outputText value="#{locacao.cliente.nome}" />
+                    <h:outputText value="#{locacao.cliente.nome}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.datalocacao']}"
                           sortBy="#{locacao.dataDevolucaoLocacao}">
@@ -85,7 +85,7 @@
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.valortotal']}"
                           sortBy="#{locacao.valorTotal}">
-                    <h:outputText value="#{locacao.valorTotal}" />
+                    <h:outputText value="#{locacao.valorTotal}"/>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -98,7 +98,7 @@
                                       icon="pi pi-eye"
                                       outcome="/pages/locacao/locacaoConsultar.jsf"
                                       styleClass="rounded-button ui-button-secondary">
-                            <f:param name="id" value="#{locacao.locacaoID}" />
+                            <f:param name="id" value="#{locacao.locacaoID}"/>
                         </p:linkButton>
 
                         <p:tooltip for="btnEditar"
@@ -110,7 +110,7 @@
                                       icon="pi pi-pencil"
                                       outcome="/pages/locacao/locacaoEditar.jsf"
                                       styleClass="rounded-button">
-                            <f:param name="id" value="#{locacao.locacaoID}" />
+                            <f:param name="id" value="#{locacao.locacaoID}"/>
                         </p:linkButton>
 
                         <p:tooltip for="btnExcluir"
@@ -128,20 +128,23 @@
                     </div>
                 </p:column>
                 <f:facet name="footer">
-                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{locacaoListBean.locacaoDataModel.rowCount}" />
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}">
+                        <f:param value="#{locacaoListBean.locacaoDataModel.rowCount}"/>
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
         </p:panel>
         <h:form id="dialogs">
             <p:confirmDialog widgetVar="deleteRentalDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirlocacao']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{locacaoListBean.delete()}"
+                             message="#{msg['br.com.locadora.dialog.excluirlocacao']}"
+                             header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check"
+                                 actionListener="#{locacaoListBean.delete()}"
                                  process="@this" update=":datatable-locacoes :mensagem"
-                                 oncomplete="PF('deleteRentalDialog').hide()" />
-                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteRentalDialog').hide()" />
+                                 oncomplete="PF('deleteRentalDialog').hide()"/>
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary"
+                                 icon="pi pi-times"
+                                 onclick="PF('deleteRentalDialog').hide()"/>
             </p:confirmDialog>
         </h:form>
     </ui:define>

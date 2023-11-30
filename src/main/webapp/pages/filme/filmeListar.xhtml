@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <p:panel header="#{msg['br.com.locadora.listagemfilme']}">
             <p:toolbar styleClass="custom-toolbar">
                 <p:toolbarGroup>
@@ -30,23 +30,23 @@
 
                 <p:column headerText="#{msg['br.com.locadora.titulo']}"
                           sortBy="#{filme.titulo}">
-                    <h:outputText value="#{filme.titulo}" />
+                    <h:outputText value="#{filme.titulo}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.anolancamento']}"
                           sortBy="#{filme.anoLancamento}">
-                    <h:outputText value="#{filme.anoLancamento}" />
+                    <h:outputText value="#{filme.anoLancamento}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.generofilme']}"
                           sortBy="#{filme.genero.label}">
-                    <h:outputText value="#{msg[filme.genero.label]}" />
+                    <h:outputText value="#{msg[filme.genero.label]}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.tipofilme']}"
                           sortBy="#{filme.tipoFilme.label}">
-                    <h:outputText value="#{msg[filme.tipoFilme.label]}" />
+                    <h:outputText value="#{msg[filme.tipoFilme.label]}"/>
                 </p:column>
                 <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}"
                           sortBy="#{filme.classificacaoIndicativa.label}">
-                    <h:outputText value="#{msg[filme.classificacaoIndicativa.label]}" />
+                    <h:outputText value="#{msg[filme.classificacaoIndicativa.label]}"/>
                 </p:column>
                 <p:column>
                     <div class="datatable-actions">
@@ -59,7 +59,7 @@
                                       icon="pi pi-eye"
                                       outcome="/pages/filme/filmeConsultar.jsf"
                                       styleClass="rounded-button ui-button-secondary">
-                            <f:param name="id" value="#{filme.filmeID}" />
+                            <f:param name="id" value="#{filme.filmeID}"/>
                         </p:linkButton>
 
                         <p:tooltip for="btnEditar"
@@ -71,7 +71,7 @@
                                       icon="pi pi-pencil"
                                       outcome="/pages/filme/filmeManter.jsf"
                                       styleClass="rounded-button">
-                            <f:param name="id" value="#{filme.filmeID}" />
+                            <f:param name="id" value="#{filme.filmeID}"/>
                         </p:linkButton>
 
                         <p:tooltip for="btnExcluir"
@@ -89,20 +89,23 @@
                     </div>
                 </p:column>
                 <f:facet name="footer">
-                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}" >
-                        <f:param value="#{filmeListBean.filmeDataModel.rowCount}" />
+                    <h:outputFormat value="#{msg['br.com.locadora.totalregistros']}">
+                        <f:param value="#{filmeListBean.filmeDataModel.rowCount}"/>
                     </h:outputFormat>
                 </f:facet>
             </p:dataTable>
         </p:panel>
         <h:form id="dialogs">
             <p:confirmDialog widgetVar="deleteMovieDialog" showEffect="fade" width="500"
-                             message="#{msg['br.com.locadora.dialog.excluirfilme']}" header="#{msg['br.com.locadora.confirmar']}" severity="warn">
-                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check" actionListener="#{filmeListBean.delete()}"
+                             message="#{msg['br.com.locadora.dialog.excluirfilme']}"
+                             header="#{msg['br.com.locadora.confirmar']}" severity="warn">
+                <p:commandButton value="#{msg['br.com.locadora.sim']}" icon="pi pi-check"
+                                 actionListener="#{filmeListBean.delete()}"
                                  process="@this" update=":datatable-filmes :mensagem"
-                                 oncomplete="PF('deleteMovieDialog').hide()" />
-                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                 onclick="PF('deleteMovieDialog').hide()" />
+                                 oncomplete="PF('deleteMovieDialog').hide()"/>
+                <p:commandButton value="#{msg['br.com.locadora.nao']}" type="button" styleClass="ui-button-secondary"
+                                 icon="pi pi-times"
+                                 onclick="PF('deleteMovieDialog').hide()"/>
             </p:confirmDialog>
         </h:form>
     </ui:define>

@@ -51,16 +51,16 @@ public class Filme {
     @ManyToMany
     @JoinTable(
             name = "smt_filme_ator",
-            joinColumns = { @JoinColumn(name = "flm_id") },
-            inverseJoinColumns = { @JoinColumn(name = "atr_id") }
+            joinColumns = {@JoinColumn(name = "flm_id")},
+            inverseJoinColumns = {@JoinColumn(name = "atr_id")}
     )
     private List<Ator> elenco;
 
     @ManyToMany
     @JoinTable(
             name = "smt_filme_diretor",
-            joinColumns = { @JoinColumn(name = "flm_id") },
-            inverseJoinColumns = { @JoinColumn(name = "drt_id") }
+            joinColumns = {@JoinColumn(name = "flm_id")},
+            inverseJoinColumns = {@JoinColumn(name = "drt_id")}
     )
     private List<Diretor> direcao;
 

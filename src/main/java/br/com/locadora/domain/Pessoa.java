@@ -12,37 +12,37 @@ import java.util.Date;
 
 @MappedSuperclass
 public abstract class Pessoa {
-	@Column(name = "pes_nome", length = 50, nullable = false)
-	protected String nome;
+    @Column(name = "pes_nome", length = 50, nullable = false)
+    protected String nome;
 
-	@Column(name = "pes_data_nascimento", nullable = false)
-	protected LocalDate dataNascimento;
+    @Column(name = "pes_data_nascimento", nullable = false)
+    protected LocalDate dataNascimento;
 
-	@CPF
-	@Column(name = "pes_cpf", length = 14, nullable = false, unique = true)
-	private String cpf;
+    @CPF
+    @Column(name = "pes_cpf", length = 14, nullable = false, unique = true)
+    private String cpf;
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 }

@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="locacao-form">
             <p:panel header="#{msg['br.com.locadora.cadastrolocacao']}">
                 <div class="grid">
@@ -120,22 +120,22 @@
                                  rowsPerPageTemplate="5"
                                  rows="5">
                         <p:column headerText="#{msg['br.com.locadora.codigo']}">
-                            <h:outputText value="#{item.itemID}" />
+                            <h:outputText value="#{item.itemID}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.titulo']}">
-                            <h:outputText value="#{item.filme.titulo}" />
+                            <h:outputText value="#{item.filme.titulo}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}">
-                            <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}" />
+                            <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
-                            <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                            <h:outputText value="#{msg[item.filme.tipoFilme.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.statusitem']}">
-                            <h:outputText value="#{msg[item.statusItem.label]}" />
+                            <h:outputText value="#{msg[item.statusItem.label]}"/>
                         </p:column>
                         <p:column headerText="#{msg['br.com.locadora.preco']}">
-                            <h:outputText value="#{item.valor}" />
+                            <h:outputText value="#{item.valor}"/>
                         </p:column>
                         <p:column>
                             <div class="flex justify-center">
@@ -178,7 +178,8 @@
                       width="1200"
                       modal="true"
                       header="#{msg['br.com.locadora.estoque']}">
-                <p:ajax event="close" update=":locacao-form:datatable-carrinho :locacao-form:valorBruto :locacao-form:valorTotal" />
+                <p:ajax event="close"
+                        update=":locacao-form:datatable-carrinho :locacao-form:valorBruto :locacao-form:valorTotal"/>
 
                 <div class="grid">
                     <div class="col">
@@ -208,22 +209,22 @@
                              paginatorPosition="bottom"
                              rows="5">
                     <p:column headerText="#{msg['br.com.locadora.codigo']}">
-                        <h:outputText value="#{item.itemID}" />
+                        <h:outputText value="#{item.itemID}"/>
                     </p:column>
                     <p:column headerText="#{msg['br.com.locadora.titulo']}">
-                        <h:outputText value="#{item.filme.titulo}" />
+                        <h:outputText value="#{item.filme.titulo}"/>
                     </p:column>
                     <p:column headerText="#{msg['br.com.locadora.classificacaoindicativa']}">
-                        <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}" />
+                        <h:outputText value="#{msg[item.filme.classificacaoIndicativa.label]}"/>
                     </p:column>
                     <p:column headerText="#{msg['br.com.locadora.tipofilme']}">
-                        <h:outputText value="#{msg[item.filme.tipoFilme.label]}" />
+                        <h:outputText value="#{msg[item.filme.tipoFilme.label]}"/>
                     </p:column>
                     <p:column headerText="#{msg['br.com.locadora.statusitem']}">
-                        <h:outputText value="#{msg[item.statusItem.label]}" />
+                        <h:outputText value="#{msg[item.statusItem.label]}"/>
                     </p:column>
                     <p:column headerText="#{msg['br.com.locadora.preco']}">
-                        <h:outputText value="#{item.valor}" />
+                        <h:outputText value="#{item.valor}"/>
                     </p:column>
                     <p:column>
                         <div class="datatable-actions-center">

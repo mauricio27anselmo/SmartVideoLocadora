@@ -21,7 +21,7 @@ public class UserApplication {
     }
 
     private static void createAndShowGUI() {
-		ResourceBundle messages = ResourceBundle.getBundle("i18n.messages");
+        ResourceBundle messages = ResourceBundle.getBundle("i18n.messages");
 
         JFrame frame = new JFrame(messages.getString("br.com.locadora.cadastrousuario"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,10 +57,10 @@ public class UserApplication {
             }
         });
 
-		GroupLayout layout = new GroupLayout(panel);
-		panel.setLayout(layout);
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
+        GroupLayout layout = new GroupLayout(panel);
+        panel.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)

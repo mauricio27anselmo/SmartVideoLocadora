@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="dependente-form">
             <p:panel header="#{msg['br.com.locadora.cadastrodependente']}">
                 <div class="grid">
@@ -29,7 +29,8 @@
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
                             <h:outputText id="dataNascimento"
-                                          value="#{dependenteFormBean.dependenteForm.dataNascimento}" converter="localDateConverter"/>
+                                          value="#{dependenteFormBean.dependenteForm.dataNascimento}"
+                                          converter="localDateConverter"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="cpf"
@@ -51,7 +52,7 @@
                                       value="#{msg['br.com.locadora.editar']}"
                                       icon="pi pi-pencil"
                                       outcome="/pages/dependente/dependenteManter.jsf">
-                            <f:param name="id" value="#{dependenteFormBean.dependenteForm.dependenteID}" />
+                            <f:param name="id" value="#{dependenteFormBean.dependenteForm.dependenteID}"/>
                         </p:linkButton>
                     </div>
                 </f:facet>

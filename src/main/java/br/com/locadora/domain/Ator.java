@@ -7,47 +7,47 @@ import java.util.List;
 @Table(name = "smt_ator")
 public class Ator {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "atr_id")
-	private Long atorID;
-	
-	@Column(name = "atr_nome", length = 50, unique = true, nullable = false)
-	private String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "atr_id")
+    private Long atorID;
 
-	@ManyToMany(mappedBy = "elenco")
-	private List<Filme> filmes;
+    @Column(name = "atr_nome", length = 50, unique = true, nullable = false)
+    private String nome;
 
-	public Long getAtorID() {
-		return atorID;
-	}
+    @ManyToMany(mappedBy = "elenco")
+    private List<Filme> filmes;
 
-	public void setAtorID(Long atorID) {
-		this.atorID = atorID;
-	}
+    public Long getAtorID() {
+        return atorID;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setAtorID(Long atorID) {
+        this.atorID = atorID;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public List<Filme> getFilmes() {
-		return filmes;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setFilmes(List<Filme> filmes) {
-		this.filmes = filmes;
-	}
+    public List<Filme> getFilmes() {
+        return filmes;
+    }
 
-	@Override
-	public String toString() {
-		return "Ator{" +
-				"atorID=" + atorID +
-				", nome='" + nome + '\'' +
-				'}';
-	}
+    public void setFilmes(List<Filme> filmes) {
+        this.filmes = filmes;
+    }
+
+    @Override
+    public String toString() {
+        return "Ator{" +
+                "atorID=" + atorID +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }
  

@@ -54,7 +54,8 @@
                                            styleClass="col-2"/>
                             <ui:repeat id="elenco" value="#{filmeFormBean.filmeForm.elenco}" var="ator"
                                        varStatus="atorStatusList">
-                                <h:outputText value="#{ator.nome}"/>#{not atorStatusList.last ? ', ' : ''}
+                                <h:outputText value="#{ator.nome}"/>
+                                #{not atorStatusList.last ? ', ' : ''}
                             </ui:repeat>
                         </div>
                         <div class="field">
@@ -63,7 +64,8 @@
                                            styleClass="col-2"/>
                             <ui:repeat id="direcao" value="#{filmeFormBean.filmeForm.direcao}" var="diretor"
                                        varStatus="diretorStatusList">
-                                <h:outputText value="#{diretor.nome}"/>#{not diretorStatusList.last ? ', ' : ''}
+                                <h:outputText value="#{diretor.nome}"/>
+                                #{not diretorStatusList.last ? ', ' : ''}
                             </ui:repeat>
                         </div>
                     </div>

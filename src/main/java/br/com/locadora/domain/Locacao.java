@@ -40,8 +40,8 @@ public class Locacao {
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "smt_locacao_item",
-            joinColumns = { @JoinColumn(name = "loc_id") },
-            inverseJoinColumns = { @JoinColumn(name = "itm_id") }
+            joinColumns = {@JoinColumn(name = "loc_id")},
+            inverseJoinColumns = {@JoinColumn(name = "itm_id")}
     )
     private List<Item> itens;
 

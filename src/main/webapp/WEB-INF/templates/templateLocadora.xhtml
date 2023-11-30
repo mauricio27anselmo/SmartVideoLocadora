@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
 <ui:insert name="metadata"/>
 
 <f:view locale="#{languageBean.locale}">
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css" />
-		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css" />
-		<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/layout.css"/>
-		<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/styles/custom-layout.css"/>
-		<h:outputScript library="js" name="primefaces-i18n.js" />
-		<title>Smart Video Locadora</title>
-	</h:head>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/node_modules/primeflex/primeflex.min.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/node_modules/primeicons/primeicons.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/styles/layout.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/styles/custom-layout.css"/>
+        <h:outputScript library="js" name="primefaces-i18n.js"/>
+        <title>Smart Video Locadora</title>
+    </h:head>
 
-	<h:body>
-		<p:growl id="mensagem"/>
-		<h:form id="menubar-form" styleClass="grid">
-			<div class="col">
-				<p:megaMenu id="menubar" orientation="horizontal">
-					<p:menuitem containerStyleClass="flex" outcome="/pages/principal.xhtml" >
-						<h:graphicImage name="/images/logo2.png" height="55" />
-					</p:menuitem>
-					<p:menuitem containerStyleClass="flex" value="Logout" icon="pi pi-fw pi-power-off" action="#{authenticationBean.logout}"/>
-				</p:megaMenu>
-			</div>
-		</h:form>
-		<div class="grid">
-			<div id="menu" class="col-2 pt-0" >
-				<p:menu id="munu-lateral" toggleable="true">
+    <h:body>
+        <p:growl id="mensagem"/>
+        <h:form id="menubar-form" styleClass="grid">
+            <div class="col">
+                <p:megaMenu id="menubar" orientation="horizontal">
+                    <p:menuitem containerStyleClass="flex" outcome="/pages/principal.xhtml">
+                        <h:graphicImage name="/images/logo2.png" height="55"/>
+                    </p:menuitem>
+                    <p:menuitem containerStyleClass="flex" value="Logout" icon="pi pi-fw pi-power-off"
+                                action="#{authenticationBean.logout}"/>
+                </p:megaMenu>
+            </div>
+        </h:form>
+        <div class="grid">
+            <div id="menu" class="col-2 pt-0">
+                <p:menu id="munu-lateral" toggleable="true">
                     <p:submenu label="#{msg['br.com.locadora.cadastros']}">
                         <p:menuitem value="#{msg['br.com.locadora.clientes']}"
                                     icon="pi pi pi-user"
@@ -41,34 +45,34 @@
                         <p:menuitem value="#{msg['br.com.locadora.dependentes']}"
                                     icon="pi pi pi-users"
                                     outcome="/pages/dependente/dependenteListar.xhtml"/>
-						<p:menuitem value="#{msg['br.com.locadora.filmes']}"
-									icon="pi pi pi-video"
-									outcome="/pages/filme/filmeListar.xhtml"/>
-						<p:menuitem value="#{msg['br.com.locadora.atores']}"
-									icon="pi pi pi-star-fill"
-									outcome="/pages/ator/atorListar.xhtml"/>
+                        <p:menuitem value="#{msg['br.com.locadora.filmes']}"
+                                    icon="pi pi pi-video"
+                                    outcome="/pages/filme/filmeListar.xhtml"/>
+                        <p:menuitem value="#{msg['br.com.locadora.atores']}"
+                                    icon="pi pi pi-star-fill"
+                                    outcome="/pages/ator/atorListar.xhtml"/>
                         <p:menuitem value="#{msg['br.com.locadora.diretores']}"
                                     icon="pi pi pi-star"
                                     outcome="/pages/diretor/diretorListar.xhtml"/>
                     </p:submenu>
-					<p:submenu label="#{msg['br.com.locadora.servicos']}">
-						<p:menuitem value="#{msg['br.com.locadora.estoque']}"
-									icon="pi pi pi-box"
-									outcome="/pages/item/itemListar.xhtml"/>
-						<p:menuitem value="#{msg['br.com.locadora.locacoes']}"
-									icon="pi pi pi-shopping-cart"
-									outcome="/pages/locacao/locacaoListar.xhtml"/>
-						<p:menuitem value="#{msg['br.com.locadora.devolucoes']}"
-									icon="pi pi pi-undo"
-									outcome="/pages/devolucao/devolucaoListar.xhtml"/>
-					</p:submenu>
-				</p:menu>
-			</div>
-			<div id="conteudo" class="col-10 p-3">
-				<ui:insert name="conteudo" />
-			</div>
-		</div>
-	</h:body>
+                    <p:submenu label="#{msg['br.com.locadora.servicos']}">
+                        <p:menuitem value="#{msg['br.com.locadora.estoque']}"
+                                    icon="pi pi pi-box"
+                                    outcome="/pages/item/itemListar.xhtml"/>
+                        <p:menuitem value="#{msg['br.com.locadora.locacoes']}"
+                                    icon="pi pi pi-shopping-cart"
+                                    outcome="/pages/locacao/locacaoListar.xhtml"/>
+                        <p:menuitem value="#{msg['br.com.locadora.devolucoes']}"
+                                    icon="pi pi pi-undo"
+                                    outcome="/pages/devolucao/devolucaoListar.xhtml"/>
+                    </p:submenu>
+                </p:menu>
+            </div>
+            <div id="conteudo" class="col-10 p-3">
+                <ui:insert name="conteudo"/>
+            </div>
+        </div>
+    </h:body>
 </f:view>
 
 </html>

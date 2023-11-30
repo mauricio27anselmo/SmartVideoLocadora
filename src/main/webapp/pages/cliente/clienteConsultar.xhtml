@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="conteudo" >
+    <ui:define name="conteudo">
         <h:form id="cliente-form">
             <p:panel header="#{msg['br.com.locadora.cadastrocliente']}">
                 <div class="grid">
@@ -20,7 +20,8 @@
                             <p:outputLabel for="dataNascimento"
                                            value="#{msg['br.com.locadora.datanascimento']}"
                                            styleClass="col-2"/>
-                            <h:outputText id="dataNascimento" value="#{clienteFormBean.clienteForm.dataNascimento}" converter="localDateConverter"/>
+                            <h:outputText id="dataNascimento" value="#{clienteFormBean.clienteForm.dataNascimento}"
+                                          converter="localDateConverter"/>
                         </div>
                         <div class="field">
                             <p:outputLabel for="endereco"
@@ -53,7 +54,7 @@
                                       value="#{msg['br.com.locadora.editar']}"
                                       icon="pi pi-pencil"
                                       outcome="/pages/cliente/clienteManter.jsf">
-                            <f:param name="id" value="#{clienteFormBean.clienteForm.clienteID}" />
+                            <f:param name="id" value="#{clienteFormBean.clienteForm.clienteID}"/>
                         </p:linkButton>
                     </div>
                 </f:facet>

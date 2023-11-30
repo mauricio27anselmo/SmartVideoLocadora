@@ -18,80 +18,80 @@ import java.util.Optional;
 
 public class DependenteDAO extends SmartLocadoraDAO<Dependente> implements IDependenteDAO {
 
-	private static DependenteDAO instance;
+    private static DependenteDAO instance;
 
-	private DependenteDAO() {
-		super(Dependente.class);
-	}
+    private DependenteDAO() {
+        super(Dependente.class);
+    }
 
-	public static DependenteDAO getInstance() {
-		if (instance == null) {
-			instance = new DependenteDAO();
-		}
-		return instance;
-	}
+    public static DependenteDAO getInstance() {
+        if (instance == null) {
+            instance = new DependenteDAO();
+        }
+        return instance;
+    }
 
-	@Override
-	public List<Dependente> load(PageableFilter filter) throws DAOException {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Criteria criteria = session.createCriteria(Dependente.class);
-			applySorting(criteria, filter);
-			criteria.setFirstResult(filter.getFirst());
-			criteria.setMaxResults(filter.getPageSize());
-			return (List<Dependente>) criteria.list();
-		} catch (Exception ex) {
-			throw new DAOException("Erro ao listar registros", ex);
-		}
-	}
+    @Override
+    public List<Dependente> load(PageableFilter filter) throws DAOException {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Dependente.class);
+            applySorting(criteria, filter);
+            criteria.setFirstResult(filter.getFirst());
+            criteria.setMaxResults(filter.getPageSize());
+            return (List<Dependente>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros", ex);
+        }
+    }
 
-	@Override
-	public int count(PageableFilter filter) throws DAOException {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Criteria criteria = session.createCriteria(Dependente.class);
-			criteria.setProjection(Projections.rowCount());
-			return ((Long) criteria.uniqueResult()).intValue();
-		} catch (Exception ex) {
-			throw new DAOException("Erro ao listar registros", ex);
-		}
-	}
+    @Override
+    public int count(PageableFilter filter) throws DAOException {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Dependente.class);
+            criteria.setProjection(Projections.rowCount());
+            return ((Long) criteria.uniqueResult()).intValue();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros", ex);
+        }
+    }
 
-	@Override
-	public void save(Dependente entity, boolean isNew) throws DAOException, NegocioException {
-		boolean customerHasCPF = Optional.ofNullable(findCustomerByCPF(entity.getCpf())).isPresent();
-		if (customerHasCPF) {
-			throw new NegocioException("br.com.locadora.acao.clienteduplicado");
-		}
-		super.save(entity, isNew);
-	}
+    @Override
+    public void save(Dependente entity, boolean isNew) throws DAOException, NegocioException {
+        boolean customerHasCPF = Optional.ofNullable(findCustomerByCPF(entity.getCpf())).isPresent();
+        if (customerHasCPF) {
+            throw new NegocioException("br.com.locadora.acao.clienteduplicado");
+        }
+        super.save(entity, isNew);
+    }
 
-	@Override
-	public List<Dependente> findByName(String name) throws DAOException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Dependente> records = new ArrayList<>();
-		try {
-			Criteria criteria = session.createCriteria(Dependente.class);
-			criteria.add(Restrictions.ilike("nome", "%" + name + "%"));
-			records = (List<Dependente>) criteria.list();
-		} catch (Exception ex) {
-			throw new DAOException("Erro ao listar registros");
-		} finally {
-			session.close();
-		}
-		return records;
-	}
+    @Override
+    public List<Dependente> findByName(String name) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Dependente> records = new ArrayList<>();
+        try {
+            Criteria criteria = session.createCriteria(Dependente.class);
+            criteria.add(Restrictions.ilike("nome", "%" + name + "%"));
+            records = (List<Dependente>) criteria.list();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return records;
+    }
 
-	private Cliente findCustomerByCPF(String cpf) throws DAOException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Cliente entity;
-		try {
-			Criteria criteria = session.createCriteria(Cliente.class);
-			criteria.add(Restrictions.eq("cpf", cpf));
-			entity = (Cliente) criteria.uniqueResult();
-		} catch (Exception ex) {
-			throw new DAOException("Erro ao listar registros");
-		} finally {
-			session.close();
-		}
-		return entity;
-	}
+    private Cliente findCustomerByCPF(String cpf) throws DAOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Cliente entity;
+        try {
+            Criteria criteria = session.createCriteria(Cliente.class);
+            criteria.add(Restrictions.eq("cpf", cpf));
+            entity = (Cliente) criteria.uniqueResult();
+        } catch (Exception ex) {
+            throw new DAOException("Erro ao listar registros");
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
 }
